@@ -2,12 +2,15 @@
   --pink: #ef626c;
   --blue: #57d2ff;
 
-  --header: 6rem;
+  --header: 5.5rem;
   --body: 1.25rem;
 
   --hero-subtext: 2rem;
 
   --padding: 6rem;
+  --header-body-gap: 4.6rem;
+
+  --section-gap: 18rem;
 }
 
 * {
@@ -38,6 +41,17 @@
 body {
   background-image: url("../images/notebook-dark.png");
   background-color: #f2f2f2;
+  display: flex;
+  flex-direction: column;
+  gap: var(--section-gap);
+}
+
+h1 {
+  font-size: var(--header);
+}
+
+p {
+  font-size: var(--body);
 }
 
 .hero {
@@ -66,8 +80,7 @@ body {
 .hero-content {
   width: 100%;
   height: 100vh;
-  padding-left: var(--padding);
-  padding-right: var(--padding);
+  padding: 0 var(--padding) 0 var(--padding);
   padding-top: 4rem;
   display: flex;
   flex-direction: column;
@@ -81,7 +94,7 @@ body {
 }
 
 .hero-title {
-  font-size: 7rem;
+  font-size: 7rem !important;
   max-width: 200px;
   line-height: 1.2;
 }
@@ -93,4 +106,39 @@ body {
 
 .hero-subtitle {
   font-size: var(--hero-subtext);
+}
+
+.about-me-content {
+  padding: 0 var(--padding) 0 var(--padding);
+  display: flex;
+  gap: var(--header-body-gap);
+  /* background-color: gray; */
+}
+
+.about-me-text {
+  display: flex;
+  flex-direction: column;
+  gap: var(--header-body-gap);
+  /* background-color: pink; */
+  width: 50%;
+}
+
+.about-me-image {
+  display: flex;
+  align-items: flex-start;
+  /* background-color: blue; */
+  width: 50%;
+  
+}
+
+.projects-content {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  height: 120vh;
+  /*  background-color: gray;*/ 
+}
+
+.projects-title {
+
 }
