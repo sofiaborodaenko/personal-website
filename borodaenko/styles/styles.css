@@ -1,0 +1,96 @@
+:root {
+  --pink: #ef626c;
+  --blue: #57d2ff;
+
+  --header: 6rem;
+  --body: 1.25rem;
+
+  --hero-subtext: 2rem;
+
+  --padding: 6rem;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.caveat-header {
+  font-family: "Caveat", cursive;
+  font-optical-sizing: auto;
+  font-weight: 800;
+  font-style: normal;
+}
+
+.kalam-regular-body {
+  font-family: "Kalam", cursive;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.reenie-beanie-regular-notes {
+  font-family: "Reenie Beanie", cursive;
+  font-weight: 400;
+  font-style: normal;
+}
+
+body {
+  background-image: url("../images/notebook-dark.png");
+  background-color: #f2f2f2;
+}
+
+.hero {
+  width: 100vw;
+  min-height: 100vh;
+  position: relative;
+}
+
+.hero-frame {
+  position: absolute;
+  top: 0rem;
+  left: 1rem;
+  right: 1rem;
+  bottom: 1rem;
+  pointer-events: none;
+}
+
+.hero-frame svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.hero-content {
+  width: 100%;
+  height: 100vh;
+  padding-left: var(--padding);
+  padding-right: var(--padding);
+  padding-top: 4rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.hero-bottom-content {
+  margin-top: auto;
+  margin-bottom: 4.5rem;
+  height: 50%;
+  line-height: 2.2;
+}
+
+.hero-title {
+  font-size: 7rem;
+  max-width: 200px;
+  line-height: 1.2;
+}
+
+.hero-note {
+  font-size: var(--hero-subtext);
+  color: var(--pink);
+}
+
+.hero-subtitle {
+  font-size: var(--hero-subtext);
+}
