@@ -44,11 +44,6 @@ body {
   display: flex;
   flex-direction: column;
   gap: var(--section-gap);
-}
-
-.screen {
-  width: 100vw;
-  height: 100vh;
   overflow: hidden;
 }
 
@@ -58,6 +53,15 @@ h1 {
 
 p {
   font-size: var(--body);
+}
+
+.hiden {
+  opacity: 0;
+}
+
+.reveal--opacity {
+  opacity: 1;
+  transition: opacity 1s;
 }
 
 .hero {
