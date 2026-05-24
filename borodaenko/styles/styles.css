@@ -46,6 +46,12 @@ body {
   gap: var(--section-gap);
 }
 
+.screen {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
 h1 {
   font-size: var(--header);
 }
@@ -100,7 +106,7 @@ p {
 }
 
 .hero-note {
-  font-size: var(--hero-subtext);
+  font-size: var(--body);
   color: var(--pink);
 }
 
@@ -112,6 +118,7 @@ p {
   padding: 0 var(--padding) 0 var(--padding);
   display: flex;
   gap: var(--header-body-gap);
+  position: relative;
   /* background-color: gray; */
 }
 
@@ -128,6 +135,40 @@ p {
   align-items: flex-start;
   /* background-color: blue; */
   width: 50%;
+}
+
+.little-note {
+  width: 10%;
+  height: 20%;
+  color: var(--pink);
+  position: absolute;
+  right: var(--padding);
+  top: 0;
+}
+
+.little-note img {
+  width: 50%;
+  transform: scaleX(-1);
+}
+
+.scribble {
+  position: relative;
+  display: inline-block;
+}
+
+.scribble::after {
+  content: "";
+  position: absolute;
+
+  inset: -0.12rem;
+  
+
+  background-image: url("../images/scribble.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+
+  pointer-events: none;
 }
 
 .projects-content {
@@ -229,7 +270,7 @@ p {
   justify-content: center;
 
   width: fit-content;
-  min-width: 6.25rem;
+  min-width: 8rem;
 
   /* background-color: var(--blue); */
 }
@@ -254,4 +295,40 @@ p {
   width: 100%;
   height: 100%;
   overflow: visible;
+}
+
+.contact-content {
+  padding: 0 var(--padding) 0 var(--padding);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 50vh;
+  
+}
+
+.contact-title {
+  text-align: center;
+}
+
+.contact-bodytext {
+  padding-top: calc(var(--header-body-gap)/2);
+  text-align: center;
+}
+
+.contact-links {
+  width: 100%;
+  padding-top: calc(var(--header-body-gap)*2);
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  
+}
+
+.contact-links p {
+  font-size: var(--hero-subtext);
+}
+
+.footer {
+  padding: 0 var(--padding) 0 var(--padding);
+  position: relative;
 }
