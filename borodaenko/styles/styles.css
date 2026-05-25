@@ -8,7 +8,7 @@
   --hero-subtext: 2rem;
 
   --padding: 6rem;
-  --header-body-gap: 4.6rem;
+  --header-body-gap: 2.3rem;
 
   --section-gap: 18rem;
 }
@@ -44,7 +44,7 @@ body {
   display: flex;
   flex-direction: column;
   gap: var(--section-gap);
-  overflow: hidden;
+  /* overflow: hidden; */
 }
 
 h1 {
@@ -55,7 +55,7 @@ p {
   font-size: var(--body);
 }
 
-.hiden {
+.hidden {
   opacity: 0;
 }
 
@@ -134,18 +134,35 @@ p {
 
 .about-me-content {
   padding: 0 var(--padding) 0 var(--padding);
-  display: flex;
-  gap: var(--header-body-gap);
   position: relative;
+  height: 200svh;
   /* background-color: gray; */
 }
 
+.about-me-section__wrapper {
+  display: flex;
+  gap: var(--header-body-gap);
+  position: sticky;
+  top: 1rem;
+  left: 0;
+  min-height: 100svh;
+}
+
 .about-me-text {
+  position: relative;
   display: flex;
   flex-direction: column;
   gap: var(--header-body-gap);
   /* background-color: pink; */
   width: 50%;
+}
+
+.about-me-section__mask {
+  height: 16.666%;
+  position: absolute;
+  width: 100%;
+  top: 33.333%;
+  left: 0;
 }
 
 .about-me-image {
