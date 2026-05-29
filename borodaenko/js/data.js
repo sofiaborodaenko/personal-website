@@ -23,7 +23,7 @@ export const experiences = [
     company: "Department of Political Science @ UofT",
     description:
       "Migrated and updated website content from the old Political Science site to a new Drupal-based platform and provided technical support for hybrid lecture setups, including configuring and troubleshooting A/V equipment.",
-    skills: ["Drupal", "Hybrid AV Systems", "Training & Documentation"],
+    skills: ["Drupal", "Hybrid AV Systems", "Training ", "Documentation"],
     status: "Completed",
   },
 ];

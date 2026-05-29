@@ -1,6 +1,7 @@
 :root {
   --pink: #ef626c;
   --blue: #57d2ff;
+  --green: #65f06f;
 
   --header: 5.5rem;
   --body: 1.25rem;
@@ -36,6 +37,14 @@
   font-family: "Reenie Beanie", cursive;
   font-weight: 400;
   font-style: normal;
+}
+
+.blue-text {
+  color: var(--blue);
+}
+
+.green-text {
+  color: var(--green);
 }
 
 body {
@@ -87,11 +96,16 @@ p {
   overflow: visible;
 }
 
-.draw-path {
+.hero-frame svg path {
   fill: black;
+  stroke: black;
+}
+
+.draw-path {
+  /* fill: black; */
   fill-opacity: 0;
 
-  stroke: black;
+  /* stroke: black; */
   stroke-width: 0.5;
 }
 
@@ -218,6 +232,7 @@ p {
   display: flex;
   flex-direction: column;
   gap: var(--header-body-gap);
+  height: 300vh;
 }
 
 .experience-content-container {
@@ -226,6 +241,7 @@ p {
   flex-direction: row;
   justify-content: center;
   gap: var(--header-body-gap);
+  height: 100%;
 }
 
 .experience-sideline {
@@ -235,7 +251,6 @@ p {
   display: flex;
   justify-content: flex-end;
   margin-top: -2.5rem;
-  
 }
 
 .experience-sideline svg {
@@ -244,14 +259,14 @@ p {
   clip-path: inset(0 0 100% 0);
 }
 
-
 .experience-job-container {
   display: flex;
   flex-direction: column;
   width: 65%;
-  gap: calc(var(--header-body-gap) * 3);
+  gap: calc(var(--header-body-gap) * 5);
   position: relative;
-  padding-top: 7rem;
+  padding-top: 25rem;
+  /* background-color: pink; */
 }
 
 .work-item {
@@ -272,6 +287,26 @@ p {
   gap: 1rem;
   flex-direction: row;
   align-items: center;
+
+  animation: revealTextLeftToRight 6s ease forwards;
+}
+
+@keyframes revealTextLeftToRight {
+  from {
+    clip-path: inset(0 100% 0 0);
+  }
+  to {
+    clip-path: inset(0 0% 0 0);
+  }
+}
+
+@keyframes revealTextDown {
+  from {
+    clip-path: inset(0 0 100% 0);
+  }
+  to {
+    clip-path: inset(0 0 0% 0);
+  }
 }
 
 .work-item-first-line .date {
@@ -285,6 +320,7 @@ p {
 
 .work-item-second-line {
   margin-top: -1rem;
+  animation: revealTextLeftToRight 6s ease forwards;
 }
 
 /*.work-item-second-line p {
@@ -293,6 +329,7 @@ p {
 
 .work-item-text {
   padding: 1.5rem 0 1.5rem 0;
+  animation: revealTextDown 3s ease forwards;
 }
 
 .work-item-skills {
@@ -301,24 +338,26 @@ p {
   flex-direction: row;
   justify-content: space-between;
   width: 80%;
+  
 }
 
 .work-item-skills .work-skill {
   background-image: url("../images/workRect.svg");
+  /* background-image: url("../images/longerSmallBox.svg"); */
   background-repeat: no-repeat;
   background-position: center;
-  background-size: 100%;
+  background-size: 100% 100%;
 
-  padding: 0.8rem 1.6rem;
-
+  padding: 0.8rem 1rem;
+  white-space: nowrap;
   display: inline-flex;
   align-items: center;
   justify-content: center;
 
   width: fit-content;
   min-width: 8rem;
-
-  /* background-color: var(--blue); */
+  max-height: 2rem;
+  /* background-color: var(--blue);  */
 }
 
 .work-status {

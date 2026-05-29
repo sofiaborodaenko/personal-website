@@ -3,6 +3,35 @@
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 window.addEventListener("load", () => {
+
+  const lastPathEnd = animatePath();
+  
+  //const heroRevealTime = lastPathEnd + 50;
+
+  async function revealHeroContent() {
+    const heroNote = document.querySelector(".hero-note");
+    const heroTitle = document.querySelector(".hero-title");
+    const heroSubtitle = document.querySelector(".hero-subtitle");
+
+    heroNote.classList.remove("hidden");
+    heroNote.classList.add("reveal--opacity");
+    await delay(500);
+
+    heroTitle.classList.remove("hidden");
+    heroTitle.classList.add("reveal--opacity");
+    await delay(500);
+
+    heroSubtitle.classList.remove("hidden");
+    heroSubtitle.classList.add("reveal--opacity");
+    await delay(500);
+    document.body.style.overflow = "auto";
+  }
+
+  setTimeout(revealHeroContent, lastPathEnd);
+  //revealHeroContent();
+});
+
+function animatePath() {
   const paths = document.querySelectorAll(".draw-path");
   const dots = document.querySelectorAll(".draw-dot");
 
@@ -44,31 +73,9 @@ window.addEventListener("load", () => {
   });
 
   const lastPathEnd = 2500 + (paths.length - 1) * 280;
+  return lastPathEnd;
 
-  //const heroRevealTime = lastPathEnd + 50;
-
-  async function revealHeroContent() {
-    const heroNote = document.querySelector(".hero-note");
-    const heroTitle = document.querySelector(".hero-title");
-    const heroSubtitle = document.querySelector(".hero-subtitle");
-
-    heroNote.classList.remove("hidden");
-    heroNote.classList.add("reveal--opacity");
-    await delay(500);
-
-    heroTitle.classList.remove("hidden");
-    heroTitle.classList.add("reveal--opacity");
-    await delay(500);
-
-    heroSubtitle.classList.remove("hidden");
-    heroSubtitle.classList.add("reveal--opacity");
-    await delay(500);
-    document.body.style.overflow = "auto";
-  }
-
-  setTimeout(revealHeroContent, lastPathEnd);
-  //revealHeroContent();
-});
+}
 
 // animating the about me text on scroll
 function textOpacityScroll() {
@@ -143,8 +150,10 @@ const scroll = () => {
 
   const offset = totalDistance * 0;
 
+  const speed = 1.8;
+
   const progress = Math.min(
-    Math.max(-(rect.top - offset) / ( rect.height - (totalDistance)), 0),
+    Math.max(-(rect.top - offset) / ( (rect.height - totalDistance) * speed), 0),
     1,
   );
   console.log("percentage", progress);
