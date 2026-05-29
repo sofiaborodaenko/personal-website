@@ -288,24 +288,28 @@ p {
   flex-direction: row;
   align-items: center;
 
-  animation: revealTextLeftToRight 6s ease forwards;
+  animation: revealTextLeftToRight 4s ease forwards;
 }
 
 @keyframes revealTextLeftToRight {
   from {
     clip-path: inset(0 100% 0 0);
+    opacity: 0;
   }
   to {
     clip-path: inset(0 0% 0 0);
+    opacity: 1;
   }
 }
 
 @keyframes revealTextDown {
   from {
     clip-path: inset(0 0 100% 0);
+    opacity: 0;
   }
   to {
     clip-path: inset(0 0 0% 0);
+    opacity: 1;
   }
 }
 
@@ -320,7 +324,7 @@ p {
 
 .work-item-second-line {
   margin-top: -1rem;
-  animation: revealTextLeftToRight 6s ease forwards;
+  animation: revealTextLeftToRight 4s ease forwards;
 }
 
 /*.work-item-second-line p {
@@ -366,9 +370,11 @@ p {
 @keyframes slideIn {
   from {
     transform: translateX(-800%);
+    opacity: 0;
   }
   to {
     transform: translateX(0%);
+    opacity: 1;
   }
 }
 
