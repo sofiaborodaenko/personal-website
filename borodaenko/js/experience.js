@@ -21,7 +21,7 @@ experiences.forEach((exp) => {
                 </p>
               </div>
               <div class="work-item-skills">
-                    ${exp.skills.map((s) => `<p class="work-skill reenie-beanie-regular-notes">${s}</p>`).join("")}
+                    ${exp.skills.map((s, i) => `<p class="work-skill reenie-beanie-regular-notes" style="animation-delay: ${(exp.totalSkills - i) * 0.2}s">${s}</p>`).join("")}
               </div>
             </div>
             <div class="work-status">

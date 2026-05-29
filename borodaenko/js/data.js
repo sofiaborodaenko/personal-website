@@ -6,6 +6,7 @@ export const experiences = [
     description:
       "Supported the EBM platform by performing log-driven debugging within Unqork to investigate and resolve platform issues across multiple environments, authored detailed Root Cause Analyses, assisted in troubleshooting bugs, working with developers and QA teams.",
     skills: ["Javascript", "Unqork", "Jira", "RCA's", "QA Tester"],
+    totalSkills: 5,
     status: "Completed",
   },
   {
@@ -15,6 +16,7 @@ export const experiences = [
     description:
       "Utilized a ticketing system to track, prioritize, and resolve technical support requests for troubleshooting of technical issues and providing general usage guidance for tools, software, and resources from U of T's Academic Toolbox, including assisting instructors with using, implementing and testing teaching tools for specific uses in class.",
     skills: ["Zoom", "IT Support", "AV Systems"],
+    totalSkills: 3,
     status: "Current",
   },
   {
@@ -24,6 +26,7 @@ export const experiences = [
     description:
       "Migrated and updated website content from the old Political Science site to a new Drupal-based platform and provided technical support for hybrid lecture setups, including configuring and troubleshooting A/V equipment.",
     skills: ["Drupal", "Hybrid AV Systems", "Training ", "Documentation"],
+    totalSkills: 4,
     status: "Completed",
   },
 ];

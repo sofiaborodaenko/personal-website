@@ -336,9 +336,9 @@ p {
   display: flex;
   gap: 1rem;
   flex-direction: row;
-  justify-content: space-between;
-  width: 80%;
-  
+  /* justify-content: space-between; */
+  /* width: 80%; */
+  overflow: hidden;
 }
 
 .work-item-skills .work-skill {
@@ -358,6 +358,18 @@ p {
   min-width: 8rem;
   max-height: 2rem;
   /* background-color: var(--blue);  */
+  
+  transform: translateX(-800%);
+  animation: slideIn 3s ease forwards; 
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(-800%);
+  }
+  to {
+    transform: translateX(0%);
+  }
 }
 
 .work-status {
