@@ -128,23 +128,23 @@ function textOpacityScroll() {
 textOpacityScroll();
 
 const experienceSvg = document.querySelector("svg.experience-svg");
-const experiencePath = experienceSvg.querySelector("path");
+const experienceSection = document.querySelector(".experience-content");
 
 //const experienceMask = document.querySelector(".sideline__mask");
 
 const scroll = () => {
   const distance = window.scrollY;
-  const totalDistance = experienceSvg.clientHeight - window.innerHeight;
+  const totalDistance = experienceSection.clientHeight - window.innerHeight;
 
-  const rect = experienceSvg.getBoundingClientRect();
+  const rect = experienceSection.getBoundingClientRect();
     console.log("distance", totalDistance);
   //const percentage = Math.min(, 1)
   // ;
 
-  const offset = totalDistance * 1;
+  const offset = totalDistance * 0;
 
   const progress = Math.min(
-    Math.max(-(rect.top - offset) / (rect.height - totalDistance), 0),
+    Math.max(-(rect.top - offset) / ( rect.height - (totalDistance)), 0),
     1,
   );
   console.log("percentage", progress);
