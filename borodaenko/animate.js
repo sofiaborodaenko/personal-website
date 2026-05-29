@@ -70,6 +70,7 @@ window.addEventListener("load", () => {
   //revealHeroContent();
 });
 
+// animating the about me text on scroll
 function textOpacityScroll() {
   const items = document.querySelectorAll(".about-me-text");
 
@@ -78,49 +79,80 @@ function textOpacityScroll() {
       const itemValue = item.querySelector(".text-section__value");
       const itemMask = document.querySelector(".about-me-section__mask");
 
-        const itemSpeed = +itemValue.dataset.textSpeed || 500;
-        const itemOpacity = +itemValue.dataset.textOpacity || 0;
+      // default values for animation speed and opacity, can be set using data attributes on the html element
+      const itemSpeed = +itemValue.dataset.textSpeed || 900;
+      const itemOpacity = +itemValue.dataset.textOpacity || 0;
 
-        const words = itemValue.innerHTML.split(/(\s+|<br\s*\/?>)/);
+      const words = itemValue.innerHTML.split(/(\s+|<br\s*\/?>)/);
 
-        itemValue.innerHTML = words
-          .map((word) => {
-            console.log(word);
-            if (word === "<br>") {
-              return "<br>";
-            } else if (word === 'class="scribble">2</span>3rd') {
-              return `<span style="transition: opacity ${itemSpeed}ms; opacity: ${itemOpacity};" class="scribble">2</span><span style="transition: opacity ${itemSpeed}ms; opacity: ${itemOpacity};">3rd</span>`;
-            } else {
-              return `<span style="transition: opacity ${itemSpeed}ms; opacity: ${itemOpacity};">${word}</span>`;
-            }
-          })
-          .join(" ");
+      // wrapping each word in a span with the appropriate transition and opacity styles
+      itemValue.innerHTML = words
+        .map((word) => {
+          if (word === "<br>") {
+            return "<br>";
+          } else if (word === 'class="scribble">2</span>3rd') {
+            return `<span style="transition: opacity ${itemSpeed}ms; opacity: ${itemOpacity};" class="scribble">2</span><span style="transition: opacity ${itemSpeed}ms; opacity: ${itemOpacity};">3rd</span>`;
+          } else {
+            return `<span style="transition: opacity ${itemSpeed}ms; opacity: ${itemOpacity};">${word}</span>`;
+          }
+        })
+        .join(" ");
 
-        window.addEventListener("scroll", () => {
-          const maskPosition =
-            itemMask.getBoundingClientRect().top - window.innerHeight;
-          const itemWay =
-            (Math.abs(maskPosition) /
-              (window.innerHeight + itemMask.offsetHeight)) *
-            100;
-          const itemWords = itemValue.querySelectorAll("span");
-          const currentWord =
-            maskPosition <= 0
-              ? Math.floor((itemWords.length / 100) * itemWay)
-              : -1;
-          addOpacity(itemWords, currentWord);
+      window.addEventListener("scroll", () => {
+        const maskPosition =
+          itemMask.getBoundingClientRect().top - window.innerHeight;
+        const itemWay =
+          (Math.abs(maskPosition) /
+            (window.innerHeight + itemMask.offsetHeight)) *
+          100;
+        const itemWords = itemValue.querySelectorAll("span");
+        const currentWord =
+          maskPosition <= 0
+            ? Math.floor((itemWords.length / 100) * itemWay)
+            : -1;
+        addOpacity(itemWords, currentWord);
+      });
+
+      function addOpacity(words, current) {
+        words.forEach((word, index) => {
+          word.style.opacity = itemOpacity;
+          if (index <= current) {
+            word.style.opacity = 1;
+          }
         });
-
-        function addOpacity(words, current) {
-          words.forEach((word, index) => {
-            word.style.opacity = itemOpacity;
-            if (index <= current) {
-              word.style.opacity = 1;
-            }
-          });
-        }
+      }
     });
   }
 }
 
 textOpacityScroll();
+
+const experienceSvg = document.querySelector("svg.experience-svg");
+const experiencePath = experienceSvg.querySelector("path");
+
+//const experienceMask = document.querySelector(".sideline__mask");
+
+const scroll = () => {
+  const distance = window.scrollY;
+  const totalDistance = experienceSvg.clientHeight - window.innerHeight;
+
+  const rect = experienceSvg.getBoundingClientRect();
+    console.log("distance", totalDistance);
+  //const percentage = Math.min(, 1)
+  // ;
+
+  const offset = totalDistance * 1;
+
+  const progress = Math.min(
+    Math.max(-(rect.top - offset) / (rect.height - totalDistance), 0),
+    1,
+  );
+  console.log("percentage", progress);
+
+  const bottom = 100 - (progress * 100);
+  experienceSvg.style.clipPath = `inset(0 0 ${bottom}% 0)`;
+
+};
+
+scroll();
+window.addEventListener("scroll", scroll);

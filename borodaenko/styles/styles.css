@@ -230,24 +230,35 @@ p {
 
 .experience-sideline {
   width: 20%;
+  height: 150vh;
   /*  background-color: gray;*/
   display: flex;
   justify-content: flex-end;
   margin-top: -2.5rem;
+  
 }
 
 .experience-sideline svg {
   width: 35%;
-  /* background-color: blue; */
+  clip-path: inset(0 0 100% 0);
 }
+
 
 .experience-job-container {
   display: flex;
   flex-direction: column;
   width: 65%;
+  gap: calc(var(--header-body-gap) * 3);
+  position: relative;
+  padding-top: 15rem;
 }
 
 .work-item {
+  position: relative;
+}
+
+.work-item-inner {
+  position: relative;
   display: flex;
   gap: 1rem;
   flex-direction: column;
@@ -310,16 +321,17 @@ p {
 }
 
 .work-status {
-  position: relative;
+  position: absolute;
+  top: 0;
+  right: 0;
+
   width: 6.25rem;
+
   display: flex;
   align-items: center;
   justify-content: center;
-  align-self: flex-end;
 
-  transform: rotate(-13.7deg);
-  margin-top: -5.5rem;
-  margin-right: -5%;
+  transform: rotate(5deg);
   /* background-color: red; */
 }
 
