@@ -1,10 +1,12 @@
 "use strict";
 
-const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+export const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+const heroFrame = document.querySelector(".hero-frame");
 
 window.addEventListener("load", () => {
 
-  const lastPathEnd = animatePath();
+  const lastPathEnd = animatePath(heroFrame);
   
   //const heroRevealTime = lastPathEnd + 50;
 
@@ -31,9 +33,11 @@ window.addEventListener("load", () => {
   //revealHeroContent();
 });
 
-function animatePath() {
-  const paths = document.querySelectorAll(".draw-path");
-  const dots = document.querySelectorAll(".draw-dot");
+
+
+export function animatePath(parent) {
+  const paths = parent.querySelectorAll(".draw-path");
+  const dots = parent.querySelectorAll(".draw-dot");
 
   // animating the rectangle path on hero section
   paths.forEach((path, index) => {
@@ -144,7 +148,7 @@ const scroll = () => {
   const totalDistance = experienceSection.clientHeight - window.innerHeight;
 
   const rect = experienceSection.getBoundingClientRect();
-    console.log("distance", totalDistance);
+    //console.log("distance", totalDistance);
   //const percentage = Math.min(, 1)
   // ;
 
@@ -156,7 +160,7 @@ const scroll = () => {
     Math.max(-(rect.top - offset) / ( (rect.height - totalDistance) * speed), 0),
     1,
   );
-  console.log("percentage", progress);
+  //console.log("percentage", progress);
 
   const bottom = 100 - (progress * 100);
   experienceSvg.style.clipPath = `inset(0 0 ${bottom}% 0)`;
@@ -165,3 +169,7 @@ const scroll = () => {
 
 scroll();
 window.addEventListener("scroll", scroll);
+
+
+
+
