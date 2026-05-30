@@ -344,7 +344,9 @@ p {
 
 .work-item-first-line,
 .work-item-second-line {
-  clip-path: inset(0 100% 0 0); /* matches the "from" state of revealTextLeftToRight */
+  clip-path: inset(
+    0 100% 0 0
+  ); /* matches the "from" state of revealTextLeftToRight */
 }
 
 .work-item-skills .work-skill {
@@ -383,7 +385,7 @@ p {
   min-width: 8rem;
   max-height: 2rem;
   /* background-color: var(--blue);  */
-  
+
   transform: translateX(-800%);
   /* animation: slideIn 3s ease forwards;  */
 }
@@ -422,7 +424,7 @@ p {
   overflow: visible;
 }
 
-.work-status .work-status-text{
+.work-status .work-status-text {
   opacity: 0;
 }
 
@@ -460,17 +462,41 @@ p {
   position: relative;
 }
 
+/* span containing the few letters + logo outline */
 .inline-shift {
   position: relative;
-  /* background-color: gray; */
+  background-color: gray;
+  min-width: 20rem;
   /* padding: 0 1rem 0 1rem; */
 }
 
-.linkedin-outline {
+.logo-outline {
   position: absolute;
   bottom: 0;
-  left: 5px;
-  width: 90%;
+  left: 0;
+}
+
+.linkedin-outline {
+  /* left: 3px; */
+  /* width: 90%; */
+  bottom: 3px;
   /* background-color: pink; */
-  
+}
+
+.github-outline {
+  left: -10px;
+  width: 230%;
+
+}
+/* shifts the rest of the word for the github logo */
+.rest-github-shift {
+  padding: 0 0 0 0.3rem;
+}
+
+.mail-outline {
+  width: 180%;
+}
+
+.rest-mail-shift{
+  padding: 0 0 0 1rem;
 }
