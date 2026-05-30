@@ -459,3 +459,18 @@ p {
   padding: 0 var(--padding) 0 var(--padding);
   position: relative;
 }
+
+.inline-shift {
+  position: relative;
+  /* background-color: gray; */
+  /* padding: 0 1rem 0 1rem; */
+}
+
+.linkedin-outline {
+  position: absolute;
+  bottom: 0;
+  left: 5px;
+  width: 90%;
+  /* background-color: pink; */
+  
+}
