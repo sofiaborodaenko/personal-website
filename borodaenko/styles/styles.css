@@ -2,6 +2,7 @@
   --pink: #ef626c;
   --blue: #57d2ff;
   --green: #65f06f;
+  --yellow: #FFDA57;
 
   --header: 5.5rem;
   --body: 1.25rem;
@@ -99,14 +100,16 @@ p {
 .hero-frame svg path {
   fill: black;
   stroke: black;
+  stroke-width: 0.5;
 }
 
 .draw-path {
   /* fill: black; */
   fill-opacity: 0;
 
+  stroke-opacity: 0;
   /* stroke: black; */
-  stroke-width: 0.5;
+  
 }
 
 .draw-dot {
@@ -465,7 +468,7 @@ p {
 /* span containing the few letters + logo outline */
 .inline-shift {
   position: relative;
-  background-color: gray;
+  /* background-color: gray; */
   min-width: 20rem;
   /* padding: 0 1rem 0 1rem; */
 }
@@ -474,14 +477,20 @@ p {
   position: absolute;
   bottom: 0;
   left: 0;
+  stroke-width: 1.5;
+
 }
 
 .linkedin-outline {
   /* left: 3px; */
-  /* width: 90%; */
+  width: 110%;
   bottom: 3px;
   /* background-color: pink; */
 }
+
+/* .rest-linkedin-shift {
+  padding-right: 0.1rem;
+} */
 
 .github-outline {
   left: -10px;
@@ -489,14 +498,14 @@ p {
 
 }
 /* shifts the rest of the word for the github logo */
-.rest-github-shift {
+/* .rest-github-shift {
   padding: 0 0 0 0.3rem;
-}
+} */
 
 .mail-outline {
   width: 180%;
 }
 
-.rest-mail-shift{
+/* .rest-mail-shift{
   padding: 0 0 0 1rem;
-}
+} */

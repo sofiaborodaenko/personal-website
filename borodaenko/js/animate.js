@@ -3,11 +3,12 @@
 export const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 const heroFrame = document.querySelector(".hero-frame");
+const logo = document.querySelector(".contact-github");
 
 window.addEventListener("load", () => {
-
   const lastPathEnd = animatePath(heroFrame);
-  
+  //animatePath(logo);
+
   //const heroRevealTime = lastPathEnd + 50;
 
   async function revealHeroContent() {
@@ -33,9 +34,7 @@ window.addEventListener("load", () => {
   //revealHeroContent();
 });
 
-
-
-export function animatePath(parent) {
+export function animatePath(parent, endStroke = 0) {
   const paths = parent.querySelectorAll(".draw-path");
   const dots = parent.querySelectorAll(".draw-dot");
 
@@ -52,7 +51,7 @@ export function animatePath(parent) {
       {
         strokeDashoffset: 0,
         fillOpacity: 1,
-        strokeOpacity: 0,
+        strokeOpacity: endStroke,
       },
     ];
 
@@ -78,7 +77,6 @@ export function animatePath(parent) {
 
   const lastPathEnd = 2500 + (paths.length - 1) * 280;
   return lastPathEnd;
-
 }
 
 // animating the about me text on scroll
@@ -148,7 +146,7 @@ const scroll = () => {
   const totalDistance = experienceSection.clientHeight - window.innerHeight;
 
   const rect = experienceSection.getBoundingClientRect();
-    //console.log("distance", totalDistance);
+  //console.log("distance", totalDistance);
   //const percentage = Math.min(, 1)
   // ;
 
@@ -157,19 +155,56 @@ const scroll = () => {
   const speed = 1.8;
 
   const progress = Math.min(
-    Math.max(-(rect.top - offset) / ( (rect.height - totalDistance) * speed), 0),
+    Math.max(-(rect.top - offset) / ((rect.height - totalDistance) * speed), 0),
     1,
   );
   //console.log("percentage", progress);
 
-  const bottom = 100 - (progress * 100);
+  const bottom = 100 - progress * 100;
   experienceSvg.style.clipPath = `inset(0 0 ${bottom}% 0)`;
-
 };
 
 scroll();
 window.addEventListener("scroll", scroll);
 
+const contact = document.querySelector(".contact-content");
 
+const handleHover = function (e, op) {
+  const target = e.target;
 
+  let link;
+  let linkParent;
+  let padding;
 
+  if (target.closest(".contact-link-logo")) {
+    if (target.closest(".linkedin")) {
+      link = "linkedin";
+      linkParent = document.querySelector(".linkedin");
+      //padding = 0.1;
+      shiftRestOfWord(link, "Right", 0.1);
+    }
+    if (target.closest(".github")) {
+      link = "github";
+      linkParent = document.querySelector(".github");
+      //padding = 0.3;
+      shiftRestOfWord(link, "Left", 0.3);
+    }
+    if (target.closest(".mail")) {
+      link = "mail";
+      linkParent = document.querySelector(".mail");
+      //padding = 1;
+      shiftRestOfWord(link, "Left", 1);
+    }
+    console.log("testing handler:", link);
+
+    animatePath(linkParent, 1);
+    //document.querySelector(`.rest-${link}-shift`).style.paddingRight=`${padding}rem`;
+  }
+};
+
+contact.addEventListener("mouseover", handleHover);
+
+function shiftRestOfWord(link, side, padding) {
+  document.querySelector(`.rest-${link}-shift`).style[`padding${side}`] =
+    `${padding}rem`;
+}
