@@ -34,7 +34,13 @@ window.addEventListener("load", () => {
   //revealHeroContent();
 });
 
-export function animatePath(parent, endStroke = 0) {
+export function animatePath(
+  parent,
+  endStroke = 0,
+  drawOrErase = "draw",
+  delay = 280,
+  duration = 2500,
+) {
   const paths = parent.querySelectorAll(".draw-path");
   const dots = parent.querySelectorAll(".draw-dot");
 
@@ -46,19 +52,28 @@ export function animatePath(parent, endStroke = 0) {
     path.style.strokeDashoffset = length;
 
     const rectAnimation = [
-      { strokeDashoffset: length, fillOpacity: 0, strokeOpacity: 1 },
-      { strokeDashoffset: 0, fillOpacity: 0, strokeOpacity: 1, offset: 0.7 },
       {
-        strokeDashoffset: 0,
-        fillOpacity: 1,
+        strokeDashoffset: `${drawOrErase === "draw" ? length : 0}`,
+        fillOpacity: `${drawOrErase === "draw" ? 0 : 1}`,
+        strokeOpacity: `${drawOrErase === "draw" ? 1 : 1}`,
+      },
+      {
+        strokeDashoffset: `${drawOrErase === "draw" ? 0 : 1}`,
+        fillOpacity: `${drawOrErase === "draw" ? 0 : 0}`,
+        strokeOpacity: `${drawOrErase === "draw" ? 1 : 1}`,
+        offset: 0.7,
+      },
+      {
+        strokeDashoffset: `${drawOrErase === "draw" ? 0 : length}`,
+        fillOpacity: `${drawOrErase === "draw" ? 1 : 0}`,
         strokeOpacity: endStroke,
       },
     ];
 
     const rectTiming = {
-      duration: 2500,
+      duration: duration,
       fill: "forwards",
-      delay: index * 280,
+      delay: index * delay,
       easing: "ease",
     };
 
@@ -170,39 +185,49 @@ window.addEventListener("scroll", scroll);
 const contact = document.querySelector(".contact-content");
 
 const handleHover = function (e, op) {
-  const target = e.target;
+  const [linkedinPadding, githubPadding, mailPadding, drawOrErase, endStroke] =
+    this;
+
+  const logo = e.target.closest(".contact-link-logo");
+
+  if (!logo) return;
+
+  const related = e.relatedTarget;
+  if (related && logo.contains(related)) return;
 
   let link;
   let linkParent;
-  let padding;
 
-  if (target.closest(".contact-link-logo")) {
-    if (target.closest(".linkedin")) {
-      link = "linkedin";
-      linkParent = document.querySelector(".linkedin");
-      //padding = 0.1;
-      shiftRestOfWord(link, "Right", 0.1);
-    }
-    if (target.closest(".github")) {
-      link = "github";
-      linkParent = document.querySelector(".github");
-      //padding = 0.3;
-      shiftRestOfWord(link, "Left", 0.3);
-    }
-    if (target.closest(".mail")) {
-      link = "mail";
-      linkParent = document.querySelector(".mail");
-      //padding = 1;
-      shiftRestOfWord(link, "Left", 1);
-    }
-    console.log("testing handler:", link);
-
-    animatePath(linkParent, 1);
-    //document.querySelector(`.rest-${link}-shift`).style.paddingRight=`${padding}rem`;
+  //if (logo) {
+  if (logo.querySelector(".linkedin")) {
+    link = "linkedin";
+    linkParent = document.querySelector(".linkedin");
+    //padding = 0.1;
+    shiftRestOfWord(link, "Left", linkedinPadding);
   }
+  if (logo.querySelector(".github")) {
+    link = "github";
+    linkParent = document.querySelector(".github");
+    //padding = 0.3;
+    shiftRestOfWord(link, "Left", githubPadding);
+  }
+  if (logo.querySelector(".mail")) {
+    link = "mail";
+    linkParent = document.querySelector(".mail");
+    //padding = 1;
+    shiftRestOfWord(link, "Left", mailPadding);
+  }
+  //console.log("testing handler:", link);
+  document.querySelector(`.inline-letter-${link}`).style.opacity =
+    `${1 - endStroke}`;
+
+  animatePath(linkParent, endStroke, drawOrErase, 280, 500);
+  //document.querySelector(`.rest-${link}-shift`).style.paddingRight=`${padding}rem`;
+  //}
 };
 
-contact.addEventListener("mouseover", handleHover);
+contact.addEventListener("mouseover", handleHover.bind([0.6, 1, 2, "draw", 1]));
+contact.addEventListener("mouseout", handleHover.bind([0, 0, 0, "erase", 0]));
 
 function shiftRestOfWord(link, side, padding) {
   document.querySelector(`.rest-${link}-shift`).style[`padding${side}`] =

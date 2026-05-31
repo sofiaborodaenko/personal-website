@@ -481,20 +481,24 @@ p {
 
 }
 
+.rest-linkedin-shift,  .rest-github-shift, .rest-mail-shift{
+  transition: padding 0.5s
+}
+
+.inline-letter-linkedin, .inline-letter-github, .inline-letter-mail {
+  transition: opacity 1s;
+}
+
 .linkedin-outline {
-  /* left: 3px; */
-  width: 110%;
+  left: 2px;
+  /* width: 110%; */
   bottom: 3px;
   /* background-color: pink; */
 }
 
-/* .rest-linkedin-shift {
-  padding-right: 0.1rem;
-} */
-
 .github-outline {
   left: -10px;
-  width: 230%;
+  /* width: 230%; */
 
 }
 /* shifts the rest of the word for the github logo */
@@ -503,7 +507,7 @@ p {
 } */
 
 .mail-outline {
-  width: 180%;
+  /* width: 180%; */
 }
 
 /* .rest-mail-shift{
