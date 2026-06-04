@@ -227,45 +227,77 @@ p {
 
 .projects-content {
   display: flex;
-  justify-content: center;
+  /* justify-content: center; */
   flex-direction: column;
   gap: var(--header-body-gap);
   width: 100vw;
   height: 200vh;
+  /* background-color: blue; */
 }
 
 .projects-title {
   align-self: center;
-  justify-self: center;
+  /* justify-self: center; */
 }
 
 .projects-sticky {
   width: 100vw;
   height: 100vh;
+  /* background-color: red; */
+  position: sticky;
+  top: 0;
 }
 
 .projects-container {
-  /* background-color: blue; */
+  /* background-color: rgb(17, 255, 0); */
   width: 100%;
   height: 100%;
   position: relative;
+  /* overflow: hidden; */
+}
+
+.dynamic-text {
+  max-width: 100%;
+  max-height: 100%;
+  overflow: hidden;
+  opacity: 20%;
+  /* -webkit-mask-image: radial-gradient(
+    circle at 500px 500px,
+    transparent 80px,
+    black 81px
+  );
+  mask-image: radial-gradient(
+    circle at 720px 330px,
+    transparent 180px,
+    black 151px
+  ); */
+
+  mask-image: url(../images/filledRect.svg), linear-gradient(#000 0 0);
+  mask-repeat: no-repeat;
+  mask-composite: exclude;
+  mask-position: center;
+  /* mask-image: revert; */
+
+  /* mask-image: linear-gradient(black, black); */
 }
 
 .projects-row {
   width: 200vw;
   /* background-color: white; */
   position: absolute;
-  top: 30%;
+  top: 33%;
   left: 0;
   display: flex;
-  justify-content: center;
-  gap: 100vw;
-  transform: translateX(15%);
+  /* justify-content: center; */
+  /* gap: 90vw; */
+  /* transform: translateX(31%); */
 }
 
 .project-square {
   /* background-color: gray; */
-  width: 20%;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
 }
 
 .experience-content {
