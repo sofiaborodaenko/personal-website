@@ -208,6 +208,7 @@ const handleHover = function (e, op) {
   if (logo.querySelector(".github")) {
     link = "github";
     linkParent = document.querySelector(".github");
+    
     //padding = 0.3;
     shiftRestOfWord(link, "Left", githubPadding);
   }
