@@ -48,6 +48,10 @@
   color: var(--green);
 }
 
+.red-text {
+  color: var(--pink);
+}
+
 body {
   background-image: url("../images/notebook-dark.png");
   background-color: #f2f2f2;
@@ -231,7 +235,7 @@ p {
   flex-direction: column;
   gap: var(--header-body-gap);
   width: 100vw;
-  height: 200vh;
+  height: 250vh;
   /* background-color: blue; */
 }
 
@@ -253,12 +257,12 @@ p {
   width: 100%;
   height: 100%;
   position: relative;
-  /* overflow: hidden; */
+  overflow: hidden;
 }
 
 .dynamic-text {
   max-width: 100%;
-  max-height: 100%;
+  /* max-height: 100%; */
   overflow: hidden;
   opacity: 20%;
   /* -webkit-mask-image: radial-gradient(
@@ -271,14 +275,10 @@ p {
     transparent 180px,
     black 151px
   ); */
-
-  mask-image: url(../images/filledRect.svg), linear-gradient(#000 0 0);
-  mask-repeat: no-repeat;
-  mask-composite: exclude;
-  mask-position: center;
   /* mask-image: revert; */
 
   /* mask-image: linear-gradient(black, black); */
+  /* animation: typing 2s steps(30) forwards; */
 }
 
 .projects-row {
