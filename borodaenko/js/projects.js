@@ -12,7 +12,7 @@ const totalLines = Math.ceil(window.innerHeight / textIntitalHeight);
 const messagesPerLine = Math.ceil(window.innerWidth / textInitialWidth);
 
 const randomMessage =
-  ">>> awakening runtime . . . socketlight // socketlight // socketlight 0 1 0 1 0 1 >>> listening on port ∆ o v e r f l o w // ∆ memory spool_07 traverse the aftercolor fields clockpulse clockpulse clockpulse >>> loading forgotten modules . . .";
+  '>>> awakening runtime . . . socketlight // socketlight // socketlight 0 1 0 1 0 1 listening on port ∆ o v e r f l o w // ∆ memory spool_07 traverse the aftercolor fields clockpulse clockpulse clockpulse >>> loading forgotten modules . . .';
 
 const totalScreenHeight = window.innerHeight;
 
@@ -30,22 +30,42 @@ const repeats = Math.ceil(screen.height / dynamicText.scrollHeight) + 2;
 
 function updateTextContent(currentSlide) {
   let textContent = randomMessage.repeat(repeats);
+  const current = currentSlide.toString();
 
-  // console.log("current slide", currentSlide);
-
-  // const projectTools = projects[currentSlide].length;
-  // console.log("projectTools", projectTools);
-
-  // console.log("tools", projects[currentSlide][0]);
-
-  // const splitHeight = Math.ceil(textContent.length / projectTools);
+  textContent = textContent.split(" ");
   
-  // for (let i = 0; i < projectTools; i++) {
-  //   textContent[splitHeight * i] = `<span class="red">>>> ${projects[currentSlide][i]} >>></span>`;
-  //   console.log("test text", textContent[splitHeight * i]);
-  // }
 
-  return textContent;
+  console.log("current slide", current);
+
+  const projectTools = projects[current].length;
+  console.log("projectTools", projectTools);
+
+  console.log("tools", projects[current]);
+
+  const splitHeight = Math.ceil(textContent.length / projectTools);
+
+  for (let i = 0; i < projectTools; i++) {
+    const color = Math.floor(Math.random()*2) === 0 ? "red" : "blue";
+    textContent[splitHeight * i] = `<span class="${color}-text">>>> ${projects[current][i]} >>></span>`;
+    //console.log("test text", textContent[splitHeight * i]);
+  }
+
+  const chunkSize = 10;
+
+  const result = [];
+
+  for (let i = 0; i < textContent.length; i += chunkSize) {
+    const chunk = textContent.slice(i, i + chunkSize).join(" ");
+
+    result.push(`<span class="invisible-typewriter">${chunk}</span>`);
+  
+  }
+  
+  console.log("result", result);
+
+  dynamicText.innerHTML = result.join(" ");
+
+  //return result;
 }
 
 // function displayDynamicText() {
@@ -67,29 +87,58 @@ function updateTextContent(currentSlide) {
 //   console.log("after width", textInitialWidth);
 // }
 
-function typewriterEffect(element, text, i = 0, chunkSize = 10, currentSlide, totalText = 0, totalTools = 0) {
-  if (i === 0) {
-    element.textContent = "";
+// function typewriterEffect(element, text, i = 0, chunkSize = 10, currentSlide) {
+//   //console.log("instance", element, i);
+
+//   if (i === 0) {
+//     element.textContent = "";
+//   }
+
+//   const projectToolsLen = projects[currentSlide].length;
+
+//   const heightDiv = Math.ceil(window.innerHeight / projectToolsLen);
+//   //console.log("heightDiv", heightDiv);
+
+//   element.innerHTML += text.slice(i, i + chunkSize);
+//   i += chunkSize;
+
+//   // if (i % heightDiv === 0 && totalTools < projectToolsLen) {
+//   //   element.textContent += `<span class="red-text">${projects[currentSlide][totalTools]}</span>`;
+//   // }
+
+
+
+//   if (i >= text.length) {
+//     return;
+//   }
+
+//   // delay(0.01).then(() => typewriterEffect(element, text, i + 1));
+//   setTimeout(
+//     () => typewriterEffect(element, text, i, chunkSize, currentSlide),
+//     10,
+//   );
+// }
+
+function typewriterEffect() {
+  const chunks = document.querySelectorAll(".invisible-typewriter");
+
+  let i = 0;
+
+  function revealNext() {
+    if (i >= chunks.length) {
+      return;
+    }
+
+    chunks[i].classList.remove("invisible-typewriter");
+
+    i++;
+
+    setTimeout(revealNext, 30);
+
   }
 
-  const projectToolsLen = projects[currentSlide].length;
+  revealNext();
 
-  const heightDiv = Math.ceil(window.innerHeight / projectToolsLen);
-  console.log("heightDiv", heightDiv);
-
-  element.textContent += text.slice(i, i + chunkSize);
-  i += chunkSize;
-
-  if (i % heightDiv === 0 && totalTools < projectToolsLen) {
-    element.textContent += `<span class="red-text">${projects[currentSlide][totalTools]}</span>`;
-  }
-
-  if (i >= text.length - 1) {
-    return;
-  }
-
-  // delay(0.01).then(() => typewriterEffect(element, text, i + 1));
-  setTimeout(() => typewriterEffect(element, text, i, chunkSize, currentSlide, totalText+=chunkSize, totalTools += 1), 10);
 }
 
 const projectRow = document.querySelector(".projects-row");
@@ -106,7 +155,7 @@ window.addEventListener("scroll", () => {
   const progress =
     scrollAmmount / (projectSection.offsetHeight - screen.height);
 
-  console.log("progress", progress);
+  //console.log("progress", progress);
   updateProjects(progress);
 });
 
@@ -116,14 +165,15 @@ let activeSlide = -1;
 
 function updateProjects(progress) {
   const currentSlide = Math.round(progress * (slides - 1));
-  console.log("currentSlide", currentSlide);
+  //console.log("currentSlide", currentSlide);
 
   projectRow.style.transform = `translateX(${-currentSlide * 100}vw)`;
   projectRow.style.transition = "transform 3s ease";
 
   if (currentSlide != activeSlide) {
     activeSlide = currentSlide;
-    let textContent = updateTextContent(currentSlide);
-    typewriterEffect(dynamicText, textContent, 0, 10, currentSlide);
+    updateTextContent(currentSlide);
+    // typewriterEffect(dynamicText, textContent, 0, 10, currentSlide);
+    typewriterEffect();
   }
 }

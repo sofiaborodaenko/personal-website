@@ -264,7 +264,8 @@ p {
   max-width: 100%;
   /* max-height: 100%; */
   overflow: hidden;
-  opacity: 20%;
+  /* opacity: 20%; */
+  color: rgba(0, 0, 0, 0.2);
   /* -webkit-mask-image: radial-gradient(
     circle at 500px 500px,
     transparent 80px,
@@ -279,6 +280,11 @@ p {
 
   /* mask-image: linear-gradient(black, black); */
   /* animation: typing 2s steps(30) forwards; */
+}
+
+.dynamic-text .red-text,
+.dynamic-text .blue-text {
+  font-weight: bold;
 }
 
 .projects-row {
@@ -298,6 +304,18 @@ p {
   width: 100vw;
   display: flex;
   justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 1rem;
+  transform: translateY(-2rem);
+}
+
+.project-square p {
+  font-size: 1.5rem;
+}
+
+.invisible-typewriter {
+  opacity: 0;
 }
 
 .experience-content {

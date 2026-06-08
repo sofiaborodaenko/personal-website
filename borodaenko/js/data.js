@@ -32,8 +32,8 @@ export const experiences = [
 ];
 
 export const projects = [
-  { "0": ["C", "File System", "Multiprocessing", "Interprocess Communication"] },
-  { "1": ["JavaScript", "HTML CSS", "Python", "MySQL", "Figma"] },
-  { "2": ["Wordpress", "HTML CSS", "Figma"] },
-  { "3": ["Java", "OOP", "SOLID Principles", "Design Patterns"] },
+  ["C", "File System", "Multiprocessing", "Interprocess Communication"],
+  ["JavaScript", "HTML CSS", "Python", "MySQL", "Figma"],
+  ["Wordpress", "HTML CSS", "Figma"],
+  ["Java", "OOP", "SOLID Principles", "Design Patterns"]
 ];
