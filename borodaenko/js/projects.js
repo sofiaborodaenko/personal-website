@@ -16,6 +16,8 @@ const randomMessage =
 
 const totalScreenHeight = window.innerHeight;
 
+let currentAnimations = [];
+
 // console.log("initial height", textIntitalHeight);
 // console.log("initial width", textInitialWidth);
 // console.log("equation", totalLines * messagesPerLine);
@@ -34,12 +36,12 @@ function updateTextContent(currentSlide) {
 
   textContent = textContent.split(" ");
 
-  console.log("current slide", current);
+  //console.log("current slide", current);
 
   const projectTools = projects[current].length;
-  console.log("projectTools", projectTools);
+  //console.log("projectTools", projectTools);
 
-  console.log("tools", projects[current]);
+  //console.log("tools", projects[current]);
 
   const splitHeight = Math.ceil(textContent.length / projectTools);
 
@@ -68,7 +70,7 @@ function updateTextContent(currentSlide) {
     result.push(`<span class="invisible-typewriter">${chunk}</span>`);
   }
 
-  console.log("result", result);
+  // console.log("result", result);
 
   dynamicText.innerHTML = result.join(" ");
 
@@ -95,13 +97,29 @@ function forbiddenSpace(textContentLength) {
 //   typewriterEffect(dynamicText, textContent);
 
 //   delay(4000).then(() => {
-dynamicText.style.maskImage = `url(./images/longFilledBox.svg), linear-gradient(#000 0 0)`;
-dynamicText.style.maskRepeat = "no-repeat";
-dynamicText.style.maskComposite = "exclude";
-dynamicText.style.maskPosition = "center";
-// move mask upward
-dynamicText.style.maskPosition = "center calc(50% - 40px), 0 0";
 
+const squares = document.querySelectorAll(".project-square");
+
+let xPosSVG, yPosSVG;
+
+drawMask();
+
+function drawMask() {
+  // console.log(squareSVG.getBoundingClientRect());
+
+  // const squareSVGRect = squareSVG.getBoundingClientRect();
+
+  // xPosSVG = squareSVGRect.x;
+  // yPosSVG = squareSVGRect.y;
+
+  dynamicText.style.maskImage = `url(./images/longFilledBox.svg), linear-gradient(#000 0 0)`;
+  dynamicText.style.maskRepeat = "no-repeat";
+  dynamicText.style.maskComposite = "exclude";
+  dynamicText.style.maskPosition = "center";
+  // move mask upward
+  dynamicText.style.maskPosition = "center calc(50% - 40px), 0 0";
+  //dynamicText.style.maskPosition = `${xPosSVG}px ${yPosSVG}px, 0 0`;
+}
 // make mask larger (width height)
 // dynamicText.style.maskSize = "330px 420px, 100% 130%";
 //   });
@@ -163,6 +181,8 @@ function typewriterEffect() {
 const projectRow = document.querySelector(".projects-row");
 const projectSection = document.querySelector(".projects-content");
 
+let activeAnimation;
+
 window.addEventListener("scroll", () => {
   const rect = projectSection.getBoundingClientRect();
 
@@ -175,7 +195,11 @@ window.addEventListener("scroll", () => {
     scrollAmmount / (projectSection.offsetHeight - screen.height);
 
   //console.log("progress", progress);
-  updateProjects(progress);
+
+  if (activeAnimation) {
+    updateProjects(progress);
+    // drawMask();
+  }
 });
 
 const slides = 2;
@@ -187,12 +211,49 @@ function updateProjects(progress) {
   //console.log("currentSlide", currentSlide);
 
   projectRow.style.transform = `translateX(${-currentSlide * 100}vw)`;
-  projectRow.style.transition = "transform 3s ease";
+  // projectRow.style.transition = "transform 3s ease";
+
+  // animatePath(squares);
+
+  //xPosSVG = -currentSlide * window.innerWidth;
+
+  //dynamicText.style.maskPosition = `${xPosSVG}px, 0 0`;
+
+  // console.log("active slide b4 if,", activeSlide);
+  // console.log("current slide b4 if", currentSlide);
 
   if (currentSlide != activeSlide) {
     activeSlide = currentSlide;
     updateTextContent(currentSlide);
     // typewriterEffect(dynamicText, textContent, 0, 10, currentSlide);
-    typewriterEffect();
+
+    const activeSquare = squares[currentSlide];
+    currentAnimations = animatePath(activeSquare, 1, "draw", 0, 5000);
+
+    delay(1000).then(() => typewriterEffect());
+
+    console.log("current aniimations", currentAnimations);
   }
 }
+
+const revealProjects = function (entries, observer) {
+  const [entry] = entries;
+
+  //("entry", entry);
+  if (!entry.isIntersecting) {
+    activeAnimation = false;
+    return;
+  }
+  //console.log("entry target", entry.target);
+  activeAnimation = true;
+  activeSlide = -1;
+};
+
+const projectsObserver = new IntersectionObserver(revealProjects, {
+  root: null,
+  threshold: 0.7,
+});
+
+const projectsSectionSticky = document.querySelector(".projects-sticky");
+
+projectsObserver.observe(projectsSectionSticky);

@@ -6,7 +6,7 @@ const heroFrame = document.querySelector(".hero-frame");
 const logo = document.querySelector(".contact-github");
 
 window.addEventListener("load", () => {
-  const lastPathEnd = animatePath(heroFrame);
+  const {lastPathEnd, arr} = animatePath(heroFrame);
   //animatePath(logo);
 
   //const heroRevealTime = lastPathEnd + 50;
@@ -43,13 +43,23 @@ export function animatePath(
 ) {
   const paths = parent.querySelectorAll(".draw-path");
   const dots = parent.querySelectorAll(".draw-dot");
+  const animationsArr = [];
 
   // animating the rectangle path on hero section
   paths.forEach((path, index) => {
+    path.getAnimations().forEach((a) => a.cancel());
+
     const length = path.getTotalLength();
 
-    path.style.strokeDasharray = length;
-    path.style.strokeDashoffset = length;
+    //console.log(path.dataset.initialized);
+
+    if (!path.dataset.initialized) {
+      path.style.strokeDasharray = length;
+      path.style.strokeDashoffset = length;
+      path.dataset.initialized = true;
+    }
+
+    //console.log(path.dataset.initialized);
 
     const rectAnimation = [
       {
@@ -77,21 +87,24 @@ export function animatePath(
       easing: "ease",
     };
 
-    path.animate(rectAnimation, rectTiming);
+    const anim = path.animate(rectAnimation, rectTiming);
+    animationsArr.push(anim);
   });
 
   // animating the dots on hero section after the rectangle is complete
   dots.forEach((dot, index) => {
-    dot.animate([{ fillOpacity: 1 }], {
+    const dotAnim = dot.animate([{ fillOpacity: 1 }], {
       duration: 1000,
       fill: "forwards",
       delay: paths.length * 280 + index * 300,
       easing: "ease",
     });
+
+    animationsArr.push(dotAnim);
   });
 
   const lastPathEnd = 2500 + (paths.length - 1) * 280;
-  return lastPathEnd;
+  return lastPathEnd, animationsArr;
 }
 
 // animating the about me text on scroll
@@ -208,7 +221,7 @@ const handleHover = function (e, op) {
   if (logo.querySelector(".github")) {
     link = "github";
     linkParent = document.querySelector(".github");
-    
+
     //padding = 0.3;
     shiftRestOfWord(link, "Left", githubPadding);
   }

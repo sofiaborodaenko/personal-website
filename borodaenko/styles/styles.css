@@ -73,14 +73,14 @@ p {
   font-size: var(--body);
 }
 
-.hidden {
+/* .hidden {
   opacity: 0;
-}
+} */
 
-.reveal--opacity {
+/* .reveal--opacity {
   opacity: 1;
   transition: opacity 1s;
-}
+} */
 
 .hero {
   width: 100vw;
