@@ -265,7 +265,10 @@ p {
   /* max-height: 100%; */
   overflow: hidden;
   /* opacity: 20%; */
-  color: rgba(0, 0, 0, 0.2);
+  color: rgba(0, 0, 0, 0.1);
+  overflow-wrap: break-word; /* Modern preferred standard to break long words */
+  word-break: break-all;
+  
   /* -webkit-mask-image: radial-gradient(
     circle at 500px 500px,
     transparent 80px,
@@ -280,6 +283,14 @@ p {
 
   /* mask-image: linear-gradient(black, black); */
   /* animation: typing 2s steps(30) forwards; */
+}
+
+
+.shift-box {
+  display: inline-block;
+  width: 283px;
+  height: 244px;
+  background-color: black;
 }
 
 .dynamic-text .red-text,
