@@ -38,7 +38,7 @@ function updateTextContent(currentSlide) {
 
   //console.log("current slide", current);
 
-  const projectTools = projects[current].length;
+  const projectTools = projects[current].length - 1;
   //console.log("projectTools", projectTools);
 
   //console.log("tools", projects[current]);
@@ -56,7 +56,7 @@ function updateTextContent(currentSlide) {
       index = end + i * 3;
     }
     textContent[index] =
-      `<span class="${color}-text">>> ${projects[current][i]} >></span>`;
+      `<span class="${color}-text">>> ${projects[current][i + 1]} >></span>`;
     //console.log("test text", textContent[splitHeight * i]);
   }
 
@@ -97,6 +97,37 @@ function forbiddenSpace(textContentLength) {
 //   typewriterEffect(dynamicText, textContent);
 
 //   delay(4000).then(() => {
+
+const projectRow = document.querySelector(".projects-row");
+const projectSection = document.querySelector(".projects-content");
+
+function populateProjectsRow(projects) {
+  projectRow.innerHTML = "";
+  projects.forEach((project, index) => {
+    projectRow.innerHTML += ` 
+              <div class="project-square"> 
+              <svg
+                width="283"
+                height="244"
+                viewBox="0 0 283 244"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M261.175 5.66267C259.009 4.32934 252.475 1.76267 243.675 2.16267C234.875 2.56267 181.675 1.66261 156.175 1.16258H72.1752C50.6752 0.662582 8.87525 -0.037418 13.6753 1.16258C10.8419 1.49592 5.17524 3.8626 5.17524 10.6626L4.17524 53.1626L3.17524 110.163C2.00858 119.996 -0.124757 140.863 0.675243 145.663L2.17523 190.663L4.17523 211.163C4.50857 215.996 8.27523 226.063 20.6752 227.663L55.1752 238.163L103.175 239.663L158.175 241.663C173.509 242.329 208.675 243.463 226.675 242.663L249.675 241.663C254.009 239.996 263.875 234.863 268.675 227.663C273.475 220.463 276.342 216.329 277.175 215.163C279.009 210.829 282.475 198.963 281.675 186.163L282.175 157.663L281.675 127.663C280.675 110.829 278.875 74.9626 279.675 66.1626L277.675 20.1626C277.175 14.9959 274.575 5.1626 268.175 7.1626"
+                  stroke="black"
+                  stroke-width="4.5"
+                  stroke-linecap="round"
+                  class="draw-path"
+                />
+              </svg>
+
+              <p class="reenie-beanie-regular-notes ">${project[0]}</p>
+            </div>`;
+  });
+}
+
+populateProjectsRow(projects);
 
 const squares = document.querySelectorAll(".project-square");
 
@@ -178,9 +209,6 @@ function typewriterEffect() {
   revealNext();
 }
 
-const projectRow = document.querySelector(".projects-row");
-const projectSection = document.querySelector(".projects-content");
-
 let activeAnimation;
 
 window.addEventListener("scroll", () => {
@@ -202,7 +230,7 @@ window.addEventListener("scroll", () => {
   }
 });
 
-const slides = 2;
+const slides = projects.length;
 
 let activeSlide = -1;
 

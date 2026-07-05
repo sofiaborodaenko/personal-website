@@ -13,6 +13,8 @@
   --header-body-gap: 2.3rem;
 
   --section-gap: 18rem;
+
+  --num-projects: 4;
 }
 
 * {
@@ -299,7 +301,7 @@ p {
 }
 
 .projects-row {
-  width: 200vw;
+  width: calc(100 * var(--num-projects))vw;
   /* background-color: white; */
   position: absolute;
   top: 33%;
