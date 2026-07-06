@@ -32,7 +32,7 @@ export const experiences = [
 ];
 
 export const projects = [
-  ["File Sort", "C", "File System", "Multiprocessing", "Interprocess Communication"],
+  ["File Sorter", "C", "File System", "Multiprocessing", "Interprocess Communication"],
   ["Kiltro Website", "JavaScript", "HTML CSS", "Python", "MySQL", "Figma"],
   ["SCB Kingston", "Wordpress", "HTML CSS", "Figma"],
   ["StudyArc", "Java", "OOP", "SOLID Principles", "Design Patterns"]

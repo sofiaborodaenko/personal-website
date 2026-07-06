@@ -102,7 +102,7 @@ const projectRow = document.querySelector(".projects-row");
 const projectSection = document.querySelector(".projects-content");
 
 function populateProjectsRow(projects) {
-  projectRow.innerHTML = "";
+  // projectRow.innerHTML = "";
   projects.forEach((project, index) => {
     projectRow.innerHTML += ` 
               <div class="project-square"> 
