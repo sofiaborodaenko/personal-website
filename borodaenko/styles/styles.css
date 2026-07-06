@@ -361,10 +361,10 @@ p {
 
 .project-video {
   position: absolute;
-  /* inset: 12%; */
-  left: 50%;
+  inset: 12%;
+  /* left: 50%;
   top: 50%;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%); */
 
   width: 76%;
   height: 70%;
