@@ -51,7 +51,7 @@ experiences.forEach((exp) => {
     `;
 });
 
-const revealExperience = function (entries, observer) {
+const revealExperience =  function (entries, observer) {
   entries.forEach((entry) => {
     if (!entry.isIntersecting) return;
     const item = entry.target;

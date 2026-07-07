@@ -6,10 +6,14 @@ const heroFrame = document.querySelector(".hero-frame");
 const logo = document.querySelector(".contact-github");
 
 window.addEventListener("load", () => {
-  const {lastPathEnd, arr} = animatePath(heroFrame);
+  // const { lastPathEnd, arr } = animatePath(heroFrame);
   //animatePath(logo);
 
   //const heroRevealTime = lastPathEnd + 50;
+
+  animatePath(heroFrame).then(() => {
+    revealHeroContent();
+  });
 
   async function revealHeroContent() {
     const heroNote = document.querySelector(".hero-note");
@@ -30,11 +34,11 @@ window.addEventListener("load", () => {
     document.body.style.overflow = "auto";
   }
 
-  setTimeout(revealHeroContent, lastPathEnd);
+  // setTimeout(revealHeroContent, lastPathEnd);
   //revealHeroContent();
 });
 
-export function animatePath(
+export async function animatePath(
   parent,
   endStroke = 0,
   drawOrErase = "draw",
@@ -103,8 +107,13 @@ export function animatePath(
     animationsArr.push(dotAnim);
   });
 
-  const lastPathEnd = 2500 + (paths.length - 1) * 280;
-  return lastPathEnd, animationsArr;
+  // const lastPathEnd = 2500 + (paths.length - 1) * 280;
+  // return lastPathEnd, animationsArr;
+
+  const lastAnimation = animationsArr[animationsArr.length - 1];
+  return Promise.all(
+    animationsArr.map((anim) => anim.finished.catch(() => {})),
+  );
 }
 
 // animating the about me text on scroll

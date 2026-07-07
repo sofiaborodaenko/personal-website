@@ -348,30 +348,39 @@ p {
 }
 
 .project-illustration {
-  position: absolute;
-
-  left: 50%;
-  top: 50%;
-
   width: 30%;
   height: auto;
 
-  transform: translate(-50%, -50%);
+  opacity: 1;
+  transition: opacity 0.8s ease;
 }
 
 .project-video {
-  position: absolute;
-  inset: 12%;
-  /* left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%); */
-
-  width: 76%;
-  height: 70%;
+  width: 80%;
+  height: 74%;
 
   object-fit: cover;
 
   border-radius: 8px;
+
+  opacity: 0;
+  transition: opacity 0.8s ease;
+}
+
+.project-video,
+.project-illustration {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.project-images.playing .project-video {
+  opacity: 1;
+}
+
+.project-images.playing .project-illustration {
+  opacity: 0;
 }
 
 .experience-content {
