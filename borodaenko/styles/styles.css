@@ -615,6 +615,11 @@ p {
   font-size: var(--hero-subtext);
 }
 
+.contact-link-logo {
+  text-decoration: none;
+  color: black;
+}
+
 .footer {
   padding: 0 var(--padding) 0 var(--padding);
   position: relative;
