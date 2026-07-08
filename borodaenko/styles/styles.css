@@ -334,6 +334,7 @@ p {
   position: relative;
   width: min(283px, 80vw);
   aspect-ratio: 283 / 244;
+  /* background-color: gray; */
 }
 
 .project-border {
@@ -348,8 +349,9 @@ p {
 }
 
 .project-illustration {
-  width: 30%;
-  height: auto;
+  width: 40%;
+  height: 40%;
+  object-fit: contain;
 
   opacity: 1;
   transition: opacity 0.8s ease;

@@ -1,6 +1,6 @@
 "use strict";
 
-import { projects } from "./data.js";
+import { projects, projectsSvgs } from "./data.js";
 import { animatePath } from "./animate.js";
 import { delay } from "./animate.js";
 
@@ -22,13 +22,6 @@ const totalScreenHeight = window.innerHeight;
 
 let currentAnimations = [];
 
-// console.log("initial height", textIntitalHeight);
-// console.log("initial width", textInitialWidth);
-// console.log("equation", totalLines * messagesPerLine);
-// console.log("length", randomMessage.length);
-
-// console.log("dynamic text scroll hegiht", dynamicText.scrollHeight);
-
 // use either screen.height or window.innerHeight
 const repeats = Math.ceil(screen.height / dynamicText.scrollHeight) + 2;
 
@@ -42,7 +35,7 @@ function updateTextContent(currentSlide) {
 
   //console.log("current slide", current);
 
-  const projectTools = projects[current].length - 2;
+  const projectTools = projects[current].length - 3;
   //console.log("projectTools", projectTools);
 
   //console.log("tools", projects[current]);
@@ -60,7 +53,7 @@ function updateTextContent(currentSlide) {
       index = end + i * 3;
     }
     textContent[index] =
-      `<span class="${color}-text">>> ${projects[current][i + 2]} >></span>`;
+      `<span class="${color}-text">>> ${projects[current][i + 3]} >></span>`;
     //console.log("test text", textContent[splitHeight * i]);
   }
 
@@ -103,11 +96,11 @@ function forbiddenSpace(textContentLength) {
 //   delay(4000).then(() => {
 
 function populateProjectsRow(projects) {
-  // projectRow.innerHTML = "";
+  projectRow.innerHTML = "";
   projects.forEach((project, index) => {
     projectRow.innerHTML += ` 
               <div class="project-square">
-              <div class="project-images">
+              <a class="project-images" href="${project[2]}" target="_blank">
                 <svg
                   width="283"
                   height="244"
@@ -125,30 +118,15 @@ function populateProjectsRow(projects) {
                   />
                 </svg>
 
-                <svg
-                  width="254"
-                  height="312"
-                  viewBox="0 0 254 312"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                  class="project-illustration"
-                >
-                  <path
-                    d="M222.825 24.0322V2.03223L66.3252 4.53223C57.9918 8.69889 38.7252 21.6322 28.3252 40.0322C24.6585 43.5322 14.5252 53.1322 3.32515 63.5322V171.032C2.32516 191.199 0.925172 241.032 3.32515 279.032L26.3251 279.386M66.3252 4.53223V63.5322H3.32515M197.325 279.032C190.925 281.032 173.658 281.532 165.825 281.532L26.3251 279.386M215.825 270.032V213.532C210.625 205.932 213.658 175.366 215.825 161.032C217.025 153.032 220.992 89.3656 222.825 58.5322V24.0322M26.3251 279.386V307.032L36.3251 299.532H55M55 299.532L98.3251 295.532H134.825H148.825C180.825 291.699 242.825 286.332 234.825 295.532V202.532L234.979 96.0322C235.733 87.4397 238.48 52.3385 239.098 40.0322M55 299.532V309.032L249.212 301.098C249.873 251.914 250.243 233.839 250.903 184.656C253.338 173.197 248.987 142.713 249.212 129.378L250.59 42.1475C243.391 42.1475 246.297 40.0322 239.098 40.0322M222.825 24.0322C222.825 24.0322 229.726 24.0322 239.098 24.0322V40.0322M32.3251 128.032C81.3251 125.699 178.825 121.732 176.825 124.532C178.492 124.532 181.325 125.232 179.325 128.032M28.3252 161.032L179.325 158.032M32.3251 213.532C83.9918 209.199 186.825 203.532 184.825 215.532"
-                    stroke="black"
-                    stroke-width="4.5"
-                    stroke-linecap="round"
-                    class="draw-path"
-                  />
-                </svg>
+                ${projectsSvgs[project[0]]}
 
                 <video autoplay muted loop playsinline class="project-video">
                   <source
-                    src="./images/projects//demoVideos/File SorterDemo.mp4"
+                    src="./images/projects//demoVideos/${project[0]}Demo.mp4"
                     type="video/mp4"
                   />
                 </video>
-              </div>
+              </a>
 
               <p class="reenie-beanie-regular-notes ">${project[0]}</p>
             </div>`;
@@ -267,16 +245,6 @@ function updateProjects(progress) {
   //console.log("currentSlide", currentSlide);
 
   projectRow.style.transform = `translateX(${-currentSlide * 100}vw)`;
-  // projectRow.style.transition = "transform 3s ease";
-
-  // animatePath(squares);
-
-  //xPosSVG = -currentSlide * window.innerWidth;
-
-  //dynamicText.style.maskPosition = `${xPosSVG}px, 0 0`;
-
-  // console.log("active slide b4 if,", activeSlide);
-  // console.log("current slide b4 if", currentSlide);
 
   document.querySelectorAll(".project-images").forEach((images) => {
     images.classList.remove("playing");
@@ -287,9 +255,7 @@ function updateProjects(progress) {
     video.currentTime = 0;
   });
 
-
-  console.log("active slide curr", currentSlide);
-  console.log("active slide activ ", activeSlide);
+  // deactivateProject(squares[currentSlide]);
 
   if (currentSlide != activeSlide) {
     activeSlide = currentSlide;
@@ -297,24 +263,10 @@ function updateProjects(progress) {
     // typewriterEffect(dynamicText, textContent, 0, 10, currentSlide);
 
     const activeSquare = squares[currentSlide];
-    // currentAnimations = animatePath(activeSquare, 1, "draw", 0, 5000);
-
-    // const images = activeSquare.querySelector(".project-images");
-    // const video = activeSquare.querySelector(".project-video");
-    // const illustration = activeSquare.querySelector(".project-illustration");
 
     activateProject(activeSquare);
 
     delay(1000).then(() => typewriterEffect());
-
-    // setTimeout(() => {
-    //   animatePath(illustration, 1, "erase", 0, 5000);
-
-    //   images.classList.add("playing");
-
-    //   video.currentTime = 0;
-    //   video.play();
-    // }, 4000);
   }
 }
 
@@ -327,16 +279,17 @@ async function activateProject(activeSquare) {
 
   await delay(1000);
 
-  images.classList.add("playing");
-
-  video.currentTime = 0;
-  video.play();
+  if (video.readyState >= HTMLMediaElement.HAVE_ENOUGH_DATA) {
+    images.classList.add("playing");
+    video.currentTime = 0;
+    video.play();
+  }
 }
 
 async function deactivateProject(activeSquare) {
-  const images = square.querySelector(".project-images");
-  const illustration = square.querySelector(".project-illustration");
-  const video = square.querySelector(".project-video");
+  const images = activeSquare.querySelector(".project-images");
+  const illustration = activeSquare.querySelector(".project-illustration");
+  const video = activeSquare.querySelector(".project-video");
 
   images.classList.remove("playing");
 
