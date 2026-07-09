@@ -240,12 +240,7 @@ const slides = projects.length;
 
 let activeSlide = -1;
 
-function updateProjects(progress) {
-  const currentSlide = Math.round(progress * (slides - 1));
-  //console.log("currentSlide", currentSlide);
-
-  projectRow.style.transform = `translateX(${-currentSlide * 100}vw)`;
-
+function removeVideo() {
   document.querySelectorAll(".project-images").forEach((images) => {
     images.classList.remove("playing");
 
@@ -254,6 +249,15 @@ function updateProjects(progress) {
     video.pause();
     video.currentTime = 0;
   });
+}
+
+function updateProjects(progress) {
+  const currentSlide = Math.round(progress * (slides - 1));
+  //console.log("currentSlide", currentSlide);
+
+  projectRow.style.transform = `translateX(${-currentSlide * 100}vw)`;
+
+  removeVideo();
 
   // deactivateProject(squares[currentSlide]);
 
@@ -305,6 +309,7 @@ const revealProjects = function (entries, observer) {
   //("entry", entry);
   if (!entry.isIntersecting) {
     activeAnimation = false;
+    removeVideo();
     return;
   }
   //console.log("entry target", entry.target);

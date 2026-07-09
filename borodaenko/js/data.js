@@ -36,7 +36,7 @@ export const projects = [
   [
     "File Sorter",
     "true",
-    "",
+    "https://github.com/sofiaborodaenko/filesorter",
     "C",
     "File System",
     "Multiprocessing",

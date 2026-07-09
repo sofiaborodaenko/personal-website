@@ -16,8 +16,22 @@
 
     <link rel="icon" type="image/png" href="images/webFavicon.png" />
   </head>
+
   <body>
-    <section class="hero">
+    <div class="sticky-nav">
+      <img class="sticky-note-img" src="./images/stickynote.svg" class="sticky-note" />
+      
+      <nav class="sticky-links">
+        <p>TO DO</P>
+        <a href="#home">Home</a>
+        <a href="#about-me">About Me</a>
+        <a href="#projects">Projects</a>
+        <a href="#experience">Experience</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+
+    <section class="hero" id="home">
       <div class="hero-frame">
         <svg
           viewBox="0 0 1355 686"
@@ -73,7 +87,7 @@
       </div>
     </section>
 
-    <section class="about-me-content">
+    <section class="about-me-content" id="about-me">
       <div class="about-me-section__wrapper">
         <div class="about-me-text">
           <h1 class="caveat-header">Who I Am</h1>
@@ -108,7 +122,7 @@
       <div class="about-me-section__mask"></div>
     </section>
 
-    <section class="projects-content">
+    <section class="projects-content" id="projects">
       <h1 class="caveat-header projects-title">Projects</h1>
 
       <div class="projects-sticky">
@@ -199,7 +213,7 @@
       </div>
     </section>
 
-    <section class="contact-content">
+    <section class="contact-content" id="contact">
       <h1 class="caveat-header contact-title">
         Intrigued and Want to Hear More?
       </h1>
@@ -208,7 +222,11 @@
         endeavors.
       </p>
       <div class="contact-links caveat-header">
-        <a class="contact-link-logo" href="https://www.linkedin.com/in/sofia-borodaenko/" target="_blank">
+        <a
+          class="contact-link-logo"
+          href="https://www.linkedin.com/in/sofia-borodaenko/"
+          target="_blank"
+        >
           <p class="linkedin">
             L<span class="inline-shift"
               ><span class="inline-letter-linkedin">IN</span
@@ -241,7 +259,11 @@
             ><span class="rest-linkedin-shift">KEDIN</span>
           </p>
         </a>
-        <a class="contact-link-logo" href="https://github.com/sofiaborodaenko" target="_blank">
+        <a
+          class="contact-link-logo"
+          href="https://github.com/sofiaborodaenko"
+          target="_blank"
+        >
           <p class="github">
             GITH<span class="inline-shift"
               ><span class="inline-letter-github">U</span
