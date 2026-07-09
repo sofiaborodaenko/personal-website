@@ -85,13 +85,14 @@ p {
 } */
 
 .sticky-nav {
-  background-color: white;
+  /* background-color: white; */
   width: 15rem;
   height: 15rem;
   position: fixed;
   right: 0;
   z-index: 1;
-  margin-right: calc(var(--padding)/3);
+  margin-right: calc(var(--padding) / 3);
+  margin-top: 3rem;
 }
 
 .sticky-note-img {
@@ -100,9 +101,26 @@ p {
 }
 
 .sticky-links {
-  position: absolute;
-  top: 0;
-  right: 0;
+  position: relative;
+  top: -95%;
+  right: -25%;
+  display: flex;
+  flex-direction: column;
+  /* background-color: gray; */
+  width: max-content;
+  transform: rotate(-20deg);
+}
+
+.sticky-links p {
+  font-size: calc(var(--body)*2.2);
+  text-align: center;
+}
+
+.sticky-links a {
+  text-decoration: none; 
+  color: black;
+  font-size: calc(var(--body)*1.1);
+  padding: 0 0 0.5rem 0;
 }
 
 .hero {
