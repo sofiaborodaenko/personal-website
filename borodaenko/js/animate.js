@@ -256,3 +256,24 @@ function shiftRestOfWord(link, side, padding) {
   document.querySelector(`.rest-${link}-shift`).style[`padding${side}`] =
     `${padding}rem`;
 }
+
+// navigation stickynote animations
+const stickyNote = document.querySelector(".sticky-nav");
+
+const hideAndRevealNav = function (entries, observer) {
+  const [entry] = entries;
+
+  if (!entry.isIntersecting) {
+    stickyNote.classList.add("hide-nav");
+    return;
+  }
+
+  stickyNote.classList.remove("hide-nav");
+};
+
+const stickyNoteObserver = new IntersectionObserver(hideAndRevealNav, {
+  root: null,
+  threshold: 0.9,
+});
+
+stickyNoteObserver.observe(document.querySelector(".hero"));

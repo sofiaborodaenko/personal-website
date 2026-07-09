@@ -93,6 +93,15 @@ p {
   z-index: 1;
   margin-right: calc(var(--padding) / 3);
   margin-top: 3rem;
+  transition: transform 0.5s ease;
+}
+
+.hide-nav {
+  transform: translate(90%, -90%);
+}
+
+.hide-nav:hover {
+  transform: translate(0, 0);
 }
 
 .sticky-note-img {
@@ -128,7 +137,7 @@ p {
   display: block;
   cursor: pointer;
   margin-top: 0.7rem;
-  width: 0%;
+  width: 5%;
   transition: width 0.5s ease;
 }
 
