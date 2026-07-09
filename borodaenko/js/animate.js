@@ -5,6 +5,8 @@ export const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 const heroFrame = document.querySelector(".hero-frame");
 const logo = document.querySelector(".contact-github");
 
+const stickyNote = document.querySelector(".sticky-nav");
+
 window.addEventListener("load", () => {
   // const { lastPathEnd, arr } = animatePath(heroFrame);
   //animatePath(logo);
@@ -13,6 +15,9 @@ window.addEventListener("load", () => {
 
   animatePath(heroFrame).then(() => {
     revealHeroContent();
+    // delay(1000).then(() => {
+      stickyNote.classList.add("stick-on");
+    // });
   });
 
   async function revealHeroContent() {
@@ -258,13 +263,13 @@ function shiftRestOfWord(link, side, padding) {
 }
 
 // navigation stickynote animations
-const stickyNote = document.querySelector(".sticky-nav");
 
 const hideAndRevealNav = function (entries, observer) {
   const [entry] = entries;
 
   if (!entry.isIntersecting) {
     stickyNote.classList.add("hide-nav");
+    // stickyNote.classList.remove("stick-on");
     return;
   }
 
