@@ -113,7 +113,7 @@ p {
 
 .sticky-links {
   position: absolute;
-  bottom: 1.2rem;
+  bottom: 2rem;
   left: 4rem;
   display: flex;
   flex-direction: column;
@@ -125,6 +125,7 @@ p {
 .sticky-links p {
   font-size: calc(var(--body) * 2.2);
   text-align: center;
+  padding-bottom: 0.5rem;
 }
 
 .sticky-links a {
