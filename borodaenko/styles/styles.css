@@ -112,15 +112,30 @@ p {
 }
 
 .sticky-links p {
-  font-size: calc(var(--body)*2.2);
+  font-size: calc(var(--body) * 2.2);
   text-align: center;
 }
 
 .sticky-links a {
-  text-decoration: none; 
+  text-decoration: none;
   color: black;
-  font-size: calc(var(--body)*1.1);
+  font-size: calc(var(--body) * 1.1);
   padding: 0 0 0.5rem 0;
+}
+
+.sticky-links a svg {
+  position: absolute;
+  display: block;
+  cursor: pointer;
+  margin-top: 0.7rem;
+  width: 0%;
+  transition: width 0.5s ease;
+}
+
+.sticky-links a:hover {
+  svg {
+    width: 100%;
+  }
 }
 
 .hero {
