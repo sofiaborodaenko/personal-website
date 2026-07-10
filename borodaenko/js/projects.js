@@ -114,8 +114,23 @@ function updateTextContent(currentSlide) {
     if (index >= start && index <= end) {
       index = end + i * 3;
     }
+
+    const letters = projects[current][i + 3]
+      .split("")
+      .map(
+        (letter, index) => `
+      <div class="tool-letter" style="--i:${index}">
+        <div class="tool-letter-inner">
+          <div class="letter-top">${letter}</div>
+          <div class="letter-bottom">${letter}</div>
+        </div>
+      </div>
+    `,
+      )
+      .join("");
+
     textContent[index] =
-      `<span class="${color}-text">>> ${projects[current][i + 3]} >></span>`;
+      `<span class="${color}-text toolKeyword">>> ${letters} >></span>`;
     //console.log("test text", textContent[splitHeight * i]);
   }
 

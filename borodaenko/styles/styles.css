@@ -183,6 +183,30 @@ p {
   transition: width 0.5s ease;
 }
 
+.tool-letter {
+  position: relative;
+  display: inline-block;
+  overflow: clip;
+}
+
+.tool-letter-inner {
+  position: relative;
+  display: inline-block;
+  transform: translate3d(0px, 0%, 0px);
+  transition: transform 0.5s cubic-bezier(0.76, 0, 0.24, 1);
+  transition-delay: calc(var(--i) * 40ms);
+}
+
+.letter-bottom {
+  position: absolute;
+  top: 100%;
+  left: 0;
+}
+
+.toolKeyword:hover .tool-letter-inner {
+  transform: translateY(-100%);
+}
+
 .sticky-links a:hover {
   svg {
     width: 100%;
