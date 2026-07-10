@@ -15,6 +15,8 @@ const projectsSectionSticky = document.querySelector(".projects-sticky");
 const projectRow = document.querySelector(".projects-row");
 const projectSection = document.querySelector(".projects-content");
 
+const projectImagesVideos = document.querySelectorAll(".project-images");
+
 const randomMessage =
   ">>> awakening runtime . . . socketlight // socketlight // socketlight 0 1 0 1 0 1 listening on port ∆ o v e r f l o w // ∆ memory spool_07 traverse the aftercolor fields clockpulse clockpulse clockpulse >>> loading forgotten modules . . .";
 
@@ -34,6 +36,8 @@ let activeAnimation;
 const slides = projects.length;
 
 let activeSlide = -1;
+
+let playTimeout = null;
 
 function populateProjectsRow(projects) {
   projectRow.innerHTML = "";
@@ -122,7 +126,7 @@ function updateTextContent(currentSlide) {
       <div class="tool-letter" style="--i:${index}">
         <div class="tool-letter-inner">
           <div class="letter-top">${letter}</div>
-          <div class="letter-bottom">${letter}</div>
+          <div class="letter-bottom ${color === "red" ? "blue" : "red"}-text">${letter}</div>
         </div>
       </div>
     `,
@@ -163,11 +167,15 @@ function forbiddenSpace(textContentLength) {
 }
 
 function resetProjectSection() {
+  clearTimeout(playTimeout);
   removeAllVideos();
   dynamicText.innerHTML = "";
   activeSlide = -1;
-  projectRow.classList.add("hidden");
-  projectRow.style.pointerEvents = "none";
+  projectsSectionSticky.classList.add("hidden");
+  console.log(projectRow);
+  // projectImagesVideos.forEach((square) => {
+  //   square.style.pointerEvents = "none";
+  // });
   deactivateProject(squares[currentSlide]);
 }
 
@@ -205,12 +213,12 @@ function typewriterEffect() {
 }
 
 function removeAllVideos() {
-  document.querySelectorAll(".project-images").forEach((images) => {
+  projectImagesVideos.forEach((images) => {
     images.classList.remove("playing");
 
     const video = images.querySelector(".project-video");
-    // console.log("video", video);
-    if (video) {
+
+    if (video !== null) {
       video.pause();
       video.currentTime = 0;
     }
@@ -248,7 +256,9 @@ async function activateProject(activeSquare) {
   animatePath(activeSquare, 1, "draw", 0, 5000);
 
   if (video && video.readyState >= HTMLMediaElement.HAVE_ENOUGH_DATA) {
-    setTimeout(() => {
+    clearTimeout(playTimeout);
+
+    playTimeout = setTimeout(() => {
       images.classList.add("playing");
       video.currentTime = 0;
       video.play();
@@ -285,8 +295,10 @@ const revealProjects = function (entries, observer) {
   //console.log("entry target", entry.target);
   activeAnimation = true;
   activeSlide = -1;
-  projectRow.classList.remove("hidden");
-  projectRow.style.pointerEvents = "auto";
+  projectsSectionSticky.classList.remove("hidden");
+  // projectRow.style.pointerEvents = "pointer";
+
+  console.log("sqyares", squares);
 };
 
 const projectsObserver = new IntersectionObserver(revealProjects, {
