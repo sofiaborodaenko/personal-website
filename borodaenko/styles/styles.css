@@ -415,6 +415,8 @@ p {
   top: 33%;
   left: 0;
   display: flex;
+  opacity: 1;
+  transition: opacity 0.8s ease;
   /* justify-content: center; */
   /* gap: 90vw; */
   /* transform: translateX(31%); */
@@ -484,6 +486,10 @@ p {
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
+}
+
+.hidden {
+  opacity: 0;
 }
 
 .project-images.playing .project-video {

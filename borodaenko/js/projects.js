@@ -27,79 +27,13 @@ const repeats = Math.ceil(screen.height / dynamicText.scrollHeight) + 2;
 
 // displayDynamicText();
 
-function updateTextContent(currentSlide) {
-  let textContent = randomMessage.repeat(repeats);
-  const current = currentSlide.toString();
+let currentSlide;
 
-  textContent = textContent.split(" ");
+let activeAnimation;
 
-  //console.log("current slide", current);
+const slides = projects.length;
 
-  const projectTools = projects[current].length - 3;
-  //console.log("projectTools", projectTools);
-
-  //console.log("tools", projects[current]);
-
-  const splitHeight = Math.ceil(textContent.length / projectTools);
-
-  const { start, end } = forbiddenSpace(textContent.length);
-  let wordIndex = 25;
-
-  if (projects[currentSlide][1] === "true") {
-    textContent[0] = `<span class="red-text">>> Demo Video Loading... </span>`;
-    wordIndex = 15;
-  }
-
-  for (let i = 0; i < projectTools; i++) {
-    const color = Math.floor(Math.random() * 2) === 0 ? "red" : "blue";
-
-    let index = splitHeight * i + wordIndex;
-
-    if (index >= start && index <= end) {
-      index = end + i * 3;
-    }
-    textContent[index] =
-      `<span class="${color}-text">>> ${projects[current][i + 3]} >></span>`;
-    //console.log("test text", textContent[splitHeight * i]);
-  }
-
-  const chunkSize = 10;
-
-  const result = [];
-
-  for (let i = 0; i < textContent.length; i += chunkSize) {
-    const chunk = textContent.slice(i, i + chunkSize).join(" ");
-
-    result.push(`<span class="invisible-typewriter">${chunk}</span>`);
-  }
-
-  // console.log("result", result);
-
-  dynamicText.innerHTML = result.join(" ");
-
-  //return result;
-}
-
-function forbiddenSpace(textContentLength) {
-  const center = Math.floor(textContentLength / 2);
-
-  const rectSize = Math.floor(textContentLength * 0.15);
-
-  return {
-    start: center - rectSize,
-    end: center + rectSize,
-  };
-}
-
-// function displayDynamicText() {
-//   // dynamicText.textContent = randomMessage.repeat(repeats);
-//   //const textContent = randomMessage.repeat(repeats);
-
-//   // console.log("textContent", textContent);
-
-//   typewriterEffect(dynamicText, textContent);
-
-//   delay(4000).then(() => {
+let activeSlide = -1;
 
 function populateProjectsRow(projects) {
   projectRow.innerHTML = "";
@@ -146,67 +80,94 @@ function populateProjectsRow(projects) {
   });
 }
 
-populateProjectsRow(projects);
+function updateTextContent(currentSlide) {
+  let textContent = randomMessage.repeat(repeats);
+  const current = currentSlide.toString();
 
+  textContent = textContent.split(" ");
+
+  //console.log("current slide", current);
+
+  const projectTools = projects[current].length - 3;
+  //console.log("projectTools", projectTools);
+
+  //console.log("tools", projects[current]);
+
+  const splitHeight = Math.ceil(textContent.length / projectTools);
+
+  const { start, end } = forbiddenSpace(textContent.length);
+  let wordIndex = 15;
+
+  if (projects[currentSlide][1] === "true") {
+    textContent[0] = `<span class="red-text">>> Demo Video Loading... </span>`;
+    // wordIndex = 15;
+  } else {
+    textContent[0] = `<span class="blue-text">>> Click To Learn More... </span>`;
+    // wordIndex = 15;
+  }
+
+  for (let i = 0; i < projectTools; i++) {
+    const color = Math.floor(Math.random() * 2) === 0 ? "red" : "blue";
+
+    let index = splitHeight * i + wordIndex;
+
+    if (index >= start && index <= end) {
+      index = end + i * 3;
+    }
+    textContent[index] =
+      `<span class="${color}-text">>> ${projects[current][i + 3]} >></span>`;
+    //console.log("test text", textContent[splitHeight * i]);
+  }
+
+  const chunkSize = 10;
+
+  const result = [];
+
+  for (let i = 0; i < textContent.length; i += chunkSize) {
+    const chunk = textContent.slice(i, i + chunkSize).join(" ");
+
+    result.push(`<span class="invisible-typewriter">${chunk}</span>`);
+  }
+
+  // console.log("result", result);
+
+  dynamicText.innerHTML = result.join(" ");
+
+  //return result;
+}
+
+function forbiddenSpace(textContentLength) {
+  const center = Math.floor(textContentLength / 2);
+
+  const rectSize = Math.floor(textContentLength * 0.15);
+
+  return {
+    start: center - rectSize,
+    end: center + rectSize,
+  };
+}
+
+function resetProjectSection() {
+  removeAllVideos();
+  dynamicText.innerHTML = "";
+  activeSlide = -1;
+  projectRow.classList.add("hidden");
+  projectRow.style.pointerEvents = "none";
+  deactivateProject(squares[currentSlide]);
+}
+
+populateProjectsRow(projects);
+drawMask();
 const squares = document.querySelectorAll(".project-square");
 
-let xPosSVG, yPosSVG;
-
-drawMask();
-
 function drawMask() {
-  // console.log(squareSVG.getBoundingClientRect());
-
-  // const squareSVGRect = squareSVG.getBoundingClientRect();
-
-  // xPosSVG = squareSVGRect.x;
-  // yPosSVG = squareSVGRect.y;
-
   dynamicText.style.maskImage = `url(./images/longFilledBox.svg), linear-gradient(#000 0 0)`;
   dynamicText.style.maskRepeat = "no-repeat";
   dynamicText.style.maskComposite = "exclude";
   dynamicText.style.maskPosition = "center";
   // move mask upward
   dynamicText.style.maskPosition = "center calc(50% - 40px), 0 0";
-  //dynamicText.style.maskPosition = `${xPosSVG}px ${yPosSVG}px, 0 0`;
 }
-// make mask larger (width height)
-// dynamicText.style.maskSize = "330px 420px, 100% 130%";
-//   });
-
-//   console.log("after height", textIntitalHeight);
-//   console.log("after width", textInitialWidth);
-// }
-
-// function typewriterEffect(element, text, i = 0, chunkSize = 10, currentSlide) {
-//   //console.log("instance", element, i);
-
-//   if (i === 0) {
-//     element.textContent = "";
-//   }
-
-//   const projectToolsLen = projects[currentSlide].length;
-
-//   const heightDiv = Math.ceil(window.innerHeight / projectToolsLen);
-//   //console.log("heightDiv", heightDiv);
-
-//   element.innerHTML += text.slice(i, i + chunkSize);
-//   i += chunkSize;
-
-//   // if (i % heightDiv === 0 && totalTools < projectToolsLen) {
-//   //   element.textContent += `<span class="red-text">${projects[currentSlide][totalTools]}</span>`;
-//   // }
-
-//   if (i >= text.length) {
-//     return;
-//   }
-
-//   // delay(0.01).then(() => typewriterEffect(element, text, i + 1));
-//   setTimeout(
-//     () => typewriterEffect(element, text, i, chunkSize, currentSlide),
-//     10,
-//   );
-// }
 
 function typewriterEffect() {
   const chunks = document.querySelectorAll(".invisible-typewriter");
@@ -228,7 +189,97 @@ function typewriterEffect() {
   revealNext();
 }
 
-let activeAnimation;
+function removeAllVideos() {
+  document.querySelectorAll(".project-images").forEach((images) => {
+    images.classList.remove("playing");
+
+    const video = images.querySelector(".project-video");
+    // console.log("video", video);
+    if (video) {
+      video.pause();
+      video.currentTime = 0;
+    }
+  });
+}
+
+async function updateProjects(progress) {
+  currentSlide = Math.round(progress * (slides - 1));
+  //console.log("currentSlide", currentSlide);
+
+  projectRow.style.transform = `translateX(${-currentSlide * 100}vw)`;
+  // deactivateProject(squares[currentSlide]);
+
+  if (currentSlide != activeSlide) {
+    if (activeSlide !== -1) {
+      await deactivateProject(squares[activeSlide]);
+    }
+
+    activeSlide = currentSlide;
+
+    updateTextContent(activeSlide);
+    // typewriterEffect(dynamicText, textContent, 0, 10, currentSlide);
+
+    await activateProject(squares[activeSlide]);
+
+    delay(1000).then(() => typewriterEffect());
+  }
+}
+
+async function activateProject(activeSquare) {
+  const images = activeSquare.querySelector(".project-images");
+  const video = activeSquare.querySelector(".project-video");
+  const illustration = activeSquare.querySelector(".project-illustration");
+
+  animatePath(activeSquare, 1, "draw", 0, 5000);
+
+  if (video && video.readyState >= HTMLMediaElement.HAVE_ENOUGH_DATA) {
+    setTimeout(() => {
+      images.classList.add("playing");
+      video.currentTime = 0;
+      video.play();
+    }, 3000);
+  }
+}
+
+async function deactivateProject(activeSquare) {
+  if (activeSquare) {
+    const images = activeSquare.querySelector(".project-images");
+    const illustration = activeSquare.querySelector(".project-illustration");
+    const video = activeSquare.querySelector(".project-video");
+
+    images.classList.remove("playing");
+
+    if (video) {
+      video.pause();
+      video.currentTime = 0;
+    }
+
+    animatePath(images, 1, "erase", 0, 3000);
+  }
+}
+
+const revealProjects = function (entries, observer) {
+  const [entry] = entries;
+
+  //("entry", entry);
+  if (!entry.isIntersecting) {
+    activeAnimation = false;
+    resetProjectSection();
+    return;
+  }
+  //console.log("entry target", entry.target);
+  activeAnimation = true;
+  activeSlide = -1;
+  projectRow.classList.remove("hidden");
+  projectRow.style.pointerEvents = "auto";
+};
+
+const projectsObserver = new IntersectionObserver(revealProjects, {
+  root: null,
+  threshold: 0.7,
+});
+
+projectsObserver.observe(projectsSectionSticky);
 
 window.addEventListener("scroll", () => {
   const rect = projectSection.getBoundingClientRect();
@@ -248,93 +299,3 @@ window.addEventListener("scroll", () => {
     // drawMask();
   }
 });
-
-const slides = projects.length;
-
-let activeSlide = -1;
-
-function removeVideo() {
-  document.querySelectorAll(".project-images").forEach((images) => {
-    images.classList.remove("playing");
-
-    const video = images.querySelector(".project-video");
-    console.log("video", video);
-    if (video) {
-      video.pause();
-      video.currentTime = 0;
-    }
-  });
-}
-
-function updateProjects(progress) {
-  const currentSlide = Math.round(progress * (slides - 1));
-  //console.log("currentSlide", currentSlide);
-
-  projectRow.style.transform = `translateX(${-currentSlide * 100}vw)`;
-
-  removeVideo();
-
-  // deactivateProject(squares[currentSlide]);
-
-  if (currentSlide != activeSlide) {
-    activeSlide = currentSlide;
-    updateTextContent(currentSlide);
-    // typewriterEffect(dynamicText, textContent, 0, 10, currentSlide);
-
-    const activeSquare = squares[currentSlide];
-
-    activateProject(activeSquare);
-
-    delay(1000).then(() => typewriterEffect());
-  }
-}
-
-async function activateProject(activeSquare) {
-  const images = activeSquare.querySelector(".project-images");
-  const video = activeSquare.querySelector(".project-video");
-  const illustration = activeSquare.querySelector(".project-illustration");
-
-  await animatePath(activeSquare, 1, "draw", 0, 5000);
-
-  await delay(1000);
-
-  if (video.readyState >= HTMLMediaElement.HAVE_ENOUGH_DATA) {
-    images.classList.add("playing");
-    video.currentTime = 0;
-    video.play();
-  }
-}
-
-async function deactivateProject(activeSquare) {
-  const images = activeSquare.querySelector(".project-images");
-  const illustration = activeSquare.querySelector(".project-illustration");
-  const video = activeSquare.querySelector(".project-video");
-
-  images.classList.remove("playing");
-
-  video.pause();
-  video.currentTime = 0;
-
-  await animatePath(illustration, 1, "erase", 0, 5000);
-}
-
-const revealProjects = function (entries, observer) {
-  const [entry] = entries;
-
-  //("entry", entry);
-  if (!entry.isIntersecting) {
-    activeAnimation = false;
-    removeVideo();
-    return;
-  }
-  //console.log("entry target", entry.target);
-  activeAnimation = true;
-  activeSlide = -1;
-};
-
-const projectsObserver = new IntersectionObserver(revealProjects, {
-  root: null,
-  threshold: 0.7,
-});
-
-projectsObserver.observe(projectsSectionSticky);
