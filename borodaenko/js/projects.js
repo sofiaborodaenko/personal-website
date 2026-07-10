@@ -43,11 +43,17 @@ function updateTextContent(currentSlide) {
   const splitHeight = Math.ceil(textContent.length / projectTools);
 
   const { start, end } = forbiddenSpace(textContent.length);
+  let wordIndex = 25;
+
+  if (projects[currentSlide][1] === "true") {
+    textContent[0] = `<span class="red-text">>> Demo Video Loading... </span>`;
+    wordIndex = 15;
+  }
 
   for (let i = 0; i < projectTools; i++) {
     const color = Math.floor(Math.random() * 2) === 0 ? "red" : "blue";
 
-    let index = splitHeight * i + 25;
+    let index = splitHeight * i + wordIndex;
 
     if (index >= start && index <= end) {
       index = end + i * 3;
@@ -120,12 +126,19 @@ function populateProjectsRow(projects) {
 
                 ${projectsSvgs[project[0]]}
 
-                <video autoplay muted loop playsinline class="project-video">
-                  <source
-                    src="./images/projects//demoVideos/${project[0]}Demo.mp4"
-                    type="video/mp4"
-                  />
-                </video>
+                ${
+                  project[1] === "true"
+                    ? `
+    <video autoplay muted loop playsinline class="project-video">
+      <source
+        src="./images/projects/demoVideos/${project[0]}Demo.mp4"
+        type="video/mp4"
+      />
+    </video>
+  `
+                    : ""
+                }
+                
               </a>
 
               <p class="reenie-beanie-regular-notes ">${project[0]}</p>
@@ -245,9 +258,11 @@ function removeVideo() {
     images.classList.remove("playing");
 
     const video = images.querySelector(".project-video");
-
-    video.pause();
-    video.currentTime = 0;
+    console.log("video", video);
+    if (video) {
+      video.pause();
+      video.currentTime = 0;
+    }
   });
 }
 

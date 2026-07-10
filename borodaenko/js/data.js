@@ -35,7 +35,7 @@ export const experiences = [
 export const projects = [
   [
     "File Sorter",
-    "true",
+    "false",
     "https://github.com/sofiaborodaenko/filesorter",
     "C",
     "File System",

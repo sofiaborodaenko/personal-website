@@ -109,12 +109,13 @@ p {
   transform-origin: top center;
   /* transition: transform 0.35s; */
   /* animation: wrapper 6s ease-in-out infinite; */
-  transform: perspective(900px) rotateX(52deg) rotateZ(-20deg) translate(50%, -10%);
+  transform: perspective(900px) rotateX(52deg) rotateZ(-20deg)
+    translate(50%, -10%);
   opacity: 0;
   /* transform: translate(0%, -10%); */
 }
 
-.sticky-note-img:hover {
+.sticky-nav:hover {
   transform: perspective(900px) rotateX(18deg) rotateZ(-2deg);
 }
 
@@ -131,7 +132,8 @@ p {
 
 .hide-nav {
   /* transform: translate(85%, -85%); */
-  transform: perspective(900px) rotateX(52deg) rotateZ(-20deg) translate(80%, -5%);
+  transform: perspective(900px) rotateX(52deg) rotateZ(-20deg)
+    translate(75%, -10%);
 }
 
 .hide-nav:hover {
@@ -262,13 +264,15 @@ p {
 }
 
 .about-me-content {
-  padding: 0 var(--padding) 0 var(--padding);
   position: relative;
   height: 200svh;
   /* background-color: gray; */
 }
 
 .about-me-section__wrapper {
+  background-image: url("../images/notebook-dark.png");
+  background-color: #f2f2f2;
+  padding: 0 var(--padding) 0 var(--padding);
   display: flex;
   gap: var(--header-body-gap);
   position: sticky;
@@ -350,6 +354,8 @@ p {
 }
 
 .projects-sticky {
+  background-image: url("../images/notebook-dark.png");
+  background-color: #f2f2f2;
   width: 100vw;
   height: 100vh;
   /* background-color: red; */
