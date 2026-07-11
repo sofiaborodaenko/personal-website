@@ -4,15 +4,15 @@
   --green: #65f06f;
   --yellow: #ffda57;
 
-  --header: 5.5rem;
-  --body: 1.25rem;
+  --header: clamp(2.5rem, 5vw, 5.5rem);
+  --body: clamp(1rem, 1.5vw, 1.25rem);
 
-  --hero-subtext: 2rem;
+  --hero-subtext: clamp(1.2rem, 3vw, 2rem);
 
-  --padding: 6rem;
-  --header-body-gap: 2.3rem;
+  --padding: clamp(2rem, 5vw, 6rem);
+  --header-body-gap: clamp(1rem, 2vw, 2.3rem);
 
-  --section-gap: 18rem;
+  --section-gap: clamp(5rem, 15vw, 18rem);
 
   --num-projects: 4;
 }
@@ -74,10 +74,14 @@ body {
   display: flex;
   flex-direction: column;
   gap: var(--section-gap);
-  /* overflow: hidden; */
 
   /* perspective: 10000px; */
 }
+
+/* html,
+body {
+  overflow-x: hidden;
+} */
 
 body::-webkit-scrollbar {
   display: none;
@@ -157,8 +161,8 @@ p {
 
 .sticky-links {
   position: absolute;
-  bottom: 2rem;
-  left: 4rem;
+  left: 25%;
+  bottom: 12%;
   display: flex;
   flex-direction: column;
   width: max-content;
@@ -260,7 +264,8 @@ p {
 .hero-content {
   width: 100%;
   height: 100svh; /* was 100vh */
-  padding: 0 var(--padding) 0 var(--padding);
+  padding-left: var(--padding);
+  padding-right: var(--padding);
   padding-top: 4rem;
   display: flex;
   flex-direction: column;
@@ -274,7 +279,7 @@ p {
 }
 
 .hero-title {
-  font-size: 7rem !important;
+  font-size: clamp(3rem, 10vw, 7rem) !important;
   max-width: 200px;
   line-height: 1.2;
 }
@@ -410,7 +415,7 @@ p {
 }
 
 .projects-row {
-  width: calc(100 * var(--num-projects)) vw;
+  width: calc(100vw * var(--num-projects));
   position: absolute;
   top: 33%;
   left: 0;
@@ -423,6 +428,7 @@ p {
 
 .project-square {
   width: 100vw;
+  min-width: 100vw;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -686,7 +692,9 @@ p {
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 50vh;
+  min-height: 50vh;
+  height: auto;
+  padding-bottom: 5rem;
 }
 
 .contact-title {
@@ -758,7 +766,8 @@ p {
    type/spacing tokens, and hides pieces that don't translate
    to a narrow viewport (the experience timeline sideline).
    ============================================================ */
-@media (max-width: 768px) {
+/* 
+   @media (max-width: 768px) { 
   :root {
     --header: 3rem;
     --hero-subtext: 1.3rem;
@@ -782,7 +791,7 @@ p {
   }
 
   .little-note {
-    display: none; /* decorative aside, not worth the layout cost on narrow screens */
+    display: none; 
   }
 
   .experience-content-container {
@@ -790,7 +799,7 @@ p {
   }
 
   .experience-sideline {
-    display: none; /* the drawn red line is tuned to the two-column layout's proportions */
+    display: none; 
   }
 
   .experience-job-container {
@@ -819,5 +828,68 @@ p {
   .contact-links {
     flex-direction: column;
     gap: 1.5rem;
+  }
+} */
+
+@media (max-width: 768px) {
+  .hero-bottom-content {
+    /* margin-bottom: 0; */
+    height: 0%;
+    align-self: baseline;
+    height: auto;
+    margin-bottom: 3rem;
+  }
+
+  .about-me-section__wrapper {
+    flex-direction: column;
+    gap: 3rem;
+  }
+
+  .about-me-text,
+  .about-me-image {
+    width: 100%;
+  }
+
+  .about-me-image {
+    justify-content: center;
+  }
+
+  .about-me-image img {
+    max-width: 80%;
+  }
+
+  .little-note {
+    display: none;
+  }
+
+  .experience-content-container {
+    flex-direction: column;
+  }
+
+  .experience-sideline {
+    /* display: none; */
+    /* margin-left: -5rem; */
+  }
+
+  .experience-job-container {
+    width: 100%;
+  }
+
+  .work-item-first-line {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .work-item-skills {
+    flex-wrap: wrap;
+  }
+
+  .contact-links {
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .contact-links p {
+    font-size: 2rem;
   }
 }
