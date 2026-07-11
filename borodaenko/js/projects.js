@@ -20,12 +20,12 @@ const projectImagesVideos = document.querySelectorAll(".project-images");
 const randomMessage =
   ">>> awakening runtime . . . socketlight // socketlight // socketlight 0 1 0 1 0 1 listening on port ∆ o v e r f l o w // ∆ memory spool_07 traverse the aftercolor fields clockpulse clockpulse clockpulse >>> loading forgotten modules . . .";
 
-const totalScreenHeight = window.innerHeight;
-
 let currentAnimations = [];
 
-// use either screen.height or window.innerHeight
-const repeats = Math.ceil(screen.height / dynamicText.scrollHeight) + 2;
+// use window.innerHeight (visible viewport), not screen.height (physical
+// device screen) — screen.height is often taller than the visible viewport
+// on mobile, which threw off repeat count and the scroll-progress math below
+const repeats = Math.ceil(window.innerHeight / dynamicText.scrollHeight) + 2;
 
 // displayDynamicText();
 
@@ -100,13 +100,13 @@ function updateTextContent(currentSlide) {
   const splitHeight = Math.ceil(textContent.length / projectTools);
 
   const { start, end } = forbiddenSpace(textContent.length);
-  let wordIndex = 15;
+  let wordIndex = 1;
 
   if (projects[currentSlide][1] === "true") {
-    textContent[0] = `<span class="red-text">>> Demo Video Loading... </span>`;
+    textContent[0] = `<span class="">>> Demo Video Loading... </span>`;
     // wordIndex = 15;
   } else {
-    textContent[0] = `<span class="blue-text">>> Click To Learn More... </span>`;
+    textContent[0] = `<span class="">>> Click To Learn More... </span>`;
     // wordIndex = 15;
   }
 
@@ -123,7 +123,7 @@ function updateTextContent(currentSlide) {
       .split("")
       .map(
         (letter, index) => `
-      <div class="tool-letter" style="--i:${index}">
+      <div class="tool-letter" style="--i:${index}; --w:${i}">
         <div class="tool-letter-inner">
           <div class="letter-top">${letter}</div>
           <div class="letter-bottom ${color === "red" ? "blue" : "red"}-text">${letter}</div>
@@ -308,21 +308,25 @@ const projectsObserver = new IntersectionObserver(revealProjects, {
 
 projectsObserver.observe(projectsSectionSticky);
 
-window.addEventListener("scroll", () => {
-  const rect = projectSection.getBoundingClientRect();
+window.addEventListener(
+  "scroll",
+  () => {
+    const rect = projectSection.getBoundingClientRect();
 
-  const scrollAmmount = Math.min(
-    Math.max(-rect.top - 180, 0),
-    projectSection.offsetHeight - screen.height,
-  );
+    const scrollAmmount = Math.min(
+      Math.max(-rect.top - 180, 0),
+      projectSection.offsetHeight - window.innerHeight,
+    );
 
-  const progress =
-    scrollAmmount / (projectSection.offsetHeight - screen.height);
+    const progress =
+      scrollAmmount / (projectSection.offsetHeight - window.innerHeight);
 
-  //console.log("progress", progress);
+    //console.log("progress", progress);
 
-  if (activeAnimation) {
-    updateProjects(progress);
-    // drawMask();
-  }
-});
+    if (activeAnimation) {
+      updateProjects(progress);
+      // drawMask();
+    }
+  },
+  { passive: true },
+);

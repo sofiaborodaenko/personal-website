@@ -16,7 +16,7 @@ window.addEventListener("load", () => {
   animatePath(heroFrame).then(() => {
     revealHeroContent();
     // delay(1000).then(() => {
-      stickyNote.classList.add("stick-on");
+    stickyNote.classList.add("stick-on");
     // });
   });
 
@@ -254,8 +254,25 @@ const handleHover = function (e, op) {
   //}
 };
 
-contact.addEventListener("mouseover", handleHover.bind([0.6, 1, 2, "draw", 1]));
-contact.addEventListener("mouseout", handleHover.bind([0, 0, 0, "erase", 0]));
+// Only bind hover in/out behavior on devices that actually support hover.
+// On touch devices the mouseover/mouseout events fire unreliably (often
+// "sticking" after a tap), and the links navigate away on tap anyway, so
+// touch users get the expanded word shown statically instead.
+if (window.matchMedia("(hover: hover)").matches) {
+  contact.addEventListener(
+    "mouseover",
+    handleHover.bind([0.6, 1, 2, "draw", 1]),
+  );
+  contact.addEventListener("mouseout", handleHover.bind([0, 0, 0, "erase", 0]));
+} else {
+  shiftRestOfWord("linkedin", "Left", 0.6);
+  shiftRestOfWord("github", "Left", 1);
+  shiftRestOfWord("mail", "Left", 2);
+
+  ["linkedin", "github", "mail"].forEach((link) => {
+    document.querySelector(`.inline-letter-${link}`).style.opacity = 0;
+  });
+}
 
 function shiftRestOfWord(link, side, padding) {
   document.querySelector(`.rest-${link}-shift`).style[`padding${side}`] =
@@ -282,3 +299,19 @@ const stickyNoteObserver = new IntersectionObserver(hideAndRevealNav, {
 });
 
 stickyNoteObserver.observe(document.querySelector(".hero"));
+
+// The sticky-note nav's "unfold" state is normally triggered by :hover
+// (see .sticky-nav:hover in styles.css), which doesn't exist on touch
+// devices. Give touch users a tap-to-toggle instead.
+if (window.matchMedia("(hover: none)").matches) {
+  stickyNote.addEventListener("click", (e) => {
+    e.stopPropagation();
+    stickyNote.classList.toggle("stick-on-tap");
+  });
+
+  document.addEventListener("click", (e) => {
+    if (!stickyNote.contains(e.target)) {
+      stickyNote.classList.remove("stick-on-tap");
+    }
+  });
+}
