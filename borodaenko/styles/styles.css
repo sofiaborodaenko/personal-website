@@ -369,7 +369,7 @@ p {
   flex-direction: column;
   gap: var(--header-body-gap);
   width: 100vw;
-  height: 250vh;
+  height: 300vh;
 }
 
 .projects-title {
