@@ -155,8 +155,10 @@ p {
 }
 
 .sticky-note-img {
-  width: 15rem;
-  height: 15rem;
+  /* width: 15rem;
+  height: 15rem; */
+  width: 93%;
+  height: 93%;
 }
 
 .sticky-links {
@@ -831,6 +833,16 @@ p {
   }
 } */
 
+@media (max-width: 460px) {
+  .hero-note {
+    /* align-self: baseline;
+    margin-top: 10rem; */
+    transform: rotate(90deg) translateY(5rem) translateX(5rem);
+    /* background-color: gray; */
+    margin-right: auto;
+  }
+} 
+
 @media (max-width: 768px) {
   .hero-bottom-content {
     /* margin-bottom: 0; */
@@ -867,7 +879,7 @@ p {
   }
 
   .experience-sideline {
-    /* display: none; */
+    display: none;
     /* margin-left: -5rem; */
   }
 

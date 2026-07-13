@@ -25,9 +25,27 @@ let currentAnimations = [];
 // use window.innerHeight (visible viewport), not screen.height (physical
 // device screen) — screen.height is often taller than the visible viewport
 // on mobile, which threw off repeat count and the scroll-progress math below
-const repeats = Math.ceil(window.innerHeight / dynamicText.scrollHeight) + 2;
+// const repeats = Math.ceil(window.innerHeight / dynamicText.scrollHeight) + 2;
 
 // displayDynamicText();
+
+let repeats = calculateRepeats();
+
+window.addEventListener("resize", () => {
+  repeats = calculateRepeats();
+});
+
+function calculateRepeats() {
+  let repeat = 1;
+
+  while (true) {
+    dynamicText.textContent = randomMessage.repeat(repeat);
+
+    if (dynamicText.scrollHeight >= window.innerHeight * 1.2) return repeat;
+
+    repeat++;
+  }
+}
 
 let currentSlide;
 
@@ -158,7 +176,7 @@ function updateTextContent(currentSlide) {
 function forbiddenSpace(textContentLength) {
   const center = Math.floor(textContentLength / 2);
 
-  const rectSize = Math.floor(textContentLength * 0.15);
+  const rectSize = Math.floor(textContentLength * 0.25);
 
   return {
     start: center - rectSize,
@@ -188,8 +206,16 @@ function drawMask() {
   dynamicText.style.maskRepeat = "no-repeat";
   dynamicText.style.maskComposite = "exclude";
   dynamicText.style.maskPosition = "center";
+
+  const rectSize = document
+    .querySelector(".project-border")
+    .getBoundingClientRect().height;
   // move mask upward
-  dynamicText.style.maskPosition = "center calc(50% - 40px), 0 0";
+  dynamicText.style.maskPosition = `center calc(50% - ${rectSize/2.8}px), 0 0`;
+
+  console.log(
+    document.querySelector(".project-border").getBoundingClientRect(),
+  );
 }
 
 function typewriterEffect() {
