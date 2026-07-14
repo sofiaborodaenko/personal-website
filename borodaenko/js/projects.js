@@ -16,6 +16,7 @@ const projectRow = document.querySelector(".projects-row");
 const projectSection = document.querySelector(".projects-content");
 
 const projectImagesVideos = document.querySelectorAll(".project-images");
+let projectBorderRect;
 
 const randomMessage =
   ">>> awakening runtime . . . socketlight // socketlight // socketlight 0 1 0 1 0 1 listening on port ∆ o v e r f l o w // ∆ memory spool_07 traverse the aftercolor fields clockpulse clockpulse clockpulse >>> loading forgotten modules . . .";
@@ -33,6 +34,7 @@ let repeats = calculateRepeats();
 
 window.addEventListener("resize", () => {
   repeats = calculateRepeats();
+  drawMask();
 });
 
 function calculateRepeats() {
@@ -56,6 +58,8 @@ const slides = projects.length;
 let activeSlide = -1;
 
 let playTimeout = null;
+
+let squares;
 
 function populateProjectsRow(projects) {
   projectRow.innerHTML = "";
@@ -106,71 +110,158 @@ function updateTextContent(currentSlide) {
   let textContent = randomMessage.repeat(repeats);
   const current = currentSlide.toString();
 
-  textContent = textContent.split(" ");
+  // textContent = textContent.split(" ");
 
   //console.log("current slide", current);
 
   const projectTools = projects[current].length - 3;
-  //console.log("projectTools", projectTools);
+  // //console.log("projectTools", projectTools);
 
-  //console.log("tools", projects[current]);
+  // //console.log("tools", projects[current]);
 
-  const splitHeight = Math.ceil(textContent.length / projectTools);
+  // const splitHeight = Math.ceil(textContent.length / projectTools);
 
-  const { start, end } = forbiddenSpace(textContent.length);
-  let wordIndex = 1;
+  // const { start, end } = forbiddenSpace(textContent.length);
+  // let wordIndex = 1;
 
-  if (projects[currentSlide][1] === "true") {
-    textContent[0] = `<span class="">>> Demo Video Loading... </span>`;
-    // wordIndex = 15;
-  } else {
-    textContent[0] = `<span class="">>> Click To Learn More... </span>`;
-    // wordIndex = 15;
-  }
+  // if (projects[currentSlide][1] === "true") {
+  //   textContent[0] = `<span class="">>> Demo Video Loading... </span>`;
+  //   // wordIndex = 15;
+  // } else {
+  //   textContent[0] = `<span class="">>> Click To Learn More... </span>`;
+  //   // wordIndex = 15;
+  // }
+
+  // for (let i = 0; i < projectTools; i++) {
+  //   const color = Math.floor(Math.random() * 2) === 0 ? "red" : "blue";
+
+  //   let index = splitHeight * i + wordIndex;
+
+  //   if (index >= start && index <= end) {
+  //     index = end + i * 3;
+  //   }
+
+  //   const letters = projects[current][i + 3]
+  //     .split("")
+  //     .map(
+  //       (letter, index) => `
+  //     <div class="tool-letter" style="--i:${index}; --w:${i}">
+  //       <div class="tool-letter-inner">
+  //         <div class="letter-top">${letter}</div>
+  //         <div class="letter-bottom ${color === "red" ? "blue" : "red"}-text">${letter}</div>
+  //       </div>
+  //     </div>
+  //   `,
+  //     )
+  //     .join("");
+
+  //   textContent[index] =
+  //     `<span class="${color}-text toolKeyword">>> ${letters} >></span>`;
+  //   //console.log("test text", textContent[splitHeight * i]);
+  // }
+
+  // const chunkSize = 10;
+
+  // const result = [];
+
+  // for (let i = 0; i < textContent.length; i += chunkSize) {
+  //   const chunk = textContent.slice(i, i + chunkSize).join(" ");
+
+  //   result.push(`<span class="invisible-typewriter">${chunk}</span>`);
+  // }
+
+  // // console.log("result", result);
+
+  // dynamicText.innerHTML = result.join(" ");
+
+  //return result;
+
+  const words = textContent.split(" ");
+
+  dynamicText.innerHTML = words
+    .map((word, i) => `<span class="bg-word" data-index="${i}">${word}</span>`)
+    .join(" ");
+
+  const safeIndices = getSafeWordIndices(currentSlide);
+
+  console.log("safe", safeIndices);
+
+  const spacing = safeIndices.length / projectTools;
 
   for (let i = 0; i < projectTools; i++) {
-    const color = Math.floor(Math.random() * 2) === 0 ? "red" : "blue";
+    const safeIndex = safeIndices[Math.floor(i * spacing)];
 
-    let index = splitHeight * i + wordIndex;
+    const targetWord = dynamicText.querySelector(`[data-index="${safeIndex}"]`);
 
-    if (index >= start && index <= end) {
-      index = end + i * 3;
-    }
+    targetWord.outerHTML = createToolKeyword(projects[current][i + 3], i);
+  }
+}
 
-    const letters = projects[current][i + 3]
-      .split("")
-      .map(
-        (letter, index) => `
-      <div class="tool-letter" style="--i:${index}; --w:${i}">
+function createToolKeyword(tool, index) {
+  const color = Math.floor(Math.random() * 2) === 0 ? "red" : "blue";
+
+  const letters = tool
+    .split("")
+    .map(
+      (letter, index) => `
+      <div class="tool-letter" style="--i:${index * 0.5}; --w:${index}">
         <div class="tool-letter-inner">
           <div class="letter-top">${letter}</div>
           <div class="letter-bottom ${color === "red" ? "blue" : "red"}-text">${letter}</div>
         </div>
       </div>
     `,
-      )
-      .join("");
+    )
+    .join("");
 
-    textContent[index] =
-      `<span class="${color}-text toolKeyword">>> ${letters} >></span>`;
-    //console.log("test text", textContent[splitHeight * i]);
-  }
+  return letters;
+}
 
-  const chunkSize = 10;
+function getSafeWordIndices(current) {
+  const forbidden = getForbiddenRect(current);
 
-  const result = [];
+  console.log("forbidden", forbidden);
+  const words = [...dynamicText.querySelectorAll(".bg-word")];
 
-  for (let i = 0; i < textContent.length; i += chunkSize) {
-    const chunk = textContent.slice(i, i + chunkSize).join(" ");
+  return words
+    .map((word, index) => {
+      const rect = word.getBoundingClientRect();
 
-    result.push(`<span class="invisible-typewriter">${chunk}</span>`);
-  }
+      const localTop = rect.top - dynamicText.getBoundingClientRect().top;
 
-  // console.log("result", result);
+      const localBottom = rect.bottom - dynamicText.getBoundingClientRect().top;
 
-  dynamicText.innerHTML = result.join(" ");
+      const localLeft = rect.left - dynamicText.getBoundingClientRect().left;
 
-  //return result;
+      const localRight = rect.right - dynamicText.getBoundingClientRect().left;
+
+      const overlaps =
+        localBottom > forbidden.top &&
+        localTop < forbidden.bottom &&
+        localRight > forbidden.left &&
+        localLeft < forbidden.right;
+
+      return overlaps ? null : index;
+    })
+    .filter((index) => index !== null);
+}
+
+function getForbiddenRect(current) {
+  const textRect = dynamicText.getBoundingClientRect();
+  const projectRect = squares[current]
+    .querySelector(".project-border")
+    .getBoundingClientRect();
+
+  const padding = 100;
+
+  console.log("forbidden rect rect", projectRect);
+
+  return {
+    top: projectRect.top - textRect.top - padding,
+    bottom: projectRect.bottom - textRect.top + padding,
+    left: projectRect.left - textRect.left - padding,
+    right: projectRect.right - textRect.left + padding,
+  };
 }
 
 function forbiddenSpace(textContentLength) {
@@ -197,25 +288,14 @@ function resetProjectSection() {
   deactivateProject(squares[currentSlide]);
 }
 
-populateProjectsRow(projects);
-drawMask();
-const squares = document.querySelectorAll(".project-square");
-
 function drawMask() {
   dynamicText.style.maskImage = `url(./images/longFilledBox.svg), linear-gradient(#000 0 0)`;
   dynamicText.style.maskRepeat = "no-repeat";
   dynamicText.style.maskComposite = "exclude";
-  dynamicText.style.maskPosition = "center";
 
-  const rectSize = document
-    .querySelector(".project-border")
-    .getBoundingClientRect().height;
+  const rectSize = projectBorderRect.getBoundingClientRect().height;
   // move mask upward
-  dynamicText.style.maskPosition = `center calc(50% - ${rectSize/2.8}px), 0 0`;
-
-  console.log(
-    document.querySelector(".project-border").getBoundingClientRect(),
-  );
+  dynamicText.style.maskPosition = `center calc(50% - ${rectSize / 2.8}px), 0 0`;
 }
 
 function typewriterEffect() {
@@ -356,3 +436,12 @@ window.addEventListener(
   },
   { passive: true },
 );
+
+function initProjects() {
+  populateProjectsRow(projects);
+  projectBorderRect = document.querySelector(".project-border");
+  squares = document.querySelectorAll(".project-square");
+  drawMask();
+}
+
+initProjects();
