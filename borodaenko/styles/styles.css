@@ -445,7 +445,7 @@ p {
 }
 
 .project-square p {
-  font-size: 1.5rem;
+  font-size: 1.5rem;ad
 }
 
 .invisible-typewriter {
@@ -841,7 +841,7 @@ p {
     /* background-color: gray; */
     margin-right: auto;
   }
-} 
+}
 
 @media (max-width: 768px) {
   .hero-bottom-content {

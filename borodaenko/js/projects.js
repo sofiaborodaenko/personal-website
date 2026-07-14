@@ -184,8 +184,6 @@ function updateTextContent(currentSlide) {
 
   const safeIndices = getSafeWordIndices(currentSlide);
 
-  console.log("safe", safeIndices);
-
   const spacing = safeIndices.length / projectTools;
 
   for (let i = 0; i < projectTools; i++) {
@@ -195,16 +193,36 @@ function updateTextContent(currentSlide) {
 
     targetWord.outerHTML = createToolKeyword(projects[current][i + 3], i);
   }
+
+  // const splitWords = [...dynamicText.querySelectorAll(".bg-word")];
+
+  // const chunkSize = 10;
+
+  // for (let i = 0; i < splitWords.length; i += chunkSize) {
+  //   const wrapper = document.createElement("span");
+  //   wrapper.classList.add("invisible-typewriter");
+
+  //   splitWords
+  //     .slice(i, i + chunkSize)
+  //     .forEach((word) => wrapper.appendChild(word));
+
+  //   wrapper.append(" ");
+
+  //   dynamicText.appendChild(wrapper);
+
+  //   console.log("checking split words", splitWords);
+  //   console.log("checking wrapper words", wrapper);
+  // }
 }
 
-function createToolKeyword(tool, index) {
+function createToolKeyword(tool, projIndex) {
   const color = Math.floor(Math.random() * 2) === 0 ? "red" : "blue";
 
   const letters = tool
     .split("")
     .map(
       (letter, index) => `
-      <div class="tool-letter" style="--i:${index * 0.5}; --w:${index}">
+      <div class="tool-letter bg-word" style="--i:${index}; --w:${projIndex}">
         <div class="tool-letter-inner">
           <div class="letter-top">${letter}</div>
           <div class="letter-bottom ${color === "red" ? "blue" : "red"}-text">${letter}</div>
