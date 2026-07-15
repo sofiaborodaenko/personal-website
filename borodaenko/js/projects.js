@@ -110,71 +110,7 @@ function updateTextContent(currentSlide) {
   let textContent = randomMessage.repeat(repeats);
   const current = currentSlide.toString();
 
-  // textContent = textContent.split(" ");
-
-  //console.log("current slide", current);
-
   const projectTools = projects[current].length - 3;
-  // //console.log("projectTools", projectTools);
-
-  // //console.log("tools", projects[current]);
-
-  // const splitHeight = Math.ceil(textContent.length / projectTools);
-
-  // const { start, end } = forbiddenSpace(textContent.length);
-  // let wordIndex = 1;
-
-  // if (projects[currentSlide][1] === "true") {
-  //   textContent[0] = `<span class="">>> Demo Video Loading... </span>`;
-  //   // wordIndex = 15;
-  // } else {
-  //   textContent[0] = `<span class="">>> Click To Learn More... </span>`;
-  //   // wordIndex = 15;
-  // }
-
-  // for (let i = 0; i < projectTools; i++) {
-  //   const color = Math.floor(Math.random() * 2) === 0 ? "red" : "blue";
-
-  //   let index = splitHeight * i + wordIndex;
-
-  //   if (index >= start && index <= end) {
-  //     index = end + i * 3;
-  //   }
-
-  //   const letters = projects[current][i + 3]
-  //     .split("")
-  //     .map(
-  //       (letter, index) => `
-  //     <div class="tool-letter" style="--i:${index}; --w:${i}">
-  //       <div class="tool-letter-inner">
-  //         <div class="letter-top">${letter}</div>
-  //         <div class="letter-bottom ${color === "red" ? "blue" : "red"}-text">${letter}</div>
-  //       </div>
-  //     </div>
-  //   `,
-  //     )
-  //     .join("");
-
-  //   textContent[index] =
-  //     `<span class="${color}-text toolKeyword">>> ${letters} >></span>`;
-  //   //console.log("test text", textContent[splitHeight * i]);
-  // }
-
-  // const chunkSize = 10;
-
-  // const result = [];
-
-  // for (let i = 0; i < textContent.length; i += chunkSize) {
-  //   const chunk = textContent.slice(i, i + chunkSize).join(" ");
-
-  //   result.push(`<span class="invisible-typewriter">${chunk}</span>`);
-  // }
-
-  // // console.log("result", result);
-
-  // dynamicText.innerHTML = result.join(" ");
-
-  //return result;
 
   const words = textContent.split(" ");
 
@@ -187,32 +123,53 @@ function updateTextContent(currentSlide) {
   const spacing = safeIndices.length / projectTools;
 
   for (let i = 0; i < projectTools; i++) {
-    const safeIndex = safeIndices[Math.floor(i * spacing)];
+    let safeIndex = safeIndices[Math.floor(i * spacing)];
+
+    if (i == 0) {
+      safeIndex++;
+    }
 
     const targetWord = dynamicText.querySelector(`[data-index="${safeIndex}"]`);
 
     targetWord.outerHTML = createToolKeyword(projects[current][i + 3], i);
   }
 
-  // const splitWords = [...dynamicText.querySelectorAll(".bg-word")];
+  typewriterSpans();
+}
 
-  // const chunkSize = 10;
+function typewriterSpans() {
+  const splitWords = [...dynamicText.querySelectorAll(".bg-word")];
 
-  // for (let i = 0; i < splitWords.length; i += chunkSize) {
-  //   const wrapper = document.createElement("span");
-  //   wrapper.classList.add("invisible-typewriter");
+  const semiCleanWords = [];
 
-  //   splitWords
-  //     .slice(i, i + chunkSize)
-  //     .forEach((word) => wrapper.appendChild(word));
+  // keeps either the text or the entire element <- for the typewriter spans
+  splitWords.forEach((word) => {
+    if (word.classList.contains("tool-letter")) {
+      semiCleanWords.push(`${word.outerHTML}`);
+    } else {
+      semiCleanWords.push(word.innerHTML);
+    }
+  });
 
-  //   wrapper.append(" ");
+  if (projects[currentSlide][1] === "true") {
+    semiCleanWords[0] = `<span class="">>> Demo Video Loading... </span>`;
+    // wordIndex = 15;
+  } else {
+    semiCleanWords[0] = `<span class="">>> Click To Learn More... </span>`;
+    // wordIndex = 15;
+  }
 
-  //   dynamicText.appendChild(wrapper);
+  const chunkSize = 10;
 
-  //   console.log("checking split words", splitWords);
-  //   console.log("checking wrapper words", wrapper);
-  // }
+  const result = [];
+
+  for (let i = 0; i < semiCleanWords.length; i += chunkSize) {
+    const chunk = semiCleanWords.slice(i, i + chunkSize).join(" ");
+
+    result.push(`<span class="invisible-typewriter">${chunk}</span>`);
+  }
+
+  dynamicText.innerHTML = result.join(" ");
 }
 
 function createToolKeyword(tool, projIndex) {
