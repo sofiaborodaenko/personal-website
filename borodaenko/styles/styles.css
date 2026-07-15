@@ -468,6 +468,8 @@ p {
   }
 }
 
+
+
 .project-border {
   width: 100%;
   height: 100%;
@@ -572,6 +574,18 @@ p {
 
 .revealTextLefttoRight {
   animation: revealTextLeftToRight 4s ease forwards;
+}
+
+@keyframes revealProjTools {
+  to {
+
+  }
+}
+
+@keyframes hideProjTools {
+  to {
+    
+  }
 }
 
 @keyframes revealTextLeftToRight {

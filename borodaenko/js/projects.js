@@ -119,15 +119,14 @@ function updateTextContent(currentSlide) {
     .join(" ");
 
   const safeIndices = getSafeWordIndices(currentSlide);
+  console.log("safeword ind", safeIndices);
 
   const spacing = safeIndices.length / projectTools;
 
+  console.log("spacing", spacing);
+
   for (let i = 0; i < projectTools; i++) {
     let safeIndex = safeIndices[Math.floor(i * spacing)];
-
-    if (i == 0) {
-      safeIndex++;
-    }
 
     const targetWord = dynamicText.querySelector(`[data-index="${safeIndex}"]`);
 
@@ -150,6 +149,8 @@ function typewriterSpans() {
       semiCleanWords.push(word.innerHTML);
     }
   });
+
+  console.log(semiCleanWords);
 
   if (projects[currentSlide][1] === "true") {
     semiCleanWords[0] = `<span class="">>> Demo Video Loading... </span>`;
@@ -200,6 +201,7 @@ function getSafeWordIndices(current) {
 
   return words
     .map((word, index) => {
+      // if (word.innerHTML === "socketlight") {
       const rect = word.getBoundingClientRect();
 
       const localTop = rect.top - dynamicText.getBoundingClientRect().top;
@@ -216,7 +218,8 @@ function getSafeWordIndices(current) {
         localRight > forbidden.left &&
         localLeft < forbidden.right;
 
-      return overlaps ? null : index;
+      return word.innerHTML === "socketlight" && !overlaps ? index : null; // only keeps the longest word in the text and if it doesnt overlap
+      // }
     })
     .filter((index) => index !== null);
 }
