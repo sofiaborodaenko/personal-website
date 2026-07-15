@@ -3,6 +3,7 @@
   --blue: #57d2ff;
   --green: #65f06f;
   --yellow: #ffda57;
+  --grey: #d2d2d2;
 
   --header: clamp(2.5rem, 5vw, 5.5rem);
   --body: clamp(1rem, 1.5vw, 1.25rem);
@@ -468,8 +469,6 @@ p {
   }
 }
 
-
-
 .project-border {
   width: 100%;
   height: 100%;
@@ -578,13 +577,11 @@ p {
 
 @keyframes revealProjTools {
   to {
-
   }
 }
 
 @keyframes hideProjTools {
   to {
-    
   }
 }
 
@@ -616,6 +613,15 @@ p {
   }
   to {
     opacity: 1;
+  }
+}
+
+@keyframes hideOpacity {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
   }
 }
 
@@ -689,6 +695,9 @@ p {
   align-items: center;
   justify-content: center;
   transform: rotate(5deg);
+  --status-color: var(--grey);
+  color: var(--status-color);
+  transition: color 0.5s ease;
 }
 
 .work-status svg {
@@ -701,6 +710,15 @@ p {
 
 .work-status .work-status-text {
   opacity: 0;
+}
+
+.status-box {
+  --status-color: var(--grey);
+  fill: var(--status-color);
+  stroke: var(--status-color);
+  transition:
+    fill 0.5s ease,
+    stroke 0.5s ease;
 }
 
 .contact-content {
