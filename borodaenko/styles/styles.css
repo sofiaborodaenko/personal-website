@@ -3,7 +3,7 @@
   --blue: #57d2ff;
   --green: #65f06f;
   --yellow: #ffda57;
-  --grey: #d2d2d2;
+  --grey: rgba(137, 137, 137, 0.55);
 
   --header: clamp(2.5rem, 5vw, 5.5rem);
   --body: clamp(1rem, 1.5vw, 1.25rem);
@@ -547,7 +547,7 @@ p {
   display: flex;
   flex-direction: column;
   width: 65%;
-  gap: calc(var(--header-body-gap) * 5);
+  gap: calc(var(--header-body-gap) * 3);
   position: relative;
   padding-top: 25rem;
 }
@@ -719,6 +719,19 @@ p {
   transition:
     fill 0.5s ease,
     stroke 0.5s ease;
+}
+
+.dashed-line {
+  width: 110%;
+  margin-left: -5%;
+  /* background-color: gray; */
+  fill: var(--grey);
+  padding-top: var(--header);
+  align-self: center;
+}
+
+.experience-job-container > .work-item:last-child .dashed-line {
+  display: none;
 }
 
 .contact-content {
