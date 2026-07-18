@@ -124,7 +124,6 @@ const allStatuses = document.querySelectorAll(".work-status");
 
 function updateStatusColors() {
   const center = window.innerHeight / 2;
-  const quarter = window.innerHeight / 5;
 
   allStatuses.forEach((statusBox) => {
     const rect = statusBox.getBoundingClientRect();
@@ -132,8 +131,8 @@ function updateStatusColors() {
 
     const statusCenter = rect.top + rect.height / 2;
 
-    // Has the status box passed the center of the screen and is greater than a quarter of it
-    if (statusCenter < center && statusCenter > quarter) {
+    // Has the status box passed the center of the screen and is still in frame
+    if (statusCenter < center && statusCenter > 0) {
       if (statusBox.dataset.status === "Current") {
         statusPath.style.setProperty("--status-color", "var(--green)");
         statusBox.style.setProperty("--status-color", "var(--green)");

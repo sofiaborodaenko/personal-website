@@ -308,9 +308,10 @@ p {
   display: flex;
   gap: var(--header-body-gap);
   position: sticky;
-  top: 1rem;
+  top: 0;
   left: 0;
   min-height: 100svh;
+  padding-top: 1rem;
 }
 
 .about-me-text {
@@ -341,7 +342,7 @@ p {
   color: var(--pink);
   position: absolute;
   right: var(--padding);
-  top: 0;
+  top: 1rem;
 }
 
 .little-note img {
