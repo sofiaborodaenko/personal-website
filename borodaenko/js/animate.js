@@ -254,22 +254,39 @@ const handleHover = function (e, op) {
   //}
 };
 
+const revealLogos = function (entries, observer) {
+  const [entry] = entries;
+
+  if (!entry.isIntersecting) {
+    return;
+  }
+
+  handleHover([0.1, 1, 1.2, "draw", 1]);
+};
+
+const contactLinksObserver = new IntersectionObserver(revealLogos, {
+  root: null,
+  threshold: 0.9,
+});
+
 // Only bind hover in/out behavior on devices that actually support hover.
 // Touch users get the expanded word shown instead.
 if (window.matchMedia("(hover: hover)").matches) {
   contact.addEventListener(
     "mouseover",
-    handleHover.bind([0.1, 1, 1, "draw", 1]),
+    handleHover.bind([0.1, 1, 1.2, "draw", 1]),
   );
   contact.addEventListener("mouseout", handleHover.bind([0, 0, 0, "erase", 0]));
 } else {
-  shiftRestOfWord("linkedin", "Left", 0.1);
-  shiftRestOfWord("github", "Left", 1);
-  shiftRestOfWord("mail", "Left", 1);
+  // shiftRestOfWord("linkedin", "Left", 0.1);
+  // shiftRestOfWord("github", "Left", 1);
+  // shiftRestOfWord("mail", "Left", 1.2);
 
-  ["linkedin", "github", "mail"].forEach((link) => {
-    document.querySelector(`.inline-letter-${link}`).style.opacity = 0;
-  });
+  // ["linkedin", "github", "mail"].forEach((link) => {
+  //   document.querySelector(`.inline-letter-${link}`).style.opacity = 0;
+  // });
+
+  contactLinksObserver.observe(contact);
 }
 
 function shiftRestOfWord(link, side, padding) {
@@ -277,7 +294,7 @@ function shiftRestOfWord(link, side, padding) {
     `${padding}rem`;
 }
 
-// navigation stickynote animations
+// Navigation stickynote animations
 
 const hideAndRevealNav = function (entries, observer) {
   const [entry] = entries;

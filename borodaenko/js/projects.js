@@ -121,7 +121,7 @@ function updateTextContent(currentSlide) {
   const safeIndices = getSafeWordIndices(currentSlide);
   console.log("safeword ind", safeIndices);
 
-  const spacing = safeIndices.length / projectTools -3;
+  const spacing = safeIndices.length / projectTools;
 
   console.log("spacing", spacing);
 
@@ -278,7 +278,7 @@ function drawMask() {
   dynamicText.style.maskRepeat = "no-repeat";
   dynamicText.style.maskComposite = "exclude";
 
-  dynamicText.style.maskPosition = `${x-12}px ${y-5}px, 0 0`;
+  dynamicText.style.maskPosition = `${x - 12}px ${y - 5}px, 0 0`;
 }
 
 function typewriterEffect() {
