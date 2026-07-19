@@ -5,17 +5,18 @@
   --yellow: #ffda57;
   --grey: rgba(137, 137, 137, 0.55);
 
-  --header: clamp(2.5rem, 5vw, 5.5rem);
-  --body: clamp(1rem, 1.5vw, 1.25rem);
+  --header: clamp(2.5rem, calc(3rem + 3vw), 10rem);
+  --body: clamp(1rem, calc(0.5rem + 0.8vw), 2rem);
+  --hero-subtext: clamp(1.2rem, calc(1rem + 1.5vw), 4rem);
+  --padding: clamp(0.1rem, calc(1rem + 3vw), 12rem);
 
-  --hero-subtext: clamp(1.2rem, 3vw, 2rem);
+  --header-body-gap: clamp(1rem, 2.3rem, 4rem);
 
-  --padding: clamp(2rem, 5vw, 6rem);
-  --header-body-gap: clamp(1rem, 2vw, 2.3rem);
-
-  --section-gap: clamp(5rem, 15vw, 18rem);
+  --section-gap: clamp(5rem, 18rem, 18rem);
 
   --num-projects: 4;
+
+  --project-offset: -3rem;
 }
 
 * {
@@ -277,12 +278,12 @@ p {
 .hero-bottom-content {
   margin-top: auto;
   margin-bottom: 4.5rem;
-  height: 50%;
   line-height: 2.2;
 }
 
 .hero-title {
-  font-size: clamp(3rem, 10vw, 7rem) !important;
+  font-size: clamp(3rem, calc(3rem + 5vw), 20rem) !important;
+  /* font-size: var(--header); */
   max-width: 200px;
   line-height: 1.2;
 }
@@ -298,7 +299,7 @@ p {
 
 .about-me-content {
   position: relative;
-  height: 200svh;
+  height: 250svh;
 }
 
 .about-me-section__wrapper {
@@ -331,9 +332,10 @@ p {
 }
 
 .about-me-image {
-  display: flex;
-  align-items: flex-start;
-  width: 50%;
+  /* display: flex;
+  align-items: flex-start; */
+  /* width: 50%; */
+  align-self: auto;
 }
 
 .little-note {
@@ -371,7 +373,7 @@ p {
   flex-direction: column;
   gap: var(--header-body-gap);
   width: 100vw;
-  height: 300vh;
+  height: 400vh;
 }
 
 .projects-title {
@@ -421,7 +423,7 @@ p {
 .projects-row {
   width: calc(100vw * var(--num-projects));
   position: absolute;
-  top: 33%;
+  top: calc(33% + var(--project-offset));
   left: 0;
   display: flex;
   opacity: 1;
@@ -438,7 +440,7 @@ p {
   align-items: center;
   flex-direction: column;
   gap: 1rem;
-  transform: translateY(-2rem);
+  /* transform: translateY(-2rem); */
   pointer-events: none;
 }
 
@@ -890,14 +892,6 @@ p {
 }
 
 @media (max-width: 768px) {
-  .hero-bottom-content {
-    /* margin-bottom: 0; */
-    height: 0%;
-    align-self: baseline;
-    height: auto;
-    margin-bottom: 3rem;
-  }
-
   .about-me-section__wrapper {
     flex-direction: column;
     gap: 3rem;

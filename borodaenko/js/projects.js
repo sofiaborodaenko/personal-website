@@ -160,7 +160,7 @@ function typewriterSpans() {
     // wordIndex = 15;
   }
 
-  const chunkSize = 10;
+  const chunkSize = 10; // TODO: need to increase if size of computer is large
 
   const result = [];
 
@@ -267,13 +267,18 @@ function resetProjectSection() {
 }
 
 function drawMask() {
+  const textRect = dynamicText.getBoundingClientRect();
+  const projectRect = projectBorderRect.getBoundingClientRect();
+
+  const x = projectRect.left - textRect.left;
+  const y = projectRect.top - textRect.top;
+
   dynamicText.style.maskImage = `url(./images/longFilledBox.svg), linear-gradient(#000 0 0)`;
+
   dynamicText.style.maskRepeat = "no-repeat";
   dynamicText.style.maskComposite = "exclude";
 
-  const rectSize = projectBorderRect.getBoundingClientRect().height;
-  // move mask upward
-  dynamicText.style.maskPosition = `center calc(50% - ${rectSize / 2.8}px), 0 0`;
+  dynamicText.style.maskPosition = `${x}px ${y}px, 0 0`;
 }
 
 function typewriterEffect() {
