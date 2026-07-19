@@ -334,17 +334,18 @@ p {
 .about-me-image {
   /* display: flex;
   align-items: flex-start; */
-  /* width: 50%; */
+  width: 50%;
   align-self: auto;
+  /* background-color: red; */
 }
 
 .little-note {
-  width: 10%;
-  height: 20%;
+  width: 10rem;
   color: var(--pink);
-  position: absolute;
-  right: var(--padding);
-  top: 1rem;
+  position: relative;
+  margin-left: auto;
+  top: -80%;
+
 }
 
 .little-note img {
@@ -726,7 +727,7 @@ p {
 }
 
 .dashed-line {
-  width: 110%;
+  width: 105%;
   margin-left: -5%;
   fill: var(--grey);
   padding-top: var(--header);
@@ -842,6 +843,7 @@ p {
   }
 
   .about-me-image {
+    display: flex;
     justify-content: center;
   }
 
@@ -849,9 +851,9 @@ p {
     max-width: 80%;
   }
 
-  .little-note {
+  /* .little-note {
     display: none;
-  }
+  } */
 
   .experience-content {
     height: 200vh;

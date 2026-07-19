@@ -121,7 +121,7 @@ function updateTextContent(currentSlide) {
   const safeIndices = getSafeWordIndices(currentSlide);
   console.log("safeword ind", safeIndices);
 
-  const spacing = safeIndices.length / projectTools;
+  const spacing = safeIndices.length / projectTools -3;
 
   console.log("spacing", spacing);
 
