@@ -136,6 +136,16 @@ function updateTextContent(currentSlide) {
   typewriterSpans();
 }
 
+function mobileTools(revealOrRemove) {
+  const toolKeywords = document.querySelectorAll(".tool-letter-inner");
+
+  if (revealOrRemove === "add") {
+    toolKeywords.forEach((tool) => tool.classList.add("reveal-tools"));
+  } else {
+    toolKeywords.forEach((tool) => tool.classList.remove("reveal-tools"));
+  }
+}
+
 function typewriterSpans() {
   const splitWords = [...dynamicText.querySelectorAll(".bg-word")];
 
@@ -264,6 +274,7 @@ function resetProjectSection() {
   //   square.style.pointerEvents = "none";
   // });
   deactivateProject(squares[currentSlide]);
+  projectSection.style.pointerEvents = "none";
 }
 
 function drawMask() {
@@ -334,6 +345,12 @@ async function updateProjects(progress) {
     await activateProject(squares[activeSlide]);
 
     delay(1000).then(() => typewriterEffect());
+
+    delay(2000).then(() => {
+      if (!window.matchMedia("(hover: hover)").matches) {
+        mobileTools("add");
+      }
+    });
   }
 }
 
@@ -369,6 +386,10 @@ async function deactivateProject(activeSquare) {
     }
 
     animatePath(images, 1, "erase", 0, 3000);
+
+    if (!window.matchMedia("(hover: hover)").matches) {
+      mobileTools("remove");
+    }
   }
 }
 
@@ -385,6 +406,7 @@ const revealProjects = function (entries, observer) {
   activeAnimation = true;
   activeSlide = -1;
   projectsSectionSticky.classList.remove("hidden");
+  projectSection.style.pointerEvents = "auto";
   // projectRow.style.pointerEvents = "pointer";
 
   console.log("sqyares", squares);

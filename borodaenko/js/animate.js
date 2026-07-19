@@ -211,9 +211,9 @@ window.addEventListener("scroll", scroll);
 
 const contact = document.querySelector(".contact-content");
 
-const handleHover = function (e, op) {
+const handleHover = function (e, settings) {
   const [linkedinPadding, githubPadding, mailPadding, drawOrErase, endStroke] =
-    this;
+    settings;
 
   const logo = e.target.closest(".contact-link-logo");
 
@@ -256,12 +256,18 @@ const handleHover = function (e, op) {
 
 const revealLogos = function (entries, observer) {
   const [entry] = entries;
+  const logos = contact.querySelectorAll(".contact-link-logo");
 
   if (!entry.isIntersecting) {
+    logos.forEach((logo) =>
+      handleHover({ target: logo }, [0, 0, 0, "erase", 0]),
+    );
     return;
   }
 
-  handleHover([0.1, 1, 1.2, "draw", 1]);
+  logos.forEach((logo) =>
+    handleHover({ target: logo }, [0.1, 1, 1.2, "draw", 1]),
+  );
 };
 
 const contactLinksObserver = new IntersectionObserver(revealLogos, {
@@ -272,20 +278,13 @@ const contactLinksObserver = new IntersectionObserver(revealLogos, {
 // Only bind hover in/out behavior on devices that actually support hover.
 // Touch users get the expanded word shown instead.
 if (window.matchMedia("(hover: hover)").matches) {
-  contact.addEventListener(
-    "mouseover",
-    handleHover.bind([0.1, 1, 1.2, "draw", 1]),
+  contact.addEventListener("mouseover", (e) =>
+    handleHover(e, [0.1, 1, 1.2, "draw", 1]),
   );
-  contact.addEventListener("mouseout", handleHover.bind([0, 0, 0, "erase", 0]));
+  contact.addEventListener("mouseout", (e) =>
+    handleHover(e, [0, 0, 0, "erase", 0]),
+  );
 } else {
-  // shiftRestOfWord("linkedin", "Left", 0.1);
-  // shiftRestOfWord("github", "Left", 1);
-  // shiftRestOfWord("mail", "Left", 1.2);
-
-  // ["linkedin", "github", "mail"].forEach((link) => {
-  //   document.querySelector(`.inline-letter-${link}`).style.opacity = 0;
-  // });
-
   contactLinksObserver.observe(contact);
 }
 
@@ -315,9 +314,7 @@ const stickyNoteObserver = new IntersectionObserver(hideAndRevealNav, {
 
 stickyNoteObserver.observe(document.querySelector(".hero"));
 
-// The sticky-note nav's "unfold" state is normally triggered by :hover
-// (see .sticky-nav:hover in styles.css), which doesn't exist on touch
-// devices. Give touch users a tap-to-toggle instead.
+// Giving touch users a tap-to-toggle instead.
 if (window.matchMedia("(hover: none)").matches) {
   stickyNote.addEventListener("click", (e) => {
     e.stopPropagation();

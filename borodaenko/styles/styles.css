@@ -195,9 +195,9 @@ p {
   transition: width 0.5s ease;
 }
 
-.toolKeyword {
+/* .toolKeyword {
   pointer-events: auto;
-}
+} */
 
 .tool-letter {
   position: relative;
@@ -442,12 +442,12 @@ p {
   flex-direction: column;
   gap: 1rem;
   /* transform: translateY(-2rem); */
-  pointer-events: none;
+  /* pointer-events: none; */
 }
 
-.project-square > * {
+/* .project-square > * {
   pointer-events: auto;
-}
+} */
 
 .project-square p {
   font-size: 1.5rem;
@@ -471,6 +471,10 @@ p {
   .projects-content:has(.project-images:hover) .tool-letter-inner {
     transform: translateY(-100%);
   }
+}
+
+.reveal-tools {
+  transform: translateY(-100%);
 }
 
 .project-border {
