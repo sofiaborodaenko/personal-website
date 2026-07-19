@@ -278,7 +278,7 @@ function drawMask() {
   dynamicText.style.maskRepeat = "no-repeat";
   dynamicText.style.maskComposite = "exclude";
 
-  dynamicText.style.maskPosition = `${x}px ${y}px, 0 0`;
+  dynamicText.style.maskPosition = `${x-12}px ${y-5}px, 0 0`;
 }
 
 function typewriterEffect() {

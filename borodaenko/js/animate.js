@@ -255,19 +255,17 @@ const handleHover = function (e, op) {
 };
 
 // Only bind hover in/out behavior on devices that actually support hover.
-// On touch devices the mouseover/mouseout events fire unreliably (often
-// "sticking" after a tap), and the links navigate away on tap anyway, so
-// touch users get the expanded word shown statically instead.
+// Touch users get the expanded word shown instead.
 if (window.matchMedia("(hover: hover)").matches) {
   contact.addEventListener(
     "mouseover",
-    handleHover.bind([0.6, 1, 2, "draw", 1]),
+    handleHover.bind([0.1, 1, 1, "draw", 1]),
   );
   contact.addEventListener("mouseout", handleHover.bind([0, 0, 0, "erase", 0]));
 } else {
-  shiftRestOfWord("linkedin", "Left", 0.6);
+  shiftRestOfWord("linkedin", "Left", 0.1);
   shiftRestOfWord("github", "Left", 1);
-  shiftRestOfWord("mail", "Left", 2);
+  shiftRestOfWord("mail", "Left", 1);
 
   ["linkedin", "github", "mail"].forEach((link) => {
     document.querySelector(`.inline-letter-${link}`).style.opacity = 0;

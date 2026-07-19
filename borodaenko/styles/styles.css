@@ -10,13 +10,13 @@
   --hero-subtext: clamp(1.2rem, calc(1rem + 1.5vw), 4rem);
   --padding: clamp(0.1rem, calc(1rem + 3vw), 12rem);
 
-  --header-body-gap: clamp(1rem, 2.3rem, 4rem);
+  --header-body-gap: clamp(1rem, calc(1rem + 3vw), 4rem);
 
-  --section-gap: clamp(5rem, 18rem, 18rem);
+  --section-gap: clamp(5rem, calc(5rem + 5vw), 18rem);
 
   --num-projects: 4;
 
-  --project-offset: -3rem;
+  --project-offset: 0rem;
 }
 
 * {
@@ -76,14 +76,14 @@ body {
   display: flex;
   flex-direction: column;
   gap: var(--section-gap);
-
+  min-height: 100svh;
   /* perspective: 10000px; */
 }
 
-/* html,
+html,
 body {
-  overflow-x: hidden;
-} */
+  min-height: 100%;
+}
 
 body::-webkit-scrollbar {
   display: none;
@@ -549,14 +549,15 @@ p {
 .experience-job-container {
   display: flex;
   flex-direction: column;
-  width: 65%;
-  gap: calc(var(--header-body-gap) * 3);
+  width: 75%;
+  gap: calc(var(--header-body-gap));
   position: relative;
   padding-top: 25rem;
 }
 
 .work-item {
   position: relative;
+  width: 100%;
 }
 
 .work-item-inner {
@@ -727,7 +728,6 @@ p {
 .dashed-line {
   width: 110%;
   margin-left: -5%;
-  /* background-color: gray; */
   fill: var(--grey);
   padding-top: var(--header);
   align-self: center;
@@ -775,12 +775,14 @@ p {
 
 .footer {
   padding: 0 var(--padding) 0 var(--padding);
-  position: relative;
+  margin-top: auto;
 }
 
 .inline-shift {
   position: relative;
-  min-width: 20rem;
+  /* min-width: 3rem; */
+  /* background-color: red; */
+  display: inline-block;
 }
 
 .logo-outline {
@@ -788,6 +790,7 @@ p {
   bottom: 0;
   left: 0;
   stroke-width: 1.5;
+  width: 110%;
 }
 
 .rest-linkedin-shift,
@@ -803,83 +806,19 @@ p {
 }
 
 .linkedin-outline {
-  left: 2px;
+  left: 3px;
   bottom: 3px;
 }
 
 .github-outline {
-  left: -10px;
+  left: -5px;
+  width: 300%;
 }
 
-/* ============================================================
-   Mobile layout — stacks the two-column sections, scales down
-   type/spacing tokens, and hides pieces that don't translate
-   to a narrow viewport (the experience timeline sideline).
-   ============================================================ */
-/* 
-   @media (max-width: 768px) { 
-  :root {
-    --header: 3rem;
-    --hero-subtext: 1.3rem;
-    --padding: 1.5rem;
-    --header-body-gap: 1.5rem;
-    --section-gap: 6rem;
-  }
-
-  .hero-title {
-    font-size: 3.5rem !important;
-    max-width: 100%;
-  }
-
-  .about-me-section__wrapper {
-    flex-direction: column;
-  }
-
-  .about-me-text,
-  .about-me-image {
-    width: 100%;
-  }
-
-  .little-note {
-    display: none; 
-  }
-
-  .experience-content-container {
-    flex-direction: column;
-  }
-
-  .experience-sideline {
-    display: none; 
-  }
-
-  .experience-job-container {
-    width: 100%;
-    padding-top: 3rem;
-  }
-
-  .work-item-inner {
-    width: 100%;
-  }
-
-  .sticky-nav {
-    width: 9rem;
-    height: 8rem;
-  }
-
-  .sticky-note-img {
-    width: 9rem;
-    height: 9rem;
-  }
-
-  .sticky-links p {
-    font-size: calc(var(--body) * 1.6);
-  }
-
-  .contact-links {
-    flex-direction: column;
-    gap: 1.5rem;
-  }
-} */
+.mail-outline {
+  width: 180%;
+  height: 100%;
+}
 
 @media (max-width: 460px) {
   .hero-note {
@@ -914,17 +853,26 @@ p {
     display: none;
   }
 
+  .experience-content {
+    height: 200vh;
+    
+  }
+
   .experience-content-container {
     flex-direction: column;
+    /* background-color: blue; */
+    
   }
 
   .experience-sideline {
     display: none;
-    /* margin-left: -5rem; */
+    height: 0%;
+    width: 0%;
   }
 
   .experience-job-container {
     width: 100%;
+    padding-top: 0;
   }
 
   .work-item-first-line {
