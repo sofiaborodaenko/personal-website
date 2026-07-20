@@ -345,7 +345,6 @@ p {
   position: relative;
   margin-left: auto;
   top: -80%;
-
 }
 
 .little-note img {
@@ -836,6 +835,10 @@ p {
 }
 
 @media (max-width: 768px) {
+  body {
+    background: red !important;
+  }
+
   .about-me-section__wrapper {
     flex-direction: column;
     gap: 3rem;
@@ -860,15 +863,13 @@ p {
   } */
 
   .experience-content {
-    height: 200vh;
-    
+    height: auto;
   }
 
   .experience-content-container {
     flex-direction: column;
     gap: var(--header-body-gap);
     /* background-color: blue; */
-    
   }
 
   .experience-sideline {
