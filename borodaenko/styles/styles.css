@@ -835,7 +835,6 @@ p {
 }
 
 @media (max-width: 768px) {
-
   .about-me-section__wrapper {
     flex-direction: column;
     gap: 3rem;
@@ -861,11 +860,11 @@ p {
 
   .experience-content {
     height: auto;
+    gap: var(--header-body-gap);
   }
 
   .experience-content-container {
     flex-direction: column;
-    gap: var(--header-body-gap);
     /* background-color: blue; */
   }
 

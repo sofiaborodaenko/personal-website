@@ -266,7 +266,7 @@ const revealLogos = function (entries, observer) {
   }
 
   logos.forEach((logo) =>
-    handleHover({ target: logo }, [0.1, 1, 1.2, "draw", 1]),
+    handleHover({ target: logo }, [0, 1, 1, "draw", 1]),
   );
 };
 
