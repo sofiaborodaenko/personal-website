@@ -75,7 +75,7 @@ body {
   background-color: #f2f2f2;
   display: flex;
   flex-direction: column;
-  gap: var(--section-gap);
+  gap: var(--section-gap) !important;
   min-height: 100svh;
   /* perspective: 10000px; */
 }
@@ -227,7 +227,7 @@ p {
 
 .hero {
   width: 100vw;
-  min-height: 100svh; /* was 100vh — svh avoids the jump when mobile browser chrome collapses/expands on scroll */
+  min-height: 100vh; /* was 100vh — svh avoids the jump when mobile browser chrome collapses/expands on scroll */
   position: relative;
 }
 
@@ -267,7 +267,7 @@ p {
 
 .hero-content {
   width: 100%;
-  height: 100svh; /* was 100vh */
+  height: 100vh; /* was 100vh */
   padding-left: var(--padding);
   padding-right: var(--padding);
   padding-top: 4rem;
@@ -385,7 +385,7 @@ p {
   background-image: url("../images/notebook-dark.png");
   background-color: #f2f2f2;
   width: 100vw;
-  height: 100svh; /* was 100vh */
+  height: 100vh; /* was 100vh */
   position: sticky;
   top: 0;
   transition: opacity 1s ease;
@@ -866,6 +866,7 @@ p {
 
   .experience-content-container {
     flex-direction: column;
+    gap: var(--header-body-gap);
     /* background-color: blue; */
     
   }
