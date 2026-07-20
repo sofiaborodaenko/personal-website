@@ -858,6 +858,10 @@ p {
     padding-left: calc(2 * var(--padding));
     padding-right: calc(2 * var(--padding));
   }
+
+  .work-item-inner {
+    width: 100%;
+  }
 }
 
 @media (max-width: 768px) {
@@ -893,7 +897,6 @@ p {
 
   .experience-content-container {
     flex-direction: column;
-    /* background-color: blue; */
   }
 
   .experience-sideline {
