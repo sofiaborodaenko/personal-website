@@ -844,7 +844,7 @@ p {
 
 @media (max-width: 460px) {
   :root {
-    --padding: 10px;
+    --padding: 16px;
   }
   .hero-note {
     /* align-self: baseline;
@@ -852,6 +852,11 @@ p {
     transform: rotate(90deg) translateY(5rem) translateX(5rem);
     /* background-color: gray; */
     margin-right: auto;
+  }
+
+  .hero-content {
+    padding-left: calc(2 * var(--padding));
+    padding-right: calc(2 * var(--padding));
   }
 }
 
@@ -862,7 +867,7 @@ p {
 
   .about-me-section__wrapper {
     flex-direction: column;
-    /* gap: 3rem; */
+    gap: 3rem;
     /* gap: calc(2 * var(--header-body-gap)); */
     /* background-color: red; */
   }
@@ -870,12 +875,6 @@ p {
   .about-me-text,
   .about-me-image {
     width: 100%;
-    /* gap: calc(2 * var(--header-body-gap)); */
-  }
-
-  .about-me-image {
-    display: flex;
-    justify-content: center;
   }
 
   .about-me-image img {
