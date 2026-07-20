@@ -824,6 +824,16 @@ p {
   height: 100%;
 }
 
+.rest-linkedin-shift,
+.rest-github-shift,
+.rest-mail-shift,
+.inline-letter-linkedin,
+.inline-letter-github,
+.inline-letter-mail {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
 @media (max-width: 460px) {
   .hero-note {
     /* align-self: baseline;
