@@ -8,7 +8,7 @@
   --header: clamp(2.5rem, calc(3rem + 3vw), 10rem);
   --body: clamp(1rem, calc(0.5rem + 0.8vw), 2rem);
   --hero-subtext: clamp(1.2rem, calc(1rem + 1.5vw), 4rem);
-  --padding: clamp(0.1rem, calc(1rem + 3vw), 12rem);
+  --padding: clamp(1rem, calc(1rem + 3vw), 12rem);
 
   --header-body-gap: clamp(1rem, calc(1rem + 3vw), 4rem);
 
@@ -336,15 +336,23 @@ p {
   align-items: flex-start; */
   width: 50%;
   align-self: auto;
-  /* background-color: red; */
+  position: relative;
 }
 
 .little-note {
   width: 10rem;
   color: var(--pink);
-  position: relative;
+  position: absolute;
+  top: 0;
+  right: 0;
   margin-left: auto;
-  top: -80%;
+  display: flex;
+  flex-direction: column;
+  /* align-items: flex-end; */
+}
+
+.little-note p {
+  width: 80%;
 }
 
 .little-note img {
@@ -835,6 +843,9 @@ p {
 }
 
 @media (max-width: 460px) {
+  :root {
+    --padding: 10px;
+  }
   .hero-note {
     /* align-self: baseline;
     margin-top: 10rem; */
@@ -845,14 +856,21 @@ p {
 }
 
 @media (max-width: 768px) {
+  * {
+    /* outline: 1px solid red; */
+  }
+
   .about-me-section__wrapper {
     flex-direction: column;
-    gap: 3rem;
+    /* gap: 3rem; */
+    /* gap: calc(2 * var(--header-body-gap)); */
+    /* background-color: red; */
   }
 
   .about-me-text,
   .about-me-image {
     width: 100%;
+    /* gap: calc(2 * var(--header-body-gap)); */
   }
 
   .about-me-image {
@@ -861,16 +879,17 @@ p {
   }
 
   .about-me-image img {
-    max-width: 80%;
+    max-width: 90%;
   }
 
-  /* .little-note {
-    display: none;
-  } */
+  .little-note {
+    align-items: flex-end;
+  }
 
   .experience-content {
     height: auto;
-    gap: var(--header-body-gap);
+    gap: calc(1.5 * var(--header-body-gap));
+    /* background-color: red; */
   }
 
   .experience-content-container {
