@@ -299,7 +299,7 @@ p {
 
 .about-me-content {
   position: relative;
-  height: 250svh;
+  height: 250dvh;
   background-color: red;
 }
 
