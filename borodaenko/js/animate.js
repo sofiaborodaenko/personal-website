@@ -6,6 +6,7 @@ const heroFrame = document.querySelector(".hero-frame");
 const logo = document.querySelector(".contact-github");
 
 const stickyNote = document.querySelector(".sticky-nav");
+const stickyLinks = document.querySelector(".sticky-links");
 
 window.addEventListener("load", () => {
   // const { lastPathEnd, arr } = animatePath(heroFrame);
@@ -265,9 +266,7 @@ const revealLogos = function (entries, observer) {
     return;
   }
 
-  logos.forEach((logo) =>
-    handleHover({ target: logo }, [0, 1, 1, "draw", 1]),
-  );
+  logos.forEach((logo) => handleHover({ target: logo }, [0, 1, 1, "draw", 1]));
 };
 
 const contactLinksObserver = new IntersectionObserver(revealLogos, {
@@ -319,11 +318,15 @@ if (window.matchMedia("(hover: none)").matches) {
   stickyNote.addEventListener("click", (e) => {
     e.stopPropagation();
     stickyNote.classList.toggle("stick-on-tap");
+    
   });
 
   document.addEventListener("click", (e) => {
     if (!stickyNote.contains(e.target)) {
       stickyNote.classList.remove("stick-on-tap");
+      // stickyLinks.querySelectorAll("a svg").forEach((link) => {
+      //   link.style.width = "5%";
+      // });
     }
   });
 }
