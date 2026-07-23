@@ -313,9 +313,11 @@ p {
   top: 0;
   left: 0;
   min-height: calc(
-    100svh + env(safe-area-inset-top) + env(safe-area-inset-bottom)
+    100dvh + env(safe-area-inset-top) + env(safe-area-inset-bottom)
   );
-  padding-top: 1rem;
+
+  padding-top: calc(1rem + env(safe-area-inset-top));
+  padding-bottom: env(safe-area-inset-bottom);
 }
 
 /* @supports (padding: max(0px)) {
