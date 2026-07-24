@@ -349,10 +349,13 @@ p {
 .about-me-image {
   /* display: flex;
   align-items: flex-start; */
-  width: 50%;
-  height: 100%;
+  /* width: 50%;
+  height: 100%;*/
   align-self: auto;
-  position: relative;
+  position: relative; 
+  width: min(90%, 550px);
+  max-height: 100%;
+  object-fit: contain;
 }
 
 .little-note {
@@ -412,7 +415,6 @@ p {
   position: sticky;
   top: 0;
   transform: translateZ(0);
-  will-change: transform;
   transition: opacity 1s ease;
 }
 
@@ -892,7 +894,9 @@ p {
     gap: 3rem;
     /* gap: calc(2 * var(--header-body-gap)); */
     /* background-color: red; */
-    height: calc(150svh + env(safe-area-inset-top) + env(safe-area-inset-bottom));
+    height: calc(
+      150svh + env(safe-area-inset-top) + env(safe-area-inset-bottom)
+    );
   }
 
   .about-me-text,
