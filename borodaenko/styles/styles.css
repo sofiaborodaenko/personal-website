@@ -894,9 +894,9 @@ p {
     gap: 3rem;
     /* gap: calc(2 * var(--header-body-gap)); */
     /* background-color: red; */
-    height: calc(
+    /* height: calc(
       150svh + env(safe-area-inset-top) + env(safe-area-inset-bottom)
-    );
+    ); */
   }
 
   .about-me-text,
