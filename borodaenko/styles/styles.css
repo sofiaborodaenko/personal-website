@@ -300,7 +300,6 @@ p {
 .about-me-content {
   position: relative;
   height: 250svh;
-  background-color: red;
 }
 
 .about-me-section__wrapper {
@@ -314,12 +313,13 @@ p {
   left: 0;
   transform: translateZ(0);
   will-change: transform;
-  height: calc(100svh + env(safe-area-inset-top) + env(safe-area-inset-bottom) + 3rem);
+  height: calc(100svh + env(safe-area-inset-top) + env(safe-area-inset-bottom));
   /* height: auto; */
 
   padding-top: calc(1rem + env(safe-area-inset-top));
   padding-bottom: env(safe-area-inset-bottom);
-  background-color: grey;
+  /* background-color: grey; */
+  /* overflow: hidden; */
 }
 
 /* @supports (padding: max(0px)) {
@@ -350,6 +350,7 @@ p {
   /* display: flex;
   align-items: flex-start; */
   width: 50%;
+  height: 100%;
   align-self: auto;
   position: relative;
 }
@@ -891,11 +892,13 @@ p {
     gap: 3rem;
     /* gap: calc(2 * var(--header-body-gap)); */
     /* background-color: red; */
+    height: calc(150svh + env(safe-area-inset-top) + env(safe-area-inset-bottom));
   }
 
   .about-me-text,
   .about-me-image {
     width: 100%;
+    height: 100%;
   }
 
   .about-me-image img {
