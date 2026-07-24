@@ -314,8 +314,8 @@ p {
   left: 0;
   transform: translateZ(0);
   will-change: transform;
-  /* height: calc(100svh + env(safe-area-inset-top) + env(safe-area-inset-bottom)); */
-  height: auto;
+  height: calc(100svh + env(safe-area-inset-top) + env(safe-area-inset-bottom) + 3rem);
+  /* height: auto; */
 
   padding-top: calc(1rem + env(safe-area-inset-top));
   padding-bottom: env(safe-area-inset-bottom);
@@ -410,6 +410,8 @@ p {
   height: 100vh; /* was 100vh */
   position: sticky;
   top: 0;
+  transform: translateZ(0);
+  will-change: transform;
   transition: opacity 1s ease;
 }
 
