@@ -414,7 +414,6 @@ p {
   height: 100lvh; /* was 100vh */
   position: sticky;
   top: 0;
-  transform: translateZ(0);
   transition: opacity 1s ease;
 }
 
