@@ -313,7 +313,7 @@ p {
   left: 0;
   transform: translateZ(0);
   will-change: transform;
-  height: calc(100svh + env(safe-area-inset-top) + env(safe-area-inset-bottom));
+  height: calc(100lvh + env(safe-area-inset-top) + env(safe-area-inset-bottom));
   /* height: auto; */
 
   padding-top: calc(1rem + env(safe-area-inset-top));
@@ -411,7 +411,7 @@ p {
   background-image: url("../images/notebook-dark.png");
   background-color: #f2f2f2;
   width: 100vw;
-  height: 100vh; /* was 100vh */
+  height: 100lvh; /* was 100vh */
   position: sticky;
   top: 0;
   transform: translateZ(0);
