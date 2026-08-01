@@ -314,8 +314,8 @@ p {
   transform: translateZ(0);
   will-change: transform;
   /* height: calc(100lvh + env(safe-area-inset-top) + env(safe-area-inset-bottom)); */
-  height: auto;
-
+  /* height: auto; */
+  min-height: 100lvh;
   padding-top: calc(1rem + env(safe-area-inset-top));
   padding-bottom: env(safe-area-inset-bottom);
   background-color: grey;
@@ -352,7 +352,7 @@ p {
   /* width: 50%;
   height: 100%;*/
   align-self: auto;
-  position: relative; 
+  position: relative;
   width: min(90%, 550px);
   max-height: 100%;
   object-fit: contain;
