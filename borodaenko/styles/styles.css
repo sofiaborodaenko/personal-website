@@ -403,6 +403,7 @@ p {
   gap: var(--header-body-gap);
   width: 100%;
   height: 400dvh;
+  position: relative;
 }
 
 .projects-title {
@@ -413,7 +414,7 @@ p {
   background-image: url("../images/notebook-dark.png");
   background-color: #f2f2f2;
   width: 100%;
-  height: 100dvh; /* was 100vh */
+  min-height: 100dvh; /* was 100vh */
   position: sticky;
   top: 0;
   transition: opacity 1s ease;
