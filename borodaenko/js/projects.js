@@ -32,11 +32,11 @@ let currentAnimations = [];
 
 let repeats = calculateRepeats();
 
-window.addEventListener("resize", () => {
-  console.log("window was resized");
-  repeats = calculateRepeats();
-  drawMask();
-});
+// window.addEventListener("resize", () => {
+//   console.log("window was resized");
+//   repeats = calculateRepeats();
+//   drawMask();
+// });
 
 function calculateRepeats() {
   let repeat = 1;
@@ -120,11 +120,11 @@ function updateTextContent(currentSlide) {
     .join(" ");
 
   const safeIndices = getSafeWordIndices(currentSlide);
-  console.log("safeword ind", safeIndices);
+  // console.log("safeword ind", safeIndices);
 
   const spacing = safeIndices.length / projectTools;
 
-  console.log("spacing", spacing);
+  // console.log("spacing", spacing);
 
   for (let i = 0; i < projectTools; i++) {
     let safeIndex = safeIndices[Math.floor(i * spacing)];
@@ -161,7 +161,7 @@ function typewriterSpans() {
     }
   });
 
-  console.log(semiCleanWords);
+  // console.log(semiCleanWords);
 
   if (projects[currentSlide][1] === "true") {
     semiCleanWords[0] = `<span class="">>> Demo Video Loading... </span>`;
@@ -207,7 +207,7 @@ function createToolKeyword(tool, projIndex) {
 function getSafeWordIndices(current) {
   const forbidden = getForbiddenRect(current);
 
-  console.log("forbidden", forbidden);
+  // console.log("forbidden", forbidden);
   const words = [...dynamicText.querySelectorAll(".bg-word")];
 
   return words
@@ -243,7 +243,7 @@ function getForbiddenRect(current) {
 
   const padding = 100;
 
-  console.log("forbidden rect rect", projectRect);
+  // console.log("forbidden rect rect", projectRect);
 
   return {
     top: projectRect.top - textRect.top - padding,
@@ -270,7 +270,7 @@ function resetProjectSection() {
   dynamicText.innerHTML = "";
   activeSlide = -1;
   // projectsSectionSticky.classList.add("hidden");
-  console.log(projectRow);
+  // console.log(projectRow);
   // projectImagesVideos.forEach((square) => {
   //   square.style.pointerEvents = "none";
   // });
@@ -414,7 +414,7 @@ const revealProjects = function (entries, observer) {
   projectSection.style.pointerEvents = "auto";
   // projectRow.style.pointerEvents = "pointer";
 
-  console.log("sqyares", squares);
+  // console.log("sqyares", squares);
 };
 
 const projectsObserver = new IntersectionObserver(revealProjects, {
