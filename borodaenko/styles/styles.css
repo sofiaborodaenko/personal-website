@@ -300,8 +300,9 @@ p {
 .about-me-content {
   position: relative;
   min-height: 250svh;
-  padding-top: env(safe-area-inset-top);
-  padding-bottom: env(safe-area-inset-bottom);
+  background-color: #f2f2f2;
+  /* padding-top: env(safe-area-inset-top);
+  padding-bottom: env(safe-area-inset-bottom); */
 }
 
 .about-me-section__wrapper {
