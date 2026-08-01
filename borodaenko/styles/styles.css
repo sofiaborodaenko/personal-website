@@ -404,6 +404,7 @@ p {
   width: 100%;
   height: 400lvh;
   position: relative;
+  background-color: gray;
 }
 
 .projects-title {
@@ -422,8 +423,6 @@ p {
   /* will-change: transform; */
   /* overflow: hidden; */
   /* isolation: isolate; */
-
-  background-color: gray;
 }
 
 .projects-container {
