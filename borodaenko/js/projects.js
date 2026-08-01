@@ -268,7 +268,7 @@ function resetProjectSection() {
   removeAllVideos();
   dynamicText.innerHTML = "";
   activeSlide = -1;
-  projectsSectionSticky.classList.add("hidden");
+  // projectsSectionSticky.classList.add("hidden");
   console.log(projectRow);
   // projectImagesVideos.forEach((square) => {
   //   square.style.pointerEvents = "none";
