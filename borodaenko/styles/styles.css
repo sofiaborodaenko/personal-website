@@ -416,9 +416,12 @@ p {
   position: sticky;
   top: 0;
   transition: opacity 1s ease;
-  background-color: gray;
+  transform: translateZ(0);
+  will-change: transform;
   overflow: hidden;
   isolation: isolate;
+
+  background-color: gray;
 }
 
 .projects-container {
