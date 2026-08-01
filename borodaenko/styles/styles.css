@@ -124,7 +124,7 @@ p {
   transition: transform 0.5s ease;
   display: flex;
   align-items: flex-end;
-
+  /* transform-style: preserve-3d; */
   transform-origin: top center;
   transform: perspective(900px) rotateX(52deg) rotateZ(-20deg)
     translate(50%, -10%);
@@ -196,8 +196,10 @@ p {
   display: block;
   cursor: pointer;
   margin-top: 0.7rem;
-  width: 5px;
-  transition: width 0.5s ease;
+  width: 100%;
+  transform-origin: top left;
+  transform: scaleX(0);
+  transition: transform 0.5s ease;
 }
 
 /* .toolKeyword {
@@ -224,10 +226,8 @@ p {
   left: 0;
 }
 
-.sticky-links a:hover {
-  svg {
-    width: 100%;
-  }
+.sticky-links a:hover svg {
+  transform: scaleX(1);
 }
 
 .hero {
@@ -844,7 +844,9 @@ p {
 .rest-linkedin-shift,
 .rest-github-shift,
 .rest-mail-shift {
-  transition: padding 0.5s;
+  transition: transform 0.5s;
+  display: inline-block;
+  z-index: -1;
 }
 
 .inline-letter-linkedin,
@@ -866,6 +868,7 @@ p {
 .mail-outline {
   width: 200%;
   height: 100%;
+  z-index: 1;
 }
 
 .rest-linkedin-shift,

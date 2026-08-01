@@ -288,8 +288,10 @@ if (window.matchMedia("(hover: hover)").matches) {
 }
 
 function shiftRestOfWord(link, side, padding) {
-  document.querySelector(`.rest-${link}-shift`).style[`padding${side}`] =
-    `${padding}rem`;
+  // document.querySelector(`.rest-${link}-shift`).style[`padding${side}`] =
+  //   `${padding}rem`;
+
+    document.querySelector(`.rest-${link}-shift`).style.transform = `translateX(${padding}rem)`;
 }
 
 // Navigation stickynote animations
