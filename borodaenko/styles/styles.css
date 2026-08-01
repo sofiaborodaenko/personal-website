@@ -228,7 +228,7 @@ p {
 
 .hero {
   width: 100vw;
-  min-height: 100dvh; /* was 100vh — svh avoids the jump when mobile browser chrome collapses/expands on scroll */
+  min-height: 100lvh; /* was 100vh — svh avoids the jump when mobile browser chrome collapses/expands on scroll */
   position: relative;
 }
 
@@ -319,7 +319,7 @@ p {
   /* will-change: transform; */
   /* height: calc(100dvh + env(safe-area-inset-top) + env(safe-area-inset-bottom)); */
   /* height: auto; */
-  min-height: 100dvh;
+  min-height: 100lvh;
   padding-top: 1rem;
   /* overflow: hidden; */
 }
