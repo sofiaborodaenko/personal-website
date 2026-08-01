@@ -276,9 +276,9 @@ function resetProjectSection() {
   deactivateProject(squares[currentSlide]);
   projectSection.style.pointerEvents = "none";
 
-  projectsSectionSticky.style.display = "none";
-  projectsSectionSticky.offsetHeight;
-  projectsSectionSticky.style.display = "block";
+  // projectsSectionSticky.style.display = "none";
+  // projectsSectionSticky.offsetHeight;
+  // projectsSectionSticky.style.display = "block";
 }
 
 function drawMask() {
@@ -404,6 +404,11 @@ const revealProjects = function (entries, observer) {
   if (!entry.isIntersecting) {
     activeAnimation = false;
     resetProjectSection();
+    document.documentElement.style.transform = "translateZ(0)";
+
+    requestAnimationFrame(() => {
+      document.documentElement.style.transform = "";
+    });
     return;
   }
   //console.log("entry target", entry.target);

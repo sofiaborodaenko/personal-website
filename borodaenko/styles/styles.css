@@ -417,7 +417,7 @@ p {
 
 .projects-sticky {
   background-image: url("../images/notebook-dark.png");
-  background-color: #f2f2f2;
+  /* background-color: #f2f2f2; */
   width: 100%;
   height: 100lvh; /* was 100vh */
   position: sticky;
@@ -427,7 +427,7 @@ p {
   /* will-change: transform; */
   /* overflow: hidden; */
   /* isolation: isolate; */
-  background-color: gray;
+  /* background-color: gray; */
 }
 
 .projects-container {
