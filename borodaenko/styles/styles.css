@@ -818,6 +818,7 @@ p {
 .contact-link-logo {
   text-decoration: none;
   color: black;
+  transform: translateZ(0);
 }
 
 .footer {
@@ -896,6 +897,31 @@ p {
 
   .work-item-inner {
     width: 100%;
+  }
+
+  .sticky-nav {
+    /* background-color: gray; */
+    /* transform: perspective(900px) rotateX(52deg) rotateZ(-20deg)
+    translate(50%, -10%); */
+    /* transform: perspective(900px) rotateX(52deg) rotateZ(-20deg)
+    translate(50%, -10%); */
+  }
+
+  .sticky-note-img {
+    /* width: 15rem;
+  height: 15rem; */
+    margin-left: auto;
+    /* background-color: red; */
+    transform: translateX(5%);
+  }
+
+  .sticky-links {
+    left: 37%;
+  }
+
+  .hide-nav {
+    transform: perspective(900px) rotateX(52deg) rotateZ(-20deg)
+      translate(65%, -5%);
   }
 }
 
