@@ -78,6 +78,7 @@ body {
   gap: var(--section-gap) !important;
   min-height: 100dvh;
   /* perspective: 10000px; */
+  background: blue;
 }
 
 /* html,
