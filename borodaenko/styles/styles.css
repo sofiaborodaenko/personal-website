@@ -418,6 +418,7 @@ p {
   transition: opacity 1s ease;
   background-color: gray;
   overflow: hidden;
+  isolation: isolate;
 }
 
 .projects-container {
