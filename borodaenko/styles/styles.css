@@ -417,6 +417,7 @@ p {
   top: 0;
   transition: opacity 1s ease;
   background-color: gray;
+  overflow: hidden;
 }
 
 .projects-container {
