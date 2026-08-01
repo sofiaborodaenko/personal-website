@@ -78,7 +78,7 @@ body {
   gap: var(--section-gap) !important;
   min-height: 100dvh;
   /* perspective: 10000px; */
-  background: blue;
+  /* background: blue; */
 }
 
 /* html,
@@ -414,7 +414,7 @@ p {
   background-image: url("../images/notebook-dark.png");
   background-color: #f2f2f2;
   width: 100%;
-  min-height: 100dvh; /* was 100vh */
+  height: 100dvh; /* was 100vh */
   position: sticky;
   top: 0;
   transition: opacity 1s ease;
