@@ -313,12 +313,12 @@ p {
   left: 0;
   transform: translateZ(0);
   will-change: transform;
-  height: calc(100lvh + env(safe-area-inset-top) + env(safe-area-inset-bottom));
-  /* height: auto; */
+  /* height: calc(100lvh + env(safe-area-inset-top) + env(safe-area-inset-bottom)); */
+  height: auto;
 
   padding-top: calc(1rem + env(safe-area-inset-top));
   padding-bottom: env(safe-area-inset-bottom);
-  /* background-color: grey; */
+  background-color: grey;
   /* overflow: hidden; */
 }
 
@@ -910,6 +910,7 @@ p {
 
   .little-note {
     align-items: flex-end;
+    width: 30%;
   }
 
   .experience-content {
