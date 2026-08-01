@@ -33,6 +33,7 @@ let currentAnimations = [];
 let repeats = calculateRepeats();
 
 window.addEventListener("resize", () => {
+  console.log("window was resized");
   repeats = calculateRepeats();
   drawMask();
 });
