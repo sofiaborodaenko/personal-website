@@ -275,6 +275,10 @@ function resetProjectSection() {
   // });
   deactivateProject(squares[currentSlide]);
   projectSection.style.pointerEvents = "none";
+
+  projectsSectionSticky.style.display = "none";
+  projectsSectionSticky.offsetHeight;
+  projectsSectionSticky.style.display = "block";
 }
 
 function drawMask() {
