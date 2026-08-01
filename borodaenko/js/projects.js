@@ -32,11 +32,15 @@ let currentAnimations = [];
 
 let repeats = calculateRepeats();
 
-// window.addEventListener("resize", () => {
-//   console.log("window was resized");
-//   repeats = calculateRepeats();
-//   drawMask();
-// });
+let lastWidth = window.innerWidth;
+
+window.addEventListener("resize", () => {
+  if (window.innerWidth === lastWidth) return;
+  console.log("window was resized");
+  lastWidth = window.innerWidth;
+  repeats = calculateRepeats();
+  drawMask();
+});
 
 function calculateRepeats() {
   let repeat = 1;
