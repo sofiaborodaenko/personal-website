@@ -320,7 +320,6 @@ p {
   /* height: auto; */
   min-height: 100dvh;
   padding-top: 1rem;
-  background-color: grey;
   /* overflow: hidden; */
 }
 
@@ -402,7 +401,7 @@ p {
   flex-direction: column;
   gap: var(--header-body-gap);
   width: 100vw;
-  height: 400vh;
+  height: 400dvh;
 }
 
 .projects-title {
@@ -417,6 +416,7 @@ p {
   position: sticky;
   top: 0;
   transition: opacity 1s ease;
+  background-color: gray;
 }
 
 .projects-container {
