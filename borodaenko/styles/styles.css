@@ -76,7 +76,7 @@ body {
   display: flex;
   flex-direction: column;
   gap: var(--section-gap) !important;
-  min-height: 100svh;
+  min-height: 100dvh;
   /* perspective: 10000px; */
 }
 
@@ -227,7 +227,7 @@ p {
 
 .hero {
   width: 100vw;
-  min-height: 100vh; /* was 100vh — svh avoids the jump when mobile browser chrome collapses/expands on scroll */
+  min-height: 100dvh; /* was 100vh — svh avoids the jump when mobile browser chrome collapses/expands on scroll */
   position: relative;
 }
 
@@ -299,7 +299,9 @@ p {
 
 .about-me-content {
   position: relative;
-  height: 250svh;
+  min-height: 250svh;
+  padding-top: env(safe-area-inset-top);
+  padding-bottom: env(safe-area-inset-bottom);
 }
 
 .about-me-section__wrapper {
@@ -313,11 +315,10 @@ p {
   left: 0;
   transform: translateZ(0);
   will-change: transform;
-  height: calc(100lvh + env(safe-area-inset-top) + env(safe-area-inset-bottom));
+  /* height: calc(100dvh + env(safe-area-inset-top) + env(safe-area-inset-bottom)); */
   /* height: auto; */
-  /* min-height: 100lvh; */
-  /* padding-top: calc(1rem + env(safe-area-inset-top)); */
-  /* padding-bottom: env(safe-area-inset-bottom); */
+  min-height: 100dvh;
+  padding-top: 1rem;
   background-color: grey;
   /* overflow: hidden; */
 }
@@ -411,7 +412,7 @@ p {
   background-image: url("../images/notebook-dark.png");
   background-color: #f2f2f2;
   width: 100vw;
-  height: 100lvh; /* was 100vh */
+  height: 100dvh; /* was 100vh */
   position: sticky;
   top: 0;
   transition: opacity 1s ease;
