@@ -404,11 +404,6 @@ const revealProjects = function (entries, observer) {
   if (!entry.isIntersecting) {
     activeAnimation = false;
     resetProjectSection();
-    document.documentElement.style.transform = "translateZ(0)";
-
-    requestAnimationFrame(() => {
-      document.documentElement.style.transform = "";
-    });
     return;
   }
   //console.log("entry target", entry.target);
