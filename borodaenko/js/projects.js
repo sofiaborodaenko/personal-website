@@ -329,7 +329,7 @@ async function updateProjects(progress) {
   currentSlide = Math.round(progress * (slides - 1));
   //console.log("currentSlide", currentSlide);
 
-  projectRow.style.transform = `translateX(${-currentSlide * 100}vw)`;
+  // projectRow.style.transform = `translateX(${-currentSlide * 100}vw)`;
   // deactivateProject(squares[currentSlide]);
 
   if (currentSlide != activeSlide) {

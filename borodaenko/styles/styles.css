@@ -419,8 +419,8 @@ p {
   transition: opacity 1s ease;
   transform: translateZ(0);
   /* will-change: transform; */
-  overflow: hidden;
-  isolation: isolate;
+  /* overflow: hidden; */
+  /* isolation: isolate; */
 
   background-color: gray;
 }
@@ -466,7 +466,8 @@ p {
   left: 0;
   display: flex;
   opacity: 1;
-  transition: opacity 0.8s ease;
+  /* transition: opacity 0.8s ease; */
+  transform: none !important;
   justify-content: center;
   align-items: center;
 }
