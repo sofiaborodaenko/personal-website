@@ -58,7 +58,9 @@ export async function animatePath(
   // animating the rectangle path on hero section
   paths.forEach((path, index) => {
     path.getAnimations().forEach((a) => a.cancel());
-
+    // requestAnimationFrame(() => {
+    //   const anim = path.animate(rectAnimation, rectTiming);
+    // });
     const length = path.getTotalLength();
 
     //console.log(path.dataset.initialized);
@@ -291,7 +293,8 @@ function shiftRestOfWord(link, side, padding) {
   // document.querySelector(`.rest-${link}-shift`).style[`padding${side}`] =
   //   `${padding}rem`;
 
-    document.querySelector(`.rest-${link}-shift`).style.transform = `translateX(${padding}rem)`;
+  document.querySelector(`.rest-${link}-shift`).style.transform =
+    `translateX(${padding}rem)`;
 }
 
 // Navigation stickynote animations
@@ -320,7 +323,6 @@ if (window.matchMedia("(hover: none)").matches) {
   stickyNote.addEventListener("click", (e) => {
     e.stopPropagation();
     stickyNote.classList.toggle("stick-on-tap");
-    
   });
 
   document.addEventListener("click", (e) => {
