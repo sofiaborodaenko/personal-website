@@ -913,12 +913,15 @@ p {
     align-self: center;
     display: flex;
     justify-content: center;
+    /* background-color: gray; */
   }
 
-  .about-me-image img {
+  .me-img {
     max-width: 90%;
     align-self: center;
+    /* background-color: blue; */
   }
+  
   .sticky-note-img {
     /* width: 15rem;
   height: 15rem; */
