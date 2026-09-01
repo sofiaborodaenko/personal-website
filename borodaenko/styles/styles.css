@@ -366,6 +366,11 @@ p {
   flex-shrink: 10;
 }
 
+.me-img {
+  width: 90%;
+  object-fit: contain;
+}
+
 .little-note {
   width: 10rem;
   color: var(--pink);
