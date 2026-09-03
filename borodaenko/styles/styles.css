@@ -198,13 +198,14 @@ p {
   color: black;
   font-size: calc(var(--body) * 1.1);
   padding: 0 0 0.5rem 0;
+  /* background-color: gray; */
 }
 
 .sticky-links a svg {
   position: absolute;
   display: block;
   cursor: pointer;
-  margin-top: 0.7rem;
+  margin-top: 11%;
   width: 100%;
   transform-origin: top left;
   transform: scaleX(0);
