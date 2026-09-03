@@ -116,8 +116,9 @@ p {
 }
 
 .sticky-nav {
-  width: calc(15rem + (var(--padding) / 3));
-  height: calc(12rem + var(--padding));
+  /* width: calc(15rem + (var(--padding) / 3)); */
+  width: calc(100vw/5);
+  /* height: calc(12rem + var(--padding)); */
   position: fixed;
   right: 0;
   z-index: 1;
@@ -129,6 +130,7 @@ p {
   transform: perspective(900px) rotateX(52deg) rotateZ(-20deg)
     translate(50%, -10%);
   opacity: 0;
+  /* background-color: gray; */
 }
 
 .sticky-nav:hover {
@@ -164,8 +166,11 @@ p {
 .sticky-note-img {
   /* width: 15rem;
   height: 15rem; */
-  width: 93%;
-  height: 93%;
+  width: 85%;
+  height: 85%;
+  justify-self: center;
+
+  /* background-color: blue; */
 }
 
 .sticky-links {
