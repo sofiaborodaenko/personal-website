@@ -194,6 +194,9 @@ p {
 }
 
 .sticky-links a {
+  position: relative;
+  display: inline-block;
+  /* width: max-content; */
   text-decoration: none;
   color: black;
   font-size: calc(var(--body) * 1.1);
@@ -205,7 +208,11 @@ p {
   position: absolute;
   display: block;
   cursor: pointer;
-  margin-top: 11%;
+  /* margin-top: 11%;
+  width: 100%; */
+  /* position: absolute; */
+  left: 0;
+  bottom: 59%;
   width: 100%;
   transform-origin: top left;
   transform: scaleX(0);
