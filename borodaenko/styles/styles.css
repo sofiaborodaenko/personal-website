@@ -372,7 +372,7 @@ p {
 }
 
 .little-note {
-  width: 10rem;
+  width: 20%;
   color: var(--pink);
   position: absolute;
   top: 0;
@@ -381,11 +381,14 @@ p {
   display: flex;
   flex-direction: column;
   /* align-items: flex-end; */
-  background-color: gray;
+  /* background-color: gray; */
 }
 
 .little-note p {
   width: 80%;
+  /* background-color: blue; */
+  text-align: right;
+  /* margin-left: auto; */
 }
 
 .little-note img {
