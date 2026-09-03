@@ -381,7 +381,7 @@ p {
   display: flex;
   flex-direction: column;
   /* align-items: flex-end; */
-  /* background-color: gray; */
+  background-color: gray;
 }
 
 .little-note p {
