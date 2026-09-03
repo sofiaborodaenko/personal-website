@@ -117,8 +117,11 @@ p {
 
 .sticky-nav {
   /* width: calc(15rem + (var(--padding) / 3)); */
-  width: calc(100vw/5);
+  /* width: calc(100vw/5); */
+  /* height: calc(100vw/5); */
   /* height: calc(12rem + var(--padding)); */
+  width: clamp(18rem, 18vw + var(--padding), 25rem);
+  height: clamp(15rem, 15vw + var(--padding), 21rem);
   position: fixed;
   right: 0;
   z-index: 1;
@@ -166,9 +169,9 @@ p {
 .sticky-note-img {
   /* width: 15rem;
   height: 15rem; */
-  width: 85%;
-  height: 85%;
-  justify-self: center;
+  width: 93%;
+  height: 93%;
+  /* justify-self: center; */
 
   /* background-color: blue; */
 }
