@@ -184,7 +184,6 @@ textOpacityScroll();
 const experienceSvg = document.querySelector("svg.experience-svg");
 const experienceSection = document.querySelector(".experience-content");
 
-
 //const experienceMask = document.querySelector(".sideline__mask");
 
 let jobHeight;
@@ -193,16 +192,16 @@ const scroll = () => {
     ".experience-job-container",
   );
 
-  if (jobHeight === undefined) {
+  // if (jobHeight === undefined) {
     jobHeight = actualJobContainer.getBoundingClientRect().height;
-  }
-  
+  // }
+
   const rem = parseFloat(getComputedStyle(document.documentElement).fontSize);
 
   console.log("height of job cont. ", jobHeight);
+  console.log("rem", rem);
 
-  experienceSection.style.height = `${jobHeight + 25 * rem}px`;
-
+  experienceSection.style.height = `${jobHeight + (25 * rem)}px`;
 
   const totalDistance = experienceSection.clientHeight - window.innerHeight;
 
