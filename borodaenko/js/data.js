@@ -17,7 +17,7 @@ export const experiences = [
       "Utilized a ticketing system to track, prioritize, and resolve technical support requests for troubleshooting of technical issues and providing general usage guidance for tools, software, and resources from U of T's Academic Toolbox, including assisting instructors with using, implementing and testing teaching tools for specific uses in class.",
     skills: ["Zoom", "IT Support", "AV Systems"],
     totalSkills: 3,
-    status: "Current",
+    status: "Completed",
   },
   {
     date: "Sept 2024 - April 2025",
