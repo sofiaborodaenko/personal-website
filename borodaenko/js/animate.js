@@ -218,9 +218,9 @@ const scroll = () => {
 
   //if (window.getBoundingClientRect > )
 
-  console.log("height", window.getBoundingClientRect().height);
+  console.log("height", window.innerHeight);
 
-  if (window.getBoundingClientRect().height > 1000) {
+  if (window.innerHeight > 1000) {
     speed = 0.8;
   }
 
