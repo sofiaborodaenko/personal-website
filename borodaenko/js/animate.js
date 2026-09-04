@@ -221,7 +221,7 @@ const scroll = () => {
   console.log("height", window.innerHeight);
 
   if (window.innerHeight > 1000) {
-    speed = 0.8;
+    speed = 1;
   }
 
   const progress = Math.min(
