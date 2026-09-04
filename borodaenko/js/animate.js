@@ -2,6 +2,8 @@
 
 export const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
+import {experiences} from "./data.js";
+
 const heroFrame = document.querySelector(".hero-frame");
 const logo = document.querySelector(".contact-github");
 
@@ -214,7 +216,7 @@ const scroll = () => {
 
   const offset = totalDistance * 0;
 
-  let speed = 1.8;
+  let speed = 0.6 * experiences.length;
 
   //if (window.getBoundingClientRect > )
 
@@ -222,7 +224,7 @@ const scroll = () => {
 
   // makes the line slower if height is above 1000px
   if (window.innerHeight > 1000) {
-    speed = 1;
+    speed = 0.3 * experiences.length;
   }
 
   const progress = Math.min(

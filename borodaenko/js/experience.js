@@ -134,11 +134,11 @@ function updateStatusColors() {
     // Has the status box passed the center of the screen and is still in frame
     if (statusCenter < center && statusCenter > 0) {
       if (statusBox.dataset.status === "Current") {
-        statusPath.style.setProperty("--status-color", "var(--green)");
-        statusBox.style.setProperty("--status-color", "var(--green)");
-      } else {
         statusPath.style.setProperty("--status-color", "var(--blue)");
         statusBox.style.setProperty("--status-color", "var(--blue)");
+      } else {
+        statusPath.style.setProperty("--status-color", "var(--green)");
+        statusBox.style.setProperty("--status-color", "var(--green)");
       }
     } else {
       statusPath.style.setProperty("--status-color", "var(--grey)");
