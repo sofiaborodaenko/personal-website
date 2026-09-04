@@ -894,11 +894,13 @@ p {
 .linkedin-outline {
   left: 3px;
   bottom: 3px;
+  z-index: 1;
 }
 
 .github-outline {
   left: -5px;
   width: 300%;
+  z-index: 1;
 }
 
 .mail-outline {

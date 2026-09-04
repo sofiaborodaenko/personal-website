@@ -220,6 +220,7 @@ const scroll = () => {
 
   console.log("height", window.innerHeight);
 
+  // makes the line slower if height is above 1000px
   if (window.innerHeight > 1000) {
     speed = 1;
   }
