@@ -3,7 +3,7 @@ Personal Website
 
 to do:
 - fix the large desktop formatting
-- make body text a little smaller and heading text maybe slightly bigger
-- change the experience sideline height to instead be a bit taller than the experience content height rather than using the viewport height
+- make body text a little smaller and heading text maybe slightly bigger (? might keep unsure yet)
+- change the width of the tool parts in the work containers to all be the size of the longest word
 
   
