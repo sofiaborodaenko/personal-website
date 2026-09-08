@@ -2,7 +2,7 @@
 
 export const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
-import {experiences} from "./data.js";
+import { experiences } from "./data.js";
 
 const heroFrame = document.querySelector(".hero-frame");
 const logo = document.querySelector(".contact-github");
@@ -10,41 +10,158 @@ const logo = document.querySelector(".contact-github");
 const stickyNote = document.querySelector(".sticky-nav");
 const stickyLinks = document.querySelector(".sticky-links");
 
-window.addEventListener("load", () => {
-  // const { lastPathEnd, arr } = animatePath(heroFrame);
-  //animatePath(logo);
+let targetProgress = 0;
+let currentProgress = 0;
+let progressAnimationFrame;
 
-  //const heroRevealTime = lastPathEnd + 50;
+window.addEventListener("DOMContentLoaded", () => {
+  document.body.style.overflow = "hidden";
 
-  animatePath(heroFrame).then(() => {
-    revealHeroContent();
-    // delay(1000).then(() => {
-    stickyNote.classList.add("stick-on");
-    // });
-  });
+  startLoading();
+});
 
-  async function revealHeroContent() {
-    const heroNote = document.querySelector(".hero-note");
-    const heroTitle = document.querySelector(".hero-title");
-    const heroSubtitle = document.querySelector(".hero-subtitle");
+// begins the loading animation, preloads assets, reveals hero content
+async function startLoading() {
+  const loadingStart = performance.now(); // start measuring time
 
-    heroNote.classList.remove("hidden");
-    heroNote.classList.add("reveal--opacity");
-    await delay(500);
+  const assets = getCriticalAssets(); // gets an array of all the assets that need to be preloaded
 
-    heroTitle.classList.remove("hidden");
-    heroTitle.classList.add("reveal--opacity");
-    await delay(500);
+  await preloadAssets(assets); // preload the assets
 
-    heroSubtitle.classList.remove("hidden");
-    heroSubtitle.classList.add("reveal--opacity");
-    await delay(500);
-    document.body.style.overflow = "auto";
+  const elapsed = performance.now() - loadingStart; // calculate how much time has passed
+
+  const remainingTime = Math.max(0, 1200 - elapsed); // calculate how much time is left to reach 1200ms
+
+  await delay(remainingTime); // wait for the remaining time to reach 1200ms
+
+  setLoadingProgress(1); // set loading progress to 100%
+
+  await delay(300);
+
+  await revealHeroContent(); // reveals the hero content
+
+  document.body.style.overflow = "auto"; // re-enable scrolling
+}
+
+function getCriticalAssets() {
+  return ["images/meSVG.svg", document.fonts.ready];
+}
+
+async function preloadAssets(assets) {
+  let loaded = 0;
+  const total = assets.length;
+
+  if (total === 0) {
+    setLoadingProgress(1); // if there are no assets, set progress to 100%
+    return;
   }
 
-  // setTimeout(revealHeroContent, lastPathEnd);
-  //revealHeroContent();
-});
+  // creates new array containing the promises
+  const promises = assets.map((asset) => {
+
+    // if asset it a font, wait for font to load
+    if (asset instanceof Promise) {
+      return asset.then(() => {
+        loaded++;
+        updateLoadingProgress(loaded, total);
+      });
+    }
+
+    // if asset is an image, create a new image and wait for it to load
+    return new Promise((resolve) => {
+      const img = new Image();
+
+      img.onload = () => {
+        loaded++;
+        updateLoadingProgress(loaded, total);
+        resolve();
+      };
+
+      img.onerror = () => {
+        loaded++;
+        updateLoadingProgress(loaded, total);
+        resolve();
+      };
+
+      img.src = asset;
+    });
+  });
+
+  await Promise.all(promises); // wait for all promisees to resolve
+}
+
+// window.addEventListener("load", () => {
+//   // const { lastPathEnd, arr } = animatePath(heroFrame);
+//   //animatePath(logo);
+
+//   //const heroRevealTime = lastPathEnd + 50;
+
+//   animatePath(heroFrame).then(() => {
+//     revealHeroContent();
+//     // delay(1000).then(() => {
+//     stickyNote.classList.add("stick-on");
+//     // });
+//   });
+
+//   // setTimeout(revealHeroContent, lastPathEnd);
+//   //revealHeroContent();
+// });
+
+function updateLoadingProgress(loaded, total) {
+  targetProgress = loaded / total; // update the target progress based on loaded assets
+
+  if (!progressAnimationFrame) {
+    animateLoadingProgress(); // start animation if not already running
+  }
+}
+
+// animate the loading rectangle on the hero section
+function animateLoadingProgress() {
+  currentProgress += (targetProgress - currentProgress) * 0.08; // easing effect
+
+  setLoadingProgress(currentProgress);
+
+  // continue animation until current progress is close to target progress
+  if (Math.abs(targetProgress - currentProgress) > 0.01) {
+    progressAnimationFrame = requestAnimationFrame(animateLoadingProgress);
+  } else {
+    currentProgress = targetProgress; // snap to target progress
+    setLoadingProgress(currentProgress);
+    //cancelAnimationFrame(progressAnimationFrame);
+    progressAnimationFrame = null;
+  }
+}
+
+function setLoadingProgress(progress) {
+  const paths = heroFrame.querySelectorAll(".draw-path");
+
+  paths.forEach((path) => {
+    const length = path.getTotalLength(); // get total length of path
+
+    path.style.strokeDasharray = length; // set the stroke dash array to the length
+
+    path.style.strokeDashoffset = length * (1 - progress); // set the stroke dash offset based on progress 0-1
+  });
+}
+
+async function revealHeroContent() {
+  const heroNote = document.querySelector(".hero-note");
+  const heroTitle = document.querySelector(".hero-title");
+  const heroSubtitle = document.querySelector(".hero-subtitle");
+
+  stickyNote.classList.add("stick-on");
+
+  heroNote.classList.remove("hidden");
+  heroNote.classList.add("reveal--opacity");
+  await delay(500);
+
+  heroTitle.classList.remove("hidden");
+  heroTitle.classList.add("reveal--opacity");
+  await delay(500);
+
+  heroSubtitle.classList.remove("hidden");
+  heroSubtitle.classList.add("reveal--opacity");
+}
 
 export async function animatePath(
   parent,
@@ -193,9 +310,9 @@ const scroll = () => {
   // get the height of the job container containing the experiences
   const actualJobContainer = document.querySelector(
     ".experience-job-container",
-  ); 
+  );
   // if (jobHeight === undefined) {
-   const jobHeight = actualJobContainer.getBoundingClientRect().height;
+  const jobHeight = actualJobContainer.getBoundingClientRect().height;
   // }
 
   // get the height of 1rem in pixels
@@ -205,7 +322,7 @@ const scroll = () => {
   console.log("rem", rem);
 
   // set the parent to the height of the child + the padding
-  experienceSection.style.height = `${jobHeight + (25 * rem)}px`;
+  experienceSection.style.height = `${jobHeight + 25 * rem}px`;
 
   const totalDistance = experienceSection.clientHeight - window.innerHeight;
 
