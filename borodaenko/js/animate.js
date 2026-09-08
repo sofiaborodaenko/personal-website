@@ -2,6 +2,8 @@
 
 export const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
+import {experiences} from "./data.js";
+
 const heroFrame = document.querySelector(".hero-frame");
 const logo = document.querySelector(".contact-github");
 
@@ -186,8 +188,25 @@ const experienceSection = document.querySelector(".experience-content");
 
 //const experienceMask = document.querySelector(".sideline__mask");
 
+// let jobHeight;
 const scroll = () => {
-  const distance = window.scrollY;
+  // get the height of the job container containing the experiences
+  const actualJobContainer = document.querySelector(
+    ".experience-job-container",
+  ); 
+  // if (jobHeight === undefined) {
+   const jobHeight = actualJobContainer.getBoundingClientRect().height;
+  // }
+
+  // get the height of 1rem in pixels
+  const rem = parseFloat(getComputedStyle(document.documentElement).fontSize);
+
+  console.log("height of job cont. ", jobHeight);
+  console.log("rem", rem);
+
+  // set the parent to the height of the child + the padding
+  experienceSection.style.height = `${jobHeight + (25 * rem)}px`;
+
   const totalDistance = experienceSection.clientHeight - window.innerHeight;
 
   const rect = experienceSection.getBoundingClientRect();
@@ -197,7 +216,16 @@ const scroll = () => {
 
   const offset = totalDistance * 0;
 
-  const speed = 1.8;
+  let speed = 0.6 * experiences.length;
+
+  //if (window.getBoundingClientRect > )
+
+  console.log("height", window.innerHeight);
+
+  // makes the line slower if height is above 1000px
+  if (window.innerHeight > 1000) {
+    speed = 0.3 * experiences.length;
+  }
 
   const progress = Math.min(
     Math.max(-(rect.top - offset) / ((rect.height - totalDistance) * speed), 0),
