@@ -10,13 +10,23 @@ const logo = document.querySelector(".contact-github");
 const stickyNote = document.querySelector(".sticky-nav");
 const stickyLinks = document.querySelector(".sticky-links");
 
+const hero = document.getElementById("home");
+
 let targetProgress = 0;
 let currentProgress = 0;
 let progressAnimationFrame;
 
-window.addEventListener("DOMContentLoaded", () => {
-  document.body.style.overflow = "hidden";
+window.addEventListener("scroll", () => {
+  console.log("scroll position", window.scrollY);
+  console.log("window height", window.innerHeight);
 
+  console.log("hero", hero.getBoundingClientRect());
+});
+
+window.addEventListener("DOMContentLoaded", () => {
+  // document.body.style.overflow = "hidden";
+
+  
   startLoading();
 });
 
@@ -36,7 +46,7 @@ async function startLoading() {
 
   setLoadingProgress(1); // set loading progress to 100%
 
-  await delay(300);
+  await delay(2000);
 
   await revealHeroContent(); // reveals the hero content
 
@@ -58,7 +68,6 @@ async function preloadAssets(assets) {
 
   // creates new array containing the promises
   const promises = assets.map((asset) => {
-
     // if asset it a font, wait for font to load
     if (asset instanceof Promise) {
       return asset.then(() => {
@@ -133,7 +142,8 @@ function animateLoadingProgress() {
 }
 
 function setLoadingProgress(progress) {
-  const paths = heroFrame.querySelectorAll(".draw-path");
+  console.log("function run");
+  const paths = heroFrame.querySelectorAll(".hero-svg-path");
 
   paths.forEach((path) => {
     const length = path.getTotalLength(); // get total length of path
@@ -141,7 +151,15 @@ function setLoadingProgress(progress) {
     path.style.strokeDasharray = length; // set the stroke dash array to the length
 
     path.style.strokeDashoffset = length * (1 - progress); // set the stroke dash offset based on progress 0-1
+
+    delay(1000).then(() => {
+      path.style.fillOpacity = 1;
+    });
   });
+  // const length = paths.getTotalLength();
+
+  // paths.style.strokeDasharray = length;
+  // paths.style.strokeDashoffset = length * (1 - progress);
 }
 
 async function revealHeroContent() {
@@ -169,6 +187,7 @@ export async function animatePath(
   drawOrErase = "draw",
   delay = 280,
   duration = 2500,
+  test = 0,
 ) {
   const paths = parent.querySelectorAll(".draw-path");
   const dots = parent.querySelectorAll(".draw-dot");
