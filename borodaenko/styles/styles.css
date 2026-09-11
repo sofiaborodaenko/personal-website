@@ -288,6 +288,11 @@ p {
   stroke: none;
 }
 
+.hero-svg-path {
+  fill-opacity: 0;
+  transition: fill-opacity 3s ease;
+}
+
 .hero-content {
   width: 100%;
   height: 100vh; /* was 100vh */

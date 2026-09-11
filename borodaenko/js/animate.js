@@ -2,7 +2,7 @@
 
 export const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
-import {experiences} from "./data.js";
+import { experiences } from "./data.js";
 
 const heroFrame = document.querySelector(".hero-frame");
 const logo = document.querySelector(".contact-github");
@@ -10,41 +10,174 @@ const logo = document.querySelector(".contact-github");
 const stickyNote = document.querySelector(".sticky-nav");
 const stickyLinks = document.querySelector(".sticky-links");
 
-window.addEventListener("load", () => {
-  // const { lastPathEnd, arr } = animatePath(heroFrame);
-  //animatePath(logo);
+const hero = document.getElementById("home");
 
-  //const heroRevealTime = lastPathEnd + 50;
+let targetProgress = 0;
+let currentProgress = 0;
+let progressAnimationFrame;
 
-  animatePath(heroFrame).then(() => {
-    revealHeroContent();
-    // delay(1000).then(() => {
-    stickyNote.classList.add("stick-on");
-    // });
-  });
+// want to see if the user is interlapping with hero content, if yes then snap them to the top on reload and freeze them in there until things load, otherwise dont
 
-  async function revealHeroContent() {
-    const heroNote = document.querySelector(".hero-note");
-    const heroTitle = document.querySelector(".hero-title");
-    const heroSubtitle = document.querySelector(".hero-subtitle");
+// if ("scrollRestoration" in history) {
+//   history.scrollRestoration = "manual";
+// }
 
-    heroNote.classList.remove("hidden");
-    heroNote.classList.add("reveal--opacity");
-    await delay(500);
+window.addEventListener("DOMContentLoaded", () => {
+  // const previousScrollY = Number(sessionStorage.getItem("scrollY")) || 0;
+  // const heroRect = hero.getBoundingClientRect();
 
-    heroTitle.classList.remove("hidden");
-    heroTitle.classList.add("reveal--opacity");
-    await delay(500);
+  // const isOverlapping =
+  //   heroRect.top < window.innerHeight && heroRect.bottom > 0;
 
-    heroSubtitle.classList.remove("hidden");
-    heroSubtitle.classList.add("reveal--opacity");
-    await delay(500);
-    document.body.style.overflow = "auto";
+  // console.log("top:, ", heroRect.top);
+
+  // if (isOverlapping) {
+  //   // window.history.scrollRestoration = "manual";
+
+  //   // Prevent scrolling while loading
+  //   // document.body.style.overflow = "hidden";
+  //   console.log("IN THE OVERLAPING TRUE IF");
+  //   // window.scrollTo(0, 0);
+
+  //   // startLoading();
+  // } else {
+  //   // history.scrollRestoration = "auto";
+  //   document.body.style.overflow = "auto";
+  // }
+
+  // document.body.style.overflow = "hidden";
+
+  startLoading();
+});
+
+// begins the loading animation, preloads assets, reveals hero content
+async function startLoading() {
+  const loadingStart = performance.now(); // start measuring time
+
+  const assets = getCriticalAssets(); // gets an array of all the assets that need to be preloaded
+
+  await preloadAssets(assets); // preload the assets
+
+  const elapsed = performance.now() - loadingStart; // calculate how much time has passed
+
+  const remainingTime = Math.max(0, 1200 - elapsed); // calculate how much time is left to reach 1200ms
+
+  await delay(remainingTime); // wait for the remaining time to reach 1200ms
+
+  setLoadingProgress(1); // set loading progress to 100%
+
+  await delay(2000);
+
+  await revealHeroContent(); // reveals the hero content
+
+  document.body.style.overflow = "auto"; // re-enable scrolling
+}
+
+function getCriticalAssets() {
+  return ["images/meSVG.svg", document.fonts.ready];
+}
+
+async function preloadAssets(assets) {
+  let loaded = 0;
+  const total = assets.length;
+
+  if (total === 0) {
+    setLoadingProgress(1); // if there are no assets, set progress to 100%
+    return;
   }
 
-  // setTimeout(revealHeroContent, lastPathEnd);
-  //revealHeroContent();
-});
+  // creates new array containing the promises
+  const promises = assets.map((asset) => {
+    // if asset it a font, wait for font to load
+    if (asset instanceof Promise) {
+      return asset.then(() => {
+        loaded++;
+        updateLoadingProgress(loaded, total);
+      });
+    }
+
+    // if asset is an image, create a new image and wait for it to load
+    return new Promise((resolve) => {
+      const img = new Image();
+
+      img.onload = () => {
+        loaded++;
+        updateLoadingProgress(loaded, total);
+        resolve();
+      };
+
+      img.onerror = () => {
+        loaded++;
+        updateLoadingProgress(loaded, total);
+        resolve();
+      };
+
+      img.src = asset;
+    });
+  });
+
+  await Promise.all(promises); // wait for all promisees to resolve
+}
+
+function updateLoadingProgress(loaded, total) {
+  targetProgress = loaded / total; // update the target progress based on loaded assets
+
+  if (!progressAnimationFrame) {
+    animateLoadingProgress(); // start animation if not already running
+  }
+}
+
+// animate the loading rectangle on the hero section
+function animateLoadingProgress() {
+  currentProgress += (targetProgress - currentProgress) * 0.08; // easing effect
+
+  setLoadingProgress(currentProgress);
+
+  // continue animation until current progress is close to target progress
+  if (Math.abs(targetProgress - currentProgress) > 0.01) {
+    progressAnimationFrame = requestAnimationFrame(animateLoadingProgress);
+  } else {
+    currentProgress = targetProgress; // snap to target progress
+    setLoadingProgress(currentProgress);
+    //cancelAnimationFrame(progressAnimationFrame);
+    progressAnimationFrame = null;
+  }
+}
+
+function setLoadingProgress(progress) {
+  const paths = heroFrame.querySelectorAll(".hero-svg-path");
+
+  paths.forEach((path) => {
+    const length = path.getTotalLength(); // get total length of path
+
+    path.style.strokeDasharray = length; // set the stroke dash array to the length
+
+    path.style.strokeDashoffset = length * (1 - progress); // set the stroke dash offset based on progress 0-1
+
+    delay(1000).then(() => {
+      path.style.fillOpacity = 1;
+    });
+  });
+}
+
+async function revealHeroContent() {
+  const heroNote = document.querySelector(".hero-note");
+  const heroTitle = document.querySelector(".hero-title");
+  const heroSubtitle = document.querySelector(".hero-subtitle");
+
+  stickyNote.classList.add("stick-on");
+
+  heroNote.classList.remove("hidden");
+  heroNote.classList.add("reveal--opacity");
+  await delay(500);
+
+  heroTitle.classList.remove("hidden");
+  heroTitle.classList.add("reveal--opacity");
+  await delay(500);
+
+  heroSubtitle.classList.remove("hidden");
+  heroSubtitle.classList.add("reveal--opacity");
+}
 
 export async function animatePath(
   parent,
@@ -52,9 +185,9 @@ export async function animatePath(
   drawOrErase = "draw",
   delay = 280,
   duration = 2500,
+  test = 0,
 ) {
   const paths = parent.querySelectorAll(".draw-path");
-  const dots = parent.querySelectorAll(".draw-dot");
   const animationsArr = [];
 
   // animating the rectangle path on hero section
@@ -65,15 +198,11 @@ export async function animatePath(
     // });
     const length = path.getTotalLength();
 
-    //console.log(path.dataset.initialized);
-
     if (!path.dataset.initialized) {
       path.style.strokeDasharray = length;
       path.style.strokeDashoffset = length;
       path.dataset.initialized = true;
     }
-
-    //console.log(path.dataset.initialized);
 
     const rectAnimation = [
       {
@@ -103,18 +232,6 @@ export async function animatePath(
 
     const anim = path.animate(rectAnimation, rectTiming);
     animationsArr.push(anim);
-  });
-
-  // animating the dots on hero section after the rectangle is complete
-  dots.forEach((dot, index) => {
-    const dotAnim = dot.animate([{ fillOpacity: 1 }], {
-      duration: 1000,
-      fill: "forwards",
-      delay: paths.length * 280 + index * 300,
-      easing: "ease",
-    });
-
-    animationsArr.push(dotAnim);
   });
 
   // const lastPathEnd = 2500 + (paths.length - 1) * 280;
@@ -193,34 +310,26 @@ const scroll = () => {
   // get the height of the job container containing the experiences
   const actualJobContainer = document.querySelector(
     ".experience-job-container",
-  ); 
+  );
   // if (jobHeight === undefined) {
-   const jobHeight = actualJobContainer.getBoundingClientRect().height;
+  const jobHeight = actualJobContainer.getBoundingClientRect().height;
   // }
 
   // get the height of 1rem in pixels
   const rem = parseFloat(getComputedStyle(document.documentElement).fontSize);
 
-  console.log("height of job cont. ", jobHeight);
-  console.log("rem", rem);
-
   // set the parent to the height of the child + the padding
-  experienceSection.style.height = `${jobHeight + (25 * rem)}px`;
+  experienceSection.style.height = `${jobHeight + 25 * rem}px`;
 
   const totalDistance = experienceSection.clientHeight - window.innerHeight;
 
   const rect = experienceSection.getBoundingClientRect();
-  //console.log("distance", totalDistance);
-  //const percentage = Math.min(, 1)
-  // ;
 
   const offset = totalDistance * 0;
 
   let speed = 0.6 * experiences.length;
 
   //if (window.getBoundingClientRect > )
-
-  console.log("height", window.innerHeight);
 
   // makes the line slower if height is above 1000px
   if (window.innerHeight > 1000) {
@@ -231,7 +340,6 @@ const scroll = () => {
     Math.max(-(rect.top - offset) / ((rect.height - totalDistance) * speed), 0),
     1,
   );
-  //console.log("percentage", progress);
 
   const bottom = 100 - progress * 100;
   experienceSvg.style.clipPath = `inset(0 0 ${bottom}% 0)`;
@@ -276,13 +384,11 @@ const handleHover = function (e, settings) {
     //padding = 1;
     shiftRestOfWord(link, "Left", mailPadding);
   }
-  //console.log("testing handler:", link);
+
   document.querySelector(`.inline-letter-${link}`).style.opacity =
     `${1 - endStroke}`;
 
   animatePath(linkParent, endStroke, drawOrErase, 280, 500);
-  //document.querySelector(`.rest-${link}-shift`).style.paddingRight=`${padding}rem`;
-  //}
 };
 
 const revealLogos = function (entries, observer) {
