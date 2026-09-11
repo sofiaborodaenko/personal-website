@@ -16,17 +16,37 @@ let targetProgress = 0;
 let currentProgress = 0;
 let progressAnimationFrame;
 
-window.addEventListener("scroll", () => {
-  console.log("scroll position", window.scrollY);
-  console.log("window height", window.innerHeight);
+// want to see if the user is interlapping with hero content, if yes then snap them to the top on reload and freeze them in there until things load, otherwise dont
 
-  console.log("hero", hero.getBoundingClientRect());
-});
+// if ("scrollRestoration" in history) {
+//   history.scrollRestoration = "manual";
+// }
 
 window.addEventListener("DOMContentLoaded", () => {
+  // const previousScrollY = Number(sessionStorage.getItem("scrollY")) || 0;
+  // const heroRect = hero.getBoundingClientRect();
+
+  // const isOverlapping =
+  //   heroRect.top < window.innerHeight && heroRect.bottom > 0;
+
+  // console.log("top:, ", heroRect.top);
+
+  // if (isOverlapping) {
+  //   // window.history.scrollRestoration = "manual";
+
+  //   // Prevent scrolling while loading
+  //   // document.body.style.overflow = "hidden";
+  //   console.log("IN THE OVERLAPING TRUE IF");
+  //   // window.scrollTo(0, 0);
+
+  //   // startLoading();
+  // } else {
+  //   // history.scrollRestoration = "auto";
+  //   document.body.style.overflow = "auto";
+  // }
+
   // document.body.style.overflow = "hidden";
 
-  
   startLoading();
 });
 
@@ -99,23 +119,6 @@ async function preloadAssets(assets) {
   await Promise.all(promises); // wait for all promisees to resolve
 }
 
-// window.addEventListener("load", () => {
-//   // const { lastPathEnd, arr } = animatePath(heroFrame);
-//   //animatePath(logo);
-
-//   //const heroRevealTime = lastPathEnd + 50;
-
-//   animatePath(heroFrame).then(() => {
-//     revealHeroContent();
-//     // delay(1000).then(() => {
-//     stickyNote.classList.add("stick-on");
-//     // });
-//   });
-
-//   // setTimeout(revealHeroContent, lastPathEnd);
-//   //revealHeroContent();
-// });
-
 function updateLoadingProgress(loaded, total) {
   targetProgress = loaded / total; // update the target progress based on loaded assets
 
@@ -142,7 +145,6 @@ function animateLoadingProgress() {
 }
 
 function setLoadingProgress(progress) {
-  console.log("function run");
   const paths = heroFrame.querySelectorAll(".hero-svg-path");
 
   paths.forEach((path) => {
@@ -156,10 +158,6 @@ function setLoadingProgress(progress) {
       path.style.fillOpacity = 1;
     });
   });
-  // const length = paths.getTotalLength();
-
-  // paths.style.strokeDasharray = length;
-  // paths.style.strokeDashoffset = length * (1 - progress);
 }
 
 async function revealHeroContent() {
@@ -190,7 +188,6 @@ export async function animatePath(
   test = 0,
 ) {
   const paths = parent.querySelectorAll(".draw-path");
-  const dots = parent.querySelectorAll(".draw-dot");
   const animationsArr = [];
 
   // animating the rectangle path on hero section
@@ -201,15 +198,11 @@ export async function animatePath(
     // });
     const length = path.getTotalLength();
 
-    //console.log(path.dataset.initialized);
-
     if (!path.dataset.initialized) {
       path.style.strokeDasharray = length;
       path.style.strokeDashoffset = length;
       path.dataset.initialized = true;
     }
-
-    //console.log(path.dataset.initialized);
 
     const rectAnimation = [
       {
@@ -239,18 +232,6 @@ export async function animatePath(
 
     const anim = path.animate(rectAnimation, rectTiming);
     animationsArr.push(anim);
-  });
-
-  // animating the dots on hero section after the rectangle is complete
-  dots.forEach((dot, index) => {
-    const dotAnim = dot.animate([{ fillOpacity: 1 }], {
-      duration: 1000,
-      fill: "forwards",
-      delay: paths.length * 280 + index * 300,
-      easing: "ease",
-    });
-
-    animationsArr.push(dotAnim);
   });
 
   // const lastPathEnd = 2500 + (paths.length - 1) * 280;
@@ -337,26 +318,18 @@ const scroll = () => {
   // get the height of 1rem in pixels
   const rem = parseFloat(getComputedStyle(document.documentElement).fontSize);
 
-  console.log("height of job cont. ", jobHeight);
-  console.log("rem", rem);
-
   // set the parent to the height of the child + the padding
   experienceSection.style.height = `${jobHeight + 25 * rem}px`;
 
   const totalDistance = experienceSection.clientHeight - window.innerHeight;
 
   const rect = experienceSection.getBoundingClientRect();
-  //console.log("distance", totalDistance);
-  //const percentage = Math.min(, 1)
-  // ;
 
   const offset = totalDistance * 0;
 
   let speed = 0.6 * experiences.length;
 
   //if (window.getBoundingClientRect > )
-
-  console.log("height", window.innerHeight);
 
   // makes the line slower if height is above 1000px
   if (window.innerHeight > 1000) {
@@ -367,7 +340,6 @@ const scroll = () => {
     Math.max(-(rect.top - offset) / ((rect.height - totalDistance) * speed), 0),
     1,
   );
-  //console.log("percentage", progress);
 
   const bottom = 100 - progress * 100;
   experienceSvg.style.clipPath = `inset(0 0 ${bottom}% 0)`;
@@ -412,13 +384,11 @@ const handleHover = function (e, settings) {
     //padding = 1;
     shiftRestOfWord(link, "Left", mailPadding);
   }
-  //console.log("testing handler:", link);
+
   document.querySelector(`.inline-letter-${link}`).style.opacity =
     `${1 - endStroke}`;
 
   animatePath(linkParent, endStroke, drawOrErase, 280, 500);
-  //document.querySelector(`.rest-${link}-shift`).style.paddingRight=`${padding}rem`;
-  //}
 };
 
 const revealLogos = function (entries, observer) {
