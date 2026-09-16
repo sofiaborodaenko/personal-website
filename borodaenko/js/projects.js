@@ -96,7 +96,7 @@ function populateProjectsRow(projects) {
                     ? `
     <video autoplay muted loop playsinline class="project-video">
       <source
-        src="./images/projects/demoVideos/${project[0]}Demo.mp4"
+        src="/demoVideos/${project[0]}Demo.mp4"
         type="video/mp4"
       />
     </video>
@@ -293,7 +293,7 @@ function drawMask() {
   const x = projectRect.left - textRect.left;
   const y = projectRect.top - textRect.top;
 
-  dynamicText.style.maskImage = `url(./images/longFilledBox.svg), linear-gradient(#000 0 0)`;
+  dynamicText.style.maskImage = `url(/longFilledBox.svg), linear-gradient(#000 0 0)`;
 
   dynamicText.style.maskRepeat = "no-repeat";
   dynamicText.style.maskComposite = "exclude";
